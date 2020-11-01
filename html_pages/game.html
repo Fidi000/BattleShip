@@ -205,48 +205,64 @@
                     if((col+shiplength)>10){
                         col = cols - shiplength;
                         colid = col;
-                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
-                       
+                        flipped = true;
+                        var isoverlap = check_overlap(shiplength, flipped, row, col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "blue");
                             });
-                            colid++; 
+                            colid++;
+                        }
+                             
                     }
                     else{
-                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
-                      
+                        flipped = false;
+                        var isoverlap = check_overlap(shiplength, flipped, row, col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                                 { 
                                     $("#" + rowid + colid).css("background-color", "blue");
                                 });
-                                colid++;
+                            colid++;
+                        }  
                     }  
                 }
                 else{
-                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
                     if((row+shiplength)>10){
                         row = rows - shiplength;
                         rowid = row;
-                       
+                        flipped = true;
+                        var isoverlap = check_overlap(shiplength,flipped,row,col);
+                        console.log(isoverlap)
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "blue");
                             });
                             rowid++;
-                    
+                        }
+                            
                     }
                     else{
-                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
-                    
+                        flipped = false;
+                        var isoverlap = check_overlap(shiplength, flipped, row, col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "blue");
                                 });
                             rowid++;
-                     
-                    }        
-                }  
+                        }
+                    } 
+                }
             }  
         });
         }
@@ -267,43 +283,61 @@
                     if((col+shiplength)>10){
                         col = cols - shiplength;
                         colid = col;
-                       
-                                $("#" + rowid + colid).each(function()
+                        flipped = true;
+                        var isoverlap = check_overlap(shiplength,flipped,row,col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
+                            $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "white");
                             }); 
                             colid++;
+                        }         
                     }
                     else{
-                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
-                       
+                        flipped = false;
+                        var isoverlap = check_overlap(shiplength, flipped, row,col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "white");
                             });
                             colid++;
+                        }       
                     }  
                 }
                 else{
-                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
                     if((row+shiplength)>10){
                         row = rows - shiplength;
                         rowid = row;
-               
+                        flipped = true;
+                        var isoverlap = check_overlap(shiplength,flipped,row,col);
+                        console.log(isoverlap)
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "white");
                             });
                             rowid++;
+                        }
+                            
                     }
                     else{
-                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
-                  
+                        flipped = false;
+                        var isoverlap = check_overlap(shiplength, flipped, row, col);
+                        console.log(isoverlap);
+                        if(!isoverlap)
+                        {
                             $("#" + rowid + colid).each(function()
                             { 
                                 $("#" + rowid + colid).css("background-color", "white");
                                 });
                             rowid++;
+                        }
                     } 
                 }  
             }  
