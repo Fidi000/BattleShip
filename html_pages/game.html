@@ -1,12 +1,226 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css_pages/top_menu.css"/>
+    <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Leaderboard</title>
 </head>
 <style>
- 
+    #boarduser{
+        width: 600px;
+        height: 600px;
+        margin-left: auto;
+        margin-right: 25px;
+    }
+    #boardopp{
+        width: 600px;
+        height: 600px;
+        margin-right: auto;
+        margin-left: 25px;
+    }
+    .box{
+        border: 1px solid black;
+        height: auto;
+        width: auto;
+    }
+    table{
+        border-collapse: collapse;
+    }
+    #user{
+        width: 50%;
+        height: 50%;
+        float:left;
+
+    }
+    #opp{
+        width: 50%;
+        height: 50%;
+        float:right;
+
+    }
+    .legend
+    {
+        width: 20px;
+    }
+    .letters
+    {
+        width: 20px;
+        text-align: center;
+        
+    }
+
 </style>
+<script>
+    var rows = 9;
+    var cols = 9;
+    var ship_coords = new Array(9);
+    var orientation = false; //true = horizontal, false = vertical
+    for(var i = 0;i<10;i++)
+        {
+            ship_coords[i] = new Array(9);
+        }
+        for(var i = 0;i<10;i++)
+        {
+            for(var j = 0;j<10;j++)
+            {
+                ship_coords[i][j] = 0;
+            }
+        }
+    function returnval(id) {
+        show_ship(id);
+        
+        remove_clickable();
+        
+    }
+    function show_ship(id)
+    {
+        var shiplength = 4;
+        var row = parseInt(id.charAt(0));
+        var col = parseInt(id.charAt(1));
+
+        var rowid = id.charAt(0);
+        var colid = id.charAt(1);
+
+        var flipped = false;
+        if((col+shiplength)>10 && orientation)
+            {
+                col = col - (shiplength-1);
+                colid = col; //appends int to string
+                flipped = true;
+            }
+        if((row+shiplength)>10 && !orientation)
+        {
+            row = row - (shiplength-1);
+            rowid = row;  //appends int to string
+            flipped = true;
+        }
+        
+        var isoverlap = check_overlap(shiplength, flipped, row, col);
+        if(!isoverlap)
+        {
+            for(var i = 0;i<shiplength;i++)
+            {
+            var box = document.getElementById(rowid + colid);//
+            ship_coords[rowid][colid] = 1;
+            box.style.backgroundColor = "black";
+            if(orientation)
+                {
+                    colid++;
+                }
+            else
+                {
+                    rowid++;
+                }
+            }
+        }
+        else
+        {
+            alert("SHIPS OVERLAP!!!!!!!!!!!!!");
+        }
+        
+    }
+    function check_overlap(len, flipped, row, col)
+    {
+        var overlap = false;
+        if(orientation) //if ship being placed is horizontal
+        {
+            for(var i = 0;i<len;i++)
+            {
+                if(flipped) //if being placed to the left of cursor
+                {
+                    if(ship_coords[row][col]==1) //checks to see if ship is present
+                        {
+                        return true;
+                        }
+                    else
+                    {
+                        col--;
+                    }
+                   
+                }
+                else
+                    {
+                        if(ship_coords[row][col]==1) //checks to see if ship is present
+                        {
+                        return true;
+                        
+                        }
+                        else
+                        {
+                            col++;
+                        }
+                    }
+            }
+        }
+        else //if ship being placed is vertical
+        {
+            for(var i = 0;i<len;i++)
+            {
+                if(flipped) //if being placed to top of cursor
+                {
+                    if(ship_coords[row][col]==1) //checks to see if ship is present
+                        {
+                        return true;
+                        
+                        }
+                    else{
+                        row--;
+                    }
+                   
+                   
+                }
+                else //being placed below cursor
+                    {
+                        if(ship_coords[row][col]==1) //checks to see if ship is present
+                        {
+                        return true;
+                        
+                        }
+                        else
+                        {
+                            row++;
+                        }
+                    }
+            }
+        }
+
+        return overlap;
+    }
+    function make_clickable()
+    {
+        var boxes = document.getElementsByClassName("box");
+        for(var i = 0 ; i<boxes.length ;i++)
+        {
+            boxes[i].setAttribute("onclick","returnval(this.id)");
+            boxes[i].setAttribute("onmouseover","show_outline(this.id)");
+        }
+    }
+    function show_outline(id)
+    {
+        $(document).ready(function()
+        {
+                $("#"+id).hover(function()
+            {
+                $(this).css("background-color", "yellow");
+            },);
+            
+            
+        });
+
+    }
+    function remove_clickable()
+    {
+        var boxes = document.getElementsByClassName("box");
+        for(var i = 0 ; i<boxes.length ;i++)
+        {
+            boxes[i].removeAttribute("onclick");
+        }
+    }
+    function flip()
+    {
+        orientation = !orientation;
+    }
+</script>
 <header>
     <div id="top_menu">
         <ul class="navigate">
@@ -20,16 +234,762 @@
     
 </header>
 
-<body>
+<body> 
     <h1>Play</h1>
     
-
+    <div id="user">
+        <table class="user" id="boarduser">
+            <caption>Your board</caption>
+            <tbody>
+            <th>
+                <td class="letters">
+                    <p>A</p>
+                </td>
+                <td class="letters">
+                    <p>B</p>
+                </td>
+                <td class="letters">
+                    <p>C</p>
+                </td>
+                <td class="letters">
+                    <p>D</p>
+                </td>
+                <td class="letters">
+                    <p>E</p>
+                </td>
+                <td class="letters">
+                    <p>F</p>
+                </td>
+                <td class="letters"> 
+                    <p>G</p>
+                </td>
+                <td class="letters"> 
+                    <p>H</p>
+                </td>
+                <td class="letters">
+                    <p>I</p>
+                </td>
+                <td class="letters">
+                    <p>J</p>
+                </td>
+                
+            </th>
+            <tr>
+                <th class = "legend">1</th> 
+                <td class="box" id="00">
+                    
+                </td>
+                <td class="box" id="01">
+                    
+                </td>
+                <td class="box" id="02">
+                    
+                </td>
+                <td class="box" id="03">
+                    
+                </td>
+                <td class="box" id="04">
+                    
+                </td>
+                <td class="box" id="05">
+                   
+                </td>
+                <td class="box" id="06">
+                    
+                </td>
+                <td class="box" id="07">
+                    
+                </td>
+                <td class="box" id="08">
+                    
+                </td>
+                <td class="box" id="09">
+                   
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">2</th>
+                <td class="box" id="10">
+                    
+                </td>
+                <td class="box" id="11">
+                    
+                </td>
+                <td class="box" id="12">
+                    
+                </td>
+                <td class="box" id="13">
+                    
+                </td>
+                <td class="box" id="14">
+                    
+                </td>
+                <td class="box" id="15">
+                    
+                </td>
+                <td class="box" id="16">
+                    
+                </td>
+                <td class="box" id="17">
+                   
+                </td>
+                <td class="box" id="18">
+                    
+                </td>
+                <td class="box" id="19">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">3</th>
+                <td class="box" id="20">
+                    
+                </td>
+                <td class="box" id="21">
+                   
+                </td>
+                <td class="box" id="22">
+                    
+                </td>
+                <td class="box" id="23">
+                    
+                </td>
+                <td class="box" id="24">
+                    
+                </td>
+                <td class="box" id="25">
+                    
+                </td>
+                <td class="box" id="26">
+                    
+                </td>
+                <td class="box" id="27">
+                   
+                </td>
+                <td class="box" id="28">
+                    
+                </td>
+                <td class="box" id="29">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">4</th>
+                <td class="box" id="30">
+                    
+                </td>
+                <td class="box" id="31">
+                    
+                </td>
+                <td class="box" id="32">
+                    
+                </td>
+                <td class="box" id="33">
+                    
+                </td>
+                <td class="box" id="34">
+                    
+                </td>
+                <td class="box" id="35">
+                    
+                </td>
+                <td class="box" id="36">
+                    
+                </td>
+                <td class="box" id="37">
+                    
+                </td>
+                <td class="box" id="38">
+                    
+                </td>
+                <td class="box" id="39">
+                    
+                </td>
+            </tr>
+            <tr >
+                <th class = "legend">5</th>
+                <td class="box" id="40">
+                    
+                </td>
+                <td class="box" id="41">
+                    
+                </td>
+                <td class="box" id="42">
+                    
+                </td>
+                <td class="box" id="43">
+                    
+                </td>
+                <td class="box" id="44">
+                    
+                </td>
+                <td class="box" id="45">
+                    
+                </td>
+                <td class="box" id="46">
+                    
+                </td>
+                <td class="box" id="47">
+                    
+                </td>
+                <td class="box" id="48">
+                    
+                </td>
+                <td class="box" id="49">
+                    
+                </td>
+            </tr>
+            <tr class = "legend">
+                <th>6</th>
+                <td class="box" id="50">
+                    
+                </td>
+                <td class="box" id="51">
+                    
+                </td>
+                <td class="box" id="52">
+                    
+                </td>
+                <td class="box" id="53">
+                    
+                </td>
+                <td class="box" id="54">
+                    
+                </td>
+                <td class="box" id="55">
+                    
+                </td>
+                <td class="box" id="56">
+                    
+                </td>
+                <td class="box" id="57">
+                    
+                </td>
+                <td class="box" id="58">
+                    
+                </td>
+                <td class="box" id="59">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">7</th>
+                <td class="box" id="60">
+                    
+                </td>
+                <td class="box" id="61">
+                    
+                </td>
+                <td class="box" id="62">
+                    
+                </td>
+                <td class="box" id="63">
+                    
+                </td>
+                <td class="box" id="64">
+                    
+                </td>
+                <td class="box" id="65">
+                    
+                </td>
+                <td class="box" id="66">
+                    
+                </td>
+                <td class="box" id="67">
+                    
+                </td>
+                <td class="box" id="68">
+                    
+                </td>
+                <td class="box" id="69">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">8</th>
+                <td class="box" id="70">
+                    
+                </td>
+                <td class="box" id="71">
+                    
+                </td>
+                <td class="box" id="72">
+                    
+                </td>
+                <td class="box" id="73">
+                    
+                </td>
+                <td class="box" id="74">
+                    
+                </td>
+                <td class="box" id="75">
+                    
+                </td>
+                <td class="box" id="76">
+                    
+                </td>
+                <td class="box" id="77">
+                    
+                </td>
+                <td class="box" id="78">
+                    
+                </td>
+                <td class="box" id="79">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">9</th>
+                <td class="box" id="80">
+                    
+                </td>
+                <td class="box" id="81">
+                    
+                </td>
+                <td class="box" id="82">
+                    
+                </td>
+                <td class="box" id="83">
+                    
+                </td>
+                <td class="box" id="84">
+                    
+                </td>
+                <td class="box" id="85">
+                    
+                </td>
+                <td class="box" id="86">
+                    
+                </td>
+                <td class="box" id="87">
+                    
+                </td>
+                <td class="box" id="88">
+                    
+                </td>
+                <td class="box" id="89">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th class = "legend">10</th>
+                <td class="box" id="90">
+                    
+                </td>
+                <td class="box" id="91">
+                    
+                </td>
+                <td class="box" id="92">
+                    
+                </td>
+                <td class="box" id="93">
+                    
+                </td>
+                <td class="box" id="94">
+                    
+                </td>
+                <td class="box" id="95">
+                    
+                </td>
+                <td class="box" id="96">
+                    
+                </td>
+                <td class="box" id="97">
+                    
+                </td>
+                <td class="box" id="98">
+                    
+                </td>
+                <td class="box" id="99">
+                    
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
     <div>
-        <table id="board">
-            
+
+    </div>
+    <div id="opp">
+        <table class="opp" id="boardopp">
+            <caption>Enemy Board</caption>
+            <tbody>
+                <th>
+                    <td class="letters">
+                        <p>A</p>
+                    </td>
+                    <td class="letters">
+                        <p>B</p>
+                    </td>
+                    <td class="letters">
+                        <p>C</p>
+                    </td>
+                    <td class="letters">
+                        <p>D</p>
+                    </td>
+                    <td class="letters">
+                        <p>E</p>
+                    </td>
+                    <td class="letters">
+                        <p>F</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>G</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>H</p>
+                    </td>
+                    <td class="letters">
+                        <p>I</p>
+                    </td>
+                    <td class="letters">
+                        <p>J</p>
+                    </td>
+                    
+                </th>
+                <tr>
+                    <th class = "legend">1</th> 
+                    <td class="box" id="00">
+                        
+                    </td>
+                    <td class="box" id="01">
+                        
+                    </td>
+                    <td class="box" id="02">
+                        
+                    </td>
+                    <td class="box" id="03">
+                        
+                    </td>
+                    <td class="box" id="04">
+                        
+                    </td>
+                    <td class="box" id="05">
+                        
+                    </td>
+                    <td class="box" id="06">
+                        
+                    </td>
+                    <td class="box" id="07">
+                        
+                    </td>
+                    <td class="box" id="08">
+                        
+                    </td>
+                    <td class="box" id="09">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">2</th>
+                    <td class="box" id="10">
+                        
+                    </td>
+                    <td class="box" id="11">
+                        
+                    </td>
+                    <td class="box" id="12">
+                        
+                    </td>
+                    <td class="box" id="13">
+                        
+                    </td>
+                    <td class="box" id="14">
+                        
+                    </td>
+                    <td class="box" id="15">
+                        
+                    </td>
+                    <td class="box" id="16">
+                        
+                    </td>
+                    <td class="box" id="17">
+                        
+                    </td>
+                    <td class="box" id="18">
+                        
+                    </td>
+                    <td class="box" id="19">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">3</th>
+                    <td class="box" id="20">
+                        
+                    </td>
+                    <td class="box" id="21">
+                        
+                    </td>
+                    <td class="box" id="22">
+                        
+                    </td>
+                    <td class="box" id="23">
+                        
+                    </td>
+                    <td class="box" id="24">
+                        
+                    </td>
+                    <td class="box" id="25">
+                        
+                    </td>
+                    <td class="box" id="26">
+                        
+                    </td>
+                    <td class="box" id="27">
+                        
+                    </td>
+                    <td class="box" id="28">
+                        
+                    </td>
+                    <td class="box" id="29">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">4</th>
+                    <td class="box" id="30">
+                        
+                    </td>
+                    <td class="box" id="31">
+                        
+                    </td>
+                    <td class="box" id="32">
+                        
+                    </td>
+                    <td class="box" id="33">
+                        
+                    </td>
+                    <td class="box" id="34">
+                        
+                    </td>
+                    <td class="box" id="35">
+                        
+                    </td>
+                    <td class="box" id="36">
+                        
+                    </td>
+                    <td class="box" id="37">
+                        
+                    </td>
+                    <td class="box" id="38">
+                        
+                    </td>
+                    <td class="box" id="39">
+                        
+                    </td>
+                </tr>
+                <tr >
+                    <th class = "legend">5</th>
+                    <td class="box" id="40">
+                        
+                    </td>
+                    <td class="box" id="41">
+                        
+                    </td>
+                    <td class="box" id="42">
+                        
+                    </td>
+                    <td class="box" id="43">
+                        
+                    </td>
+                    <td class="box" id="44">
+                        
+                    </td>
+                    <td class="box" id="45">
+                        
+                    </td>
+                    <td class="box" id="46">
+                        
+                    </td>
+                    <td class="box" id="47">
+                        
+                    </td>
+                    <td class="box" id="48">
+                        
+                    </td>
+                    <td class="box" id="49">
+                        
+                    </td>
+                </tr>
+                <tr class = "legend">
+                    <th>6</th>
+                    <td class="box" id="50">
+                        
+                    </td>
+                    <td class="box" id="51">
+                        
+                    </td>
+                    <td class="box" id="52">
+                        
+                    </td>
+                    <td class="box" id="53">
+                        
+                    </td>
+                    <td class="box" id="54">
+                        
+                    </td>
+                    <td class="box" id="55">
+                        
+                    </td>
+                    <td class="box" id="56">
+                        
+                    </td>
+                    <td class="box" id="57">
+                        
+                    </td>
+                    <td class="box" id="58">
+                        
+                    </td>
+                    <td class="box" id="59">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">7</th>
+                    <td class="box" id="60">
+                        
+                    </td>
+                    <td class="box" id="61">
+                        
+                    </td>
+                    <td class="box" id="62">
+                        
+                    </td>
+                    <td class="box" id="63">
+                        
+                    </td>
+                    <td class="box" id="64">
+                        
+                    </td>
+                    <td class="box" id="65">
+                        
+                    </td>
+                    <td class="box" id="66">
+                        
+                    </td>
+                    <td class="box" id="67">
+                        
+                    </td>
+                    <td class="box" id="68">
+                        
+                    </td>
+                    <td class="box" id="69">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">8</th>
+                    <td class="box" id="70">
+                        
+                    </td>
+                    <td class="box" id="71">
+                        
+                    </td>
+                    <td class="box" id="72">
+                        
+                    </td>
+                    <td class="box" id="73">
+                        
+                    </td>
+                    <td class="box" id="74">
+                        
+                    </td>
+                    <td class="box" id="75">
+                        
+                    </td>
+                    <td class="box" id="76">
+                        
+                    </td>
+                    <td class="box" id="77">
+                        
+                    </td>
+                    <td class="box" id="78">
+                        
+                    </td>
+                    <td class="box" id="79">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">9</th>
+                    <td class="box" id="80">
+                        
+                    </td>
+                    <td class="box" id="81">
+                        
+                    </td>
+                    <td class="box" id="82">
+                        
+                    </td>
+                    <td class="box" id="83">
+                        
+                    </td>
+                    <td class="box" id="84">
+                        
+                    </td>
+                    <td class="box" id="85">
+                        
+                    </td>
+                    <td class="box" id="86">
+                        
+                    </td>
+                    <td class="box" id="87">
+                        
+                    </td>
+                    <td class="box" id="88">
+                        
+                    </td>
+                    <td class="box" id="89">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th class = "legend">10</th>
+                    <td class="box" id="90">
+                        
+                    </td>
+                    <td class="box" id="91">
+                        
+                    </td>
+                    <td class="box" id="92">
+                        
+                    </td>
+                    <td class="box" id="93">
+                        
+                    </td>
+                    <td class="box" id="94">
+                        
+                    </td>
+                    <td class="box" id="95">
+                        
+                    </td>
+                    <td class="box" id="96">
+                        
+                    </td>
+                    <td class="box" id="97">
+                        
+                    </td>
+                    <td class="box" id="98">
+                        
+                    </td>
+                    <td class="box" id="99">
+                        
+                    </td>
+                </tr>
+            </tbody>
         </table>
 
     </div>
+    <div id="controls" class="controls">
+        <table>
+            <tr>
+                <td><button id="placeship" onclick="make_clickable()">Place</button></td>
+                <td><button id="flip" onclick="flip()">Change Orientation</button></td>
+            </tr>
+        </table>
+    </div>
+    
 </body>
 
 
