@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <title>Leaderboard</title>
+    <title>Game</title>
 </head>
 <style>
     #boarduser{
@@ -54,7 +54,8 @@
     var rows = 9;
     var cols = 9;
     var ship_coords = new Array(9);
-    var orientation = false; //true = horizontal, false = vertical
+    var horizontal = true; //true = horizontal, false = vertical
+    var placed = true;
     for(var i = 0;i<10;i++)
         {
             ship_coords[i] = new Array(9);
@@ -66,14 +67,20 @@
                 ship_coords[i][j] = 0;
             }
         }
+        function place()
+    {
+        placed = !placed;
+    }
     function returnval(id) {
         show_ship(id);
-        
         remove_clickable();
-        
+        placed = true;
     }
+    
     function show_ship(id)
     {
+        if(!placed)
+        {
         var shiplength = 4;
         var row = parseInt(id.charAt(0));
         var col = parseInt(id.charAt(1));
@@ -82,13 +89,13 @@
         var colid = id.charAt(1);
 
         var flipped = false;
-        if((col+shiplength)>10 && orientation)
+        if((col+shiplength)>10 && horizontal)
             {
                 col = col - (shiplength-1);
                 colid = col; //appends int to string
                 flipped = true;
             }
-        if((row+shiplength)>10 && !orientation)
+        if((row+shiplength)>10 && !horizontal)
         {
             row = row - (shiplength-1);
             rowid = row;  //appends int to string
@@ -103,7 +110,7 @@
             var box = document.getElementById(rowid + colid);//
             ship_coords[rowid][colid] = 1;
             box.style.backgroundColor = "black";
-            if(orientation)
+            if(horizontal)
                 {
                     colid++;
                 }
@@ -117,12 +124,14 @@
         {
             alert("SHIPS OVERLAP!!!!!!!!!!!!!");
         }
+        }
+        
         
     }
     function check_overlap(len, flipped, row, col)
     {
         var overlap = false;
-        if(orientation) //if ship being placed is horizontal
+        if(horizontal) //if ship being placed is horizontal
         {
             for(var i = 0;i<len;i++)
             {
@@ -193,19 +202,166 @@
         {
             boxes[i].setAttribute("onclick","returnval(this.id)");
             boxes[i].setAttribute("onmouseover","show_outline(this.id)");
+            boxes[i].setAttribute("onmouseleave","remove_outline(this.id)");
         }
     }
     function show_outline(id)
     {
-        $(document).ready(function()
+        console.log(placed);
+        if(!placed)
         {
-                $("#"+id).hover(function()
+        var shiplength = 4;
+        var row = parseInt(id.charAt(0));
+        var col = parseInt(id.charAt(1));
+
+        var rowid = id.charAt(0);
+        var colid = id.charAt(1);
+        
+        $(document).ready(function(){
+            for(var i = 0;i<shiplength;i++)
             {
-                $(this).css("background-color", "yellow");
-            },);
-            
-            
+                if(horizontal)
+                {
+                    if((col+shiplength)>10)
+                    {
+                        col = 10 - shiplength;
+                        colid = col;
+                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "blue");
+                            });
+                            colid++;
+                        }
+                    }
+                    else
+                    {
+                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "blue");
+                                });
+                            colid++;
+                        }
+                    }  
+                }
+                else
+                {
+                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                    if((row+shiplength)>10)
+                    {
+                        row = 10 - shiplength;
+                        rowid = row;
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "blue");
+                            });
+                            rowid++;
+                        }
+                    }
+                    else
+                    {
+                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "blue");
+                                });
+                            rowid++;
+                        }
+                    }        
+                }  
+            }  
         });
+        }
+        
+    }
+    function remove_outline(id)
+    {
+        if(!placed)
+        {
+        var shiplength = 4;
+        var row = parseInt(id.charAt(0));
+        var col = parseInt(id.charAt(1));
+
+        var rowid = id.charAt(0);
+        var colid = id.charAt(1);
+
+        $(document).ready(function(){
+            for(var i = 0;i<shiplength;i++)
+            {
+                if(horizontal)
+                {
+                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                    if((col+shiplength)>10)
+                    {
+                        col = 10 - shiplength;
+                        colid = col;
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                                $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "white");
+                            }); 
+                            colid++;
+                        }
+                        
+                    
+                    }
+                    else
+                    {
+                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "white");
+                            });
+                            colid++;
+                        }
+                    
+                    }  
+                }
+                else
+                {
+                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                    if((row+shiplength)>10)
+                    {
+                        row = 10 - shiplength;
+                        rowid = row;
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "white");
+                            });
+                            rowid++;
+                        }
+                    }
+                    else
+                    {
+                        document.getElementById("test").innerHTML = ship_coords[rowid][colid];
+                        if(ship_coords[rowid][colid]==0)
+                        {
+                            $("#" + rowid + colid).each(function()
+                            { 
+                                $("#" + rowid + colid).css("background-color", "white");
+                                });
+                            rowid++;
+                        }
+                    } 
+                }  
+            }  
+        });
+        }
+        
 
     }
     function remove_clickable()
@@ -218,7 +374,7 @@
     }
     function flip()
     {
-        orientation = !orientation;
+        horizontal = !horizontal;
     }
 </script>
 <header>
@@ -241,7 +397,7 @@
         <table class="user" id="boarduser">
             <caption>Your board</caption>
             <tbody>
-            <th>
+            <th id="top_letters">
                 <td class="letters">
                     <p>A</p>
                 </td>
@@ -275,7 +431,7 @@
                 
             </th>
             <tr>
-                <th class = "legend">1</th> 
+                <th class = "legend"><p>1</p></th> 
                 <td class="box" id="00">
                     
                 </td>
@@ -308,7 +464,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">2</th>
+                <th class = "legend"><p>2</p></th>
                 <td class="box" id="10">
                     
                 </td>
@@ -341,7 +497,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">3</th>
+                <th class = "legend"><p>3</p></th>
                 <td class="box" id="20">
                     
                 </td>
@@ -374,7 +530,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">4</th>
+                <th class = "legend"><p>4</p></th>
                 <td class="box" id="30">
                     
                 </td>
@@ -407,7 +563,7 @@
                 </td>
             </tr>
             <tr >
-                <th class = "legend">5</th>
+                <th class = "legend"><p>5</p></th>
                 <td class="box" id="40">
                     
                 </td>
@@ -439,8 +595,8 @@
                     
                 </td>
             </tr>
-            <tr class = "legend">
-                <th>6</th>
+            <tr>
+                <th class = "legend"><p>6</p></th>
                 <td class="box" id="50">
                     
                 </td>
@@ -473,7 +629,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">7</th>
+                <th class = "legend"><p>7</p></th>
                 <td class="box" id="60">
                     
                 </td>
@@ -506,7 +662,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">8</th>
+                <th class = "legend"><p>8</p></th>
                 <td class="box" id="70">
                     
                 </td>
@@ -539,7 +695,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">9</th>
+                <th class = "legend"><p>9</p></th>
                 <td class="box" id="80">
                     
                 </td>
@@ -572,7 +728,7 @@
                 </td>
             </tr>
             <tr>
-                <th class = "legend">10</th>
+                <th class = "legend"><p>10</p></th>
                 <td class="box" id="90">
                     
                 </td>
@@ -984,10 +1140,15 @@
     <div id="controls" class="controls">
         <table>
             <tr>
-                <td><button id="placeship" onclick="make_clickable()">Place</button></td>
+                <td><button id="placeship" onclick="make_clickable();place();">Place</button></td>
                 <td><button id="flip" onclick="flip()">Change Orientation</button></td>
             </tr>
         </table>
+    </div>
+    <div>
+        <p id="test">
+
+        </p>
     </div>
     
 </body>
