@@ -24,7 +24,6 @@
         width: auto;
         text-align: center;
     }
-
     table{
         border-collapse: collapse;
     }
@@ -41,28 +40,116 @@
     .legend
     {
         width: 20px;
+        border-right: 1px solid black;
     }
     .letters
     {
         width: 20px;
         text-align: center;
+        border-bottom: 1px solid black;
     }
+    .ship_placement, .ship_placement_flip
+    {
+        background-color: blue; /* Green */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        padding: 10px 10px;
+        border-radius: 12px;
+    }
+    .ship_placement:hover{
+        background-color: red;
+    }
+    .ship_placement_flip:hover{
+        background-color: red;
+        transition: all 0.4s ease;
+        transform: scaleY(-1);
+    }
+
+    .ship_table
+    {
+        width: 100%;
+        height: 80%;
+    }
+    .ship_button{
+        height: auto;
+        width: 20px;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+        
+    }
+    .ship_image
+    {
+        margin-left: 25px;
+        margin-right: auto;
+    }
+    /*sidebar ship select*/
+    .shipSelectMenu {
+	  height: 100%;
+	  width: 0;
+	  position: fixed;
+	  z-index: 1;
+	  top: 0;
+	  left: 0;
+	  background-color: lightgray;
+	  overflow-x: hidden;
+	  transition: 0.5s;
+	  padding-top: 60px;
+	}
+
+	.shipSelectMenu .closebtn {
+	  position: absolute;
+	  right: 25px;
+	  top: 0px;
+	  margin-left: 50px;
+	  font-size: 36px;
+	}
+
+	@media screen and (max-height: 450px) {
+	  .shipSelectMenu {padding-top: 15px;}
+	}
+    /*Overlap Alert*/
+    .overlap_warning {
+	  height: 10%;
+	  width: 0px;
+	  position: fixed;
+      overflow: hidden;
+	  z-index: 2;
+	  top: 60%;
+	  left: 0;
+	  background-color: red;
+	  transition: 0.5s;
+      white-space: nowrap;
+	}
 
 </style>
 <script>
     var rows = 10;
     var cols = 10;
-    var ship_coords = new Array(9);
+    var ship_coords = new Array(10);
     var horizontal = true; //true = horizontal, false = vertical
     var placed = true;
-    function set_boardvalues()
+    var global_shiplength = 0;
+    var c_count = 1;
+    var b_count = 2;
+    var d_count = 2;
+    var s_count = 1;
+    var p_count = 1;
+    var shipType = "";
+    function set_boardvalues()//creates empty 2d array
     {
         for(var i = 0;i<10;i++){
-            ship_coords[i] = new Array(9);
+            ship_coords[i] = new Array(10); //size for both was previously 9 
         }
         for(var i = 0;i<10;i++){
             for(var j = 0;j<10;j++){
-                ship_coords[i][j] = 0;
+                ship_coords[i][j] = 0; 
             }
             
         }
@@ -84,53 +171,63 @@
     }
     function place(){placed = !placed;}
     function flip(){horizontal = !horizontal;}
+    function set_length(len){global_shiplength=len}
     function returnval(id) {
         place_ship(id);
-        //remove_clickable();
+        remove_clickable();
         placed = true;
     }
-    function place_ship(id)
+    function place_ship(coords)
     {
-        if(!placed){
-            var shiplength = 4;
-            var row = parseInt(id.charAt(0));
-            var col = parseInt(id.charAt(1));
+        if (!amountIsZero()){
+            if(!placed){
+                var shiplength = global_shiplength;
+                var row = parseInt(coords.charAt(0));
+                var col = parseInt(coords.charAt(1));
 
-            var rowid = id.charAt(0);
-            var colid = id.charAt(1);
+                var rowid = coords.charAt(0);
+                var colid = coords.charAt(1);
 
-            var flipped = false;
-            if((col+shiplength)>10 && horizontal)
+                var flipped = false;
+                if((col+shiplength)>10 && horizontal)
+                    {
+                        col = cols - shiplength;
+                        colid = col; //appends int to string
+                        flipped = true;
+                    }
+                if((row+shiplength)>10 && !horizontal)
                 {
-                    col = cols - shiplength;
-                    colid = col; //appends int to string
+                    row = rows - shiplength;
+                    rowid = row;  //appends int to string
                     flipped = true;
                 }
-            if((row+shiplength)>10 && !horizontal)
-            {
-                row = rows - shiplength;
-                rowid = row;  //appends int to string
-                flipped = true;
-            }
-            var isoverlap = check_overlap(shiplength, flipped, row, col);
-            if(!isoverlap){
-                for(var i = 0;i<shiplength;i++){
-                var box = document.getElementById(rowid + colid);
-                ship_coords[rowid][colid] = 1;
-                box.style.backgroundColor = "black"; 
-                box.innerHTML = 1;
-                if(horizontal){
-                        colid++;
+                var isoverlap = check_overlap(shiplength, flipped, row, col);
+                if(!isoverlap){
+
+                    for(var i = 0;i<shiplength;i++){
+                    var box = document.getElementById(rowid + colid);
+                    ship_coords[rowid][colid] = 1;
+                    box.style.backgroundColor = "lightblue";
+                    box.innerHTML = 1;
+                    if(horizontal){
+                            colid++;
+                        }
+                    else{
+                            rowid++;
+                        }
                     }
-                else{
-                        rowid++;
-                    }
+                    reduceAmount();
+                    
                 }
-            }
-            else {
-                alert("SHIPS OVERLAP!!!!!!!!!!!!!");
-            }
-        }   
+                else {
+                    displayOverlapAlert();
+                    //alert("SHIPS OVERLAPPING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    setTimeout(hideOverlapAlert, 2000);
+                    
+                }
+                
+            }   
+        }
     }
     function check_overlap(len, flipped, row, col)
     {
@@ -202,152 +299,190 @@
     }
     function show_outline(id)
     {
-        if(!placed){
-        var shiplength = 4;
-        var row = parseInt(id.charAt(0));
-        var col = parseInt(id.charAt(1));
+        if (!amountIsZero()){
+            
+            if(!placed){
+            var shiplength = global_shiplength;
+            var row = parseInt(id.charAt(0));
+            var col = parseInt(id.charAt(1));
 
-        var rowid = id.charAt(0);
-        var colid = id.charAt(1);
-        var flipped = false;
-        $(document).ready(function(){
-            for(var i = 0;i<shiplength;i++){
-                if(horizontal){
-                    if((col+shiplength)>10){
-                        col = cols - shiplength;
-                        colid = col;
-                        flipped = true;
-                        var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "blue");
-                            });
-                            colid++;
-                        }
-                             
-                    }
-                    else{
-                        flipped = false;
-                        var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
+            var rowid = id.charAt(0);
+            var colid = id.charAt(1);
+            var flipped = false;
+            $(document).ready(function(){
+                for(var i = 0;i<shiplength;i++){
+                    if(horizontal){
+                        if((col+shiplength)>10){
+                            col = cols - shiplength;
+                            colid = col;
+                            flipped = true;
+                            var isoverlap = check_overlap(shiplength, flipped, row, col);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
                                 { 
-                                    $("#" + rowid + colid).css("background-color", "blue");
+                                    $("#" + rowid + colid).css("background-color", "lightgray");
                                 });
-                            colid++;
-                        }  
-                    }  
-                }
-                else{
-                    if((row+shiplength)>10){
-                        row = rows - shiplength;
-                        rowid = row;
-                        flipped = true;
-                        var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        console.log(isoverlap);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "blue");
-                            });
-                            rowid++;
+                                colid++;
+                            }
+                                
                         }
-                            
+                        else{
+                            flipped = false;
+                            var isoverlap = check_overlap(shiplength, flipped, row, col);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                    { 
+                                        $("#" + rowid + colid).css("background-color", "lightgray");
+                                    });
+                                colid++;
+                            }  
+                        }  
                     }
                     else{
-                        flipped = false;
-                        var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        console.log(isoverlap);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "blue");
+                        if((row+shiplength)>10){
+                            row = rows - shiplength;
+                            rowid = row;
+                            flipped = true;
+                            var isoverlap = check_overlap(shiplength,flipped,row,col);
+                            console.log(isoverlap);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "lightgray");
                                 });
-                            rowid++;
+                                rowid++;
+                            }
+                                
                         }
-                    } 
-                }
-            }  
-        });
+                        else{
+                            flipped = false;
+                            var isoverlap = check_overlap(shiplength, flipped, row, col);
+                            console.log(isoverlap);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "lightgray");
+                                    });
+                                rowid++;
+                            }
+                        } 
+                    }
+                }  
+            });
+            }
         }
     }
     function remove_outline(id){
-        if(!placed){
-        var shiplength = 4;
-        var row = parseInt(id.charAt(0));
-        var col = parseInt(id.charAt(1));
+        if (!amountIsZero()){
+            if(!placed){
+            var shiplength = global_shiplength;
+            var row = parseInt(id.charAt(0));
+            var col = parseInt(id.charAt(1));
 
-        var rowid = id.charAt(0);
-        var colid = id.charAt(1);
+            var rowid = id.charAt(0);
+            var colid = id.charAt(1);
 
-        $(document).ready(function(){
-            for(var i = 0;i<shiplength;i++){
-                if(horizontal){
-                    if((col+shiplength)>10){
-                        col = cols - shiplength;
-                        colid = col;
-                        flipped = true;
-                        var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "white");
-                            }); 
-                            colid++;
-                        }         
-                    }
-                    else{
-                        flipped = false;
-                        var isoverlap = check_overlap(shiplength, flipped, row,col);
-
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "white");
-                            });
-                            colid++;
-                        }       
-                    }  
-                }
-                else{
-                    if((row+shiplength)>10){
-                        row = rows - shiplength;
-                        rowid = row;
-                        flipped = true;
-                        var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "white");
-                            });
-                            rowid++;
+            $(document).ready(function(){
+                for(var i = 0;i<shiplength;i++){
+                    if(horizontal){
+                        if((col+shiplength)>10){
+                            col = cols - shiplength;
+                            colid = col;
+                            flipped = true;
+                            var isoverlap = check_overlap(shiplength,flipped,row,col);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "transparent");
+                                }); 
+                                colid++;
+                            }         
                         }
-                            
-                    }
-                    else{
-                        flipped = false;
-                        var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        if(!isoverlap)
-                        {
-                            $("#" + rowid + colid).each(function()
-                            { 
-                                $("#" + rowid + colid).css("background-color", "white");
+                        else{
+                            flipped = false;
+                            var isoverlap = check_overlap(shiplength, flipped, row,col);
+
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "transparent");
                                 });
-                            rowid++;
+                                colid++;
+                            }       
+                        }  
+                    }
+                    else{
+                        if((row+shiplength)>10){
+                            row = rows - shiplength;
+                            rowid = row;
+                            flipped = true;
+                            var isoverlap = check_overlap(shiplength,flipped,row,col);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "transparent");
+                                });
+                                rowid++;
+                            }
+                                
                         }
-                    } 
+                        else{
+                            flipped = false;
+                            var isoverlap = check_overlap(shiplength, flipped, row, col);
+                            if(!isoverlap)
+                            {
+                                $("#" + rowid + colid).each(function()
+                                { 
+                                    $("#" + rowid + colid).css("background-color", "transparent");
+                                    });
+                                rowid++;
+                            }
+                        } 
+                    }  
                 }  
-            }  
-        });
+            });
+            }
         }
+    }
+    function openMenu() {
+	  document.getElementById("myshipSelectMenu").style.width = "250px";
+	}
+	function closeMenu() {
+	  document.getElementById("myshipSelectMenu").style.width = "0";
+    }
+    function amountIsZero(){
+        if (document.getElementById(shipType+'_Num').innerHTML > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    function reduceAmount(){
+        var amount = parseInt(document.getElementById(shipType+'_Num').innerHTML);
+        amount--;
+        document.getElementById(shipType+'_Num').innerHTML = amount;
+        if (amount == 0){
+            document.getElementById(shipType).removeAttribute("onClick");
+            document.getElementById(shipType).innerHTML="";
+            document.getElementById(shipType).style.backgroundColor="lightgray";
+        }
+    }
+    function getShipType(id){
+        shipType = id;
+    }
+    function displayOverlapAlert(){
+        document.getElementById("myoverlap_warning").style.width = "350px";
+    }
+    function hideOverlapAlert(){
+        document.getElementById("myoverlap_warning").style.width = "0px";
     }
 </script>
 <header>
@@ -364,8 +499,95 @@
 </header>
 
 <body onload="set_boardvalues()"> 
-    <h1>Play</h1>
+    <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
+		<div> <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a> </div> <!-- 'X' button-->
+		<div id="controls" class="controls">
+            <table id="ship_table" class="ship_table"> <!-- Table holding buttons/images/text-->
+
+                <!--Courier ship -->
+                
+                <tr>
+                    <td colspan="2" style="text-align: center;">Number of couriers:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"style="text-align: center;" id="placeship_c_Num">1</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../images/5.png" width="200px" height="25px"  class="ship_image"></td>
+                </tr>
+                <tr >
+                    <td class="ship_button"><button id="placeship_c" onclick="make_clickable();place();set_length(5);getShipType(this.id);" class="ship_placement">Place</button></td>
+                    
+                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
+                </tr>
+
+                <!-- Battleships-->
+                <tr>
+                    <td colspan="2" style="text-align: center;">Number of Battleships:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"style="text-align: center;" id="placeship_b_Num">1</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../images/4.png" width="160px" height="25px"  class="ship_image"></td>
+                </tr>
+                <tr>
+                    <td class="ship_button"><button id="placeship_b" onclick="make_clickable();place();set_length(4);getShipType(this.id);" class="ship_placement">Place</button></td>
+                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
+                </tr>
+                <!-- Destroyers-->
+                <tr>
+                    <td colspan="2" style="text-align: center;">Number of Destroyers:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"style="text-align: center;" id="placeship_d_Num">2</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
+                </tr>
+                <tr>
+                    <td class="ship_button"><button id="placeship_d" onclick="make_clickable();place();set_length(3);getShipType(this.id);" class="ship_placement">Place</button></td>
+                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
+                </tr>
+                <!-- Submarines-->
+                <tr>
+                    <td colspan="2" style="text-align: center;">Number of Submarines:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"style="text-align: center;" id="placeship_s_Num">2</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
+                </tr>
+                <tr>
+                    <td class="ship_button"><button id="placeship_s" onclick="make_clickable();place();set_length(3);getShipType(this.id);" class="ship_placement">Place</button></td>
+                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
+                </tr>
+                <!-- Patrol boats -->
+                <tr>
+                    <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"style="text-align: center;" id="placeship_p_Num">1</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../images/2.png" width="80px" height="25px"  class="ship_image"></td>
+                </tr>
+                <tr>
+                    <td class="ship_button"><button id="placeship_p" onclick="make_clickable();place();set_length(2);getShipType(this.id);" class="ship_placement">Place</button></td>
+                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
+                </tr>
+            </table>
+        </div>
+	  
+    </div>
+    <div> <span style="font-size:30px;cursor:pointer" onclick="openMenu()">&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
+
+    <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
+		<h1>SHIPS OVERLAPPING</h1>
+    </div>
     
+	
     <div id="user">
         <table class="user" id="boarduser">
             <caption>Your board</caption>
@@ -1107,15 +1329,6 @@
         </table>
     </div>
 
-
-    <div id="controls" class="controls">
-        <table>
-            <tr>
-                <td><button id="placeship" onclick="make_clickable();place();">Place</button></td>
-                <td><button id="flip" onclick="flip()">Change Orientation</button></td>
-            </tr>
-        </table>
-    </div>
     <div>
         <p id="test">
 
