@@ -18,11 +18,13 @@
         margin-right: auto;
         margin-left: 25px;
     }
-    .box{
+    .box, .boxo{
         border: 1px solid black;
         height: auto;
         width: auto;
+        text-align: center;
     }
+
     table{
         border-collapse: collapse;
     }
@@ -62,13 +64,29 @@
             for(var j = 0;j<10;j++){
                 ship_coords[i][j] = 0;
             }
+            
         }
+        printboard();
+
+    }
+    function printboard()
+    {
+        for(var i = 0;i<10;i++){
+            for(var j = 0;j<10;j++){
+                var print = ship_coords[i][j];
+                var row = String(i);
+                var col = String(j);
+                document.getElementById(row + col).innerHTML = print;
+            }
+            
+        }
+        
     }
     function place(){placed = !placed;}
     function flip(){horizontal = !horizontal;}
     function returnval(id) {
         place_ship(id);
-        remove_clickable();
+        //remove_clickable();
         placed = true;
     }
     function place_ship(id)
@@ -90,7 +108,7 @@
                 }
             if((row+shiplength)>10 && !horizontal)
             {
-                row = rows - row;
+                row = rows - shiplength;
                 rowid = row;  //appends int to string
                 flipped = true;
             }
@@ -99,7 +117,8 @@
                 for(var i = 0;i<shiplength;i++){
                 var box = document.getElementById(rowid + colid);//
                 ship_coords[rowid][colid] = 1;
-                box.style.backgroundColor = "black";
+                box.style.backgroundColor = "white"; //changes background to black
+                box.innerHTML = 1;
                 if(horizontal){
                         colid++;
                     }
@@ -116,55 +135,47 @@
     function check_overlap(len, flipped, row, col)
     {
         var overlap = false;
-        if(horizontal) //if ship being placed is horizontal
+        var flippedcol = col;
+        var normalcol = col;
+        var flippedrow = row;
+        var normalrow = row;
+        if(horizontal)
         {
             for(var i = 0;i<len;i++)
             {
-                if(flipped) //if being placed to the left of cursor
+                if(flipped) 
                 {
-                    if(ship_coords[row][col]==1) //checks to see if ship is present
+                    if(ship_coords[row][flippedcol]==1) 
                         {
                         return true;
                         }
                     else
                     {
-                        col--;
+                        flippedcol++;
                     }
                 }
                 else
                     {
-                        if(ship_coords[row][col]==1) //checks to see if ship is present
+                        if(ship_coords[row][normalcol]==1) 
                         {
                             return true;
                         }
                         else
                         {
-                            col++;
+                            normalcol++;
                         }
                     }
             }
         }
-        else { //if ship being placed is vertical
+        else { 
             for(var i = 0;i<len;i++){
-                if(flipped){ //if being placed to top of cursor
-                    if(ship_coords[row][col]==1){ //checks to see if ship is present
-                        return true;
-                        }
-                    else{
-                        row--;
-                    }
+                if(flipped){
+                    if(ship_coords[flippedrow][col]==1){ return true;}
+                    else{flippedrow++;}
                 }
-                else //being placed below cursor
-                    {
-                        if(ship_coords[row][col]==1) //checks to see if ship is present
-                        {
-                        return true;
-                        
-                        }
-                        else
-                        {
-                            row++;
-                        }
+                else {
+                        if(ship_coords[normalrow][col]==1){return true;}
+                        else{ normalrow++;}
                     }
             }
         }
@@ -198,7 +209,7 @@
 
         var rowid = id.charAt(0);
         var colid = id.charAt(1);
-        
+        var flipped = false;
         $(document).ready(function(){
             for(var i = 0;i<shiplength;i++){
                 if(horizontal){
@@ -207,7 +218,6 @@
                         colid = col;
                         flipped = true;
                         var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        console.log(isoverlap);
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -221,7 +231,6 @@
                     else{
                         flipped = false;
                         var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        console.log(isoverlap);
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -238,7 +247,7 @@
                         rowid = row;
                         flipped = true;
                         var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        console.log(isoverlap)
+                        console.log(isoverlap);
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -279,13 +288,11 @@
         $(document).ready(function(){
             for(var i = 0;i<shiplength;i++){
                 if(horizontal){
-                    document.getElementById("test").innerHTML = ship_coords[rowid][colid];
                     if((col+shiplength)>10){
                         col = cols - shiplength;
                         colid = col;
                         flipped = true;
                         var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        console.log(isoverlap);
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -298,7 +305,7 @@
                     else{
                         flipped = false;
                         var isoverlap = check_overlap(shiplength, flipped, row,col);
-                        console.log(isoverlap);
+
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -315,7 +322,6 @@
                         rowid = row;
                         flipped = true;
                         var isoverlap = check_overlap(shiplength,flipped,row,col);
-                        console.log(isoverlap)
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -329,7 +335,6 @@
                     else{
                         flipped = false;
                         var isoverlap = check_overlap(shiplength, flipped, row, col);
-                        console.log(isoverlap);
                         if(!isoverlap)
                         {
                             $("#" + rowid + colid).each(function()
@@ -771,331 +776,330 @@
             </th>
             <tr>
                 <th class = "legend"><p>1</p></th> 
-                <td class="box" id="00">
+                <td class="boxo" id="00">
                     
                 </td>
-                <td class="box" id="01">
+                <td class="boxo" id="01">
                     
                 </td>
-                <td class="box" id="02">
+                <td class="boxo" id="02">
                     
                 </td>
-                <td class="box" id="03">
+                <td class="boxo" id="03">
                     
                 </td>
-                <td class="box" id="04">
+                <td class="boxo" id="04">
                     
                 </td>
-                <td class="box" id="05">
+                <td class="boxo" id="05">
                    
                 </td>
-                <td class="box" id="06">
+                <td class="boxo" id="06">
                     
                 </td>
-                <td class="box" id="07">
+                <td class="boxo" id="07">
                     
                 </td>
-                <td class="box" id="08">
+                <td class="boxo" id="08">
                     
                 </td>
-                <td class="box" id="09">
+                <td class="boxo" id="09">
                    
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>2</p></th>
-                <td class="box" id="10">
+                <td class="boxo" id="10">
+                </td>
+                <td class="boxo" id="11">
                     
                 </td>
-                <td class="box" id="11">
+                <td class="boxo" id="12">
                     
                 </td>
-                <td class="box" id="12">
+                <td class="boxo" id="13">
                     
                 </td>
-                <td class="box" id="13">
+                <td class="boxo" id="14">
                     
                 </td>
-                <td class="box" id="14">
+                <td class="boxo" id="15">
                     
                 </td>
-                <td class="box" id="15">
+                <td class="boxo" id="16">
                     
                 </td>
-                <td class="box" id="16">
-                    
-                </td>
-                <td class="box" id="17">
+                <td class="boxo" id="17">
                    
                 </td>
-                <td class="box" id="18">
+                <td class="boxo" id="18">
                     
                 </td>
-                <td class="box" id="19">
+                <td class="boxo" id="19">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>3</p></th>
-                <td class="box" id="20">
+                <td class="boxo" id="20">
                     
                 </td>
-                <td class="box" id="21">
+                <td class="boxo" id="21">
                    
                 </td>
-                <td class="box" id="22">
+                <td class="boxo" id="22">
                     
                 </td>
-                <td class="box" id="23">
+                <td class="boxo" id="23">
                     
                 </td>
-                <td class="box" id="24">
+                <td class="boxo" id="24">
                     
                 </td>
-                <td class="box" id="25">
+                <td class="boxo" id="25">
                     
                 </td>
-                <td class="box" id="26">
+                <td class="boxo" id="26">
                     
                 </td>
-                <td class="box" id="27">
+                <td class="boxo" id="27">
                    
                 </td>
-                <td class="box" id="28">
+                <td class="boxo" id="28">
                     
                 </td>
-                <td class="box" id="29">
+                <td class="boxo" id="29">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>4</p></th>
-                <td class="box" id="30">
+                <td class="boxo" id="30">
                     
                 </td>
-                <td class="box" id="31">
+                <td class="boxo" id="31">
                     
                 </td>
-                <td class="box" id="32">
+                <td class="boxo" id="32">
                     
                 </td>
-                <td class="box" id="33">
+                <td class="boxo" id="33">
                     
                 </td>
-                <td class="box" id="34">
+                <td class="boxo" id="34">
                     
                 </td>
-                <td class="box" id="35">
+                <td class="boxo" id="35">
                     
                 </td>
-                <td class="box" id="36">
+                <td class="boxo" id="36">
                     
                 </td>
-                <td class="box" id="37">
+                <td class="boxo" id="37">
                     
                 </td>
-                <td class="box" id="38">
+                <td class="boxo" id="38">
                     
                 </td>
-                <td class="box" id="39">
+                <td class="boxo" id="39">
                     
                 </td>
             </tr>
             <tr >
                 <th class = "legend"><p>5</p></th>
-                <td class="box" id="40">
+                <td class="boxo" id="40">
                     
                 </td>
-                <td class="box" id="41">
+                <td class="boxo" id="41">
                     
                 </td>
-                <td class="box" id="42">
+                <td class="boxo" id="42">
                     
                 </td>
-                <td class="box" id="43">
+                <td class="boxo" id="43">
                     
                 </td>
-                <td class="box" id="44">
+                <td class="boxo" id="44">
                     
                 </td>
-                <td class="box" id="45">
+                <td class="boxo" id="45">
                     
                 </td>
-                <td class="box" id="46">
+                <td class="boxo" id="46">
                     
                 </td>
-                <td class="box" id="47">
+                <td class="boxo" id="47">
                     
                 </td>
-                <td class="box" id="48">
+                <td class="boxo" id="48">
                     
                 </td>
-                <td class="box" id="49">
+                <td class="boxo" id="49">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>6</p></th>
-                <td class="box" id="50">
+                <td class="boxo" id="50">
                     
                 </td>
-                <td class="box" id="51">
+                <td class="boxo" id="51">
                     
                 </td>
-                <td class="box" id="52">
+                <td class="boxo" id="52">
                     
                 </td>
-                <td class="box" id="53">
+                <td class="boxo" id="53">
                     
                 </td>
-                <td class="box" id="54">
+                <td class="boxo" id="54">
                     
                 </td>
-                <td class="box" id="55">
+                <td class="boxo" id="55">
                     
                 </td>
-                <td class="box" id="56">
+                <td class="boxo" id="56">
                     
                 </td>
-                <td class="box" id="57">
+                <td class="boxo" id="57">
                     
                 </td>
-                <td class="box" id="58">
+                <td class="boxo" id="58">
                     
                 </td>
-                <td class="box" id="59">
+                <td class="boxo" id="59">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>7</p></th>
-                <td class="box" id="60">
+                <td class="boxo" id="60">
                     
                 </td>
-                <td class="box" id="61">
+                <td class="boxo" id="61">
                     
                 </td>
-                <td class="box" id="62">
+                <td class="boxo" id="62">
                     
                 </td>
-                <td class="box" id="63">
+                <td class="boxo" id="63">
                     
                 </td>
-                <td class="box" id="64">
+                <td class="boxo" id="64">
                     
                 </td>
-                <td class="box" id="65">
+                <td class="boxo" id="65">
                     
                 </td>
-                <td class="box" id="66">
+                <td class="boxo" id="66">
                     
                 </td>
-                <td class="box" id="67">
+                <td class="boxo" id="67">
                     
                 </td>
-                <td class="box" id="68">
+                <td class="boxo" id="68">
                     
                 </td>
-                <td class="box" id="69">
+                <td class="boxo" id="69">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>8</p></th>
-                <td class="box" id="70">
+                <td class="boxo" id="70">
                     
                 </td>
-                <td class="box" id="71">
+                <td class="boxo" id="71">
                     
                 </td>
-                <td class="box" id="72">
+                <td class="boxo" id="72">
                     
                 </td>
-                <td class="box" id="73">
+                <td class="boxo" id="73">
                     
                 </td>
-                <td class="box" id="74">
+                <td class="boxo" id="74">
                     
                 </td>
-                <td class="box" id="75">
+                <td class="boxo" id="75">
                     
                 </td>
-                <td class="box" id="76">
+                <td class="boxo" id="76">
                     
                 </td>
-                <td class="box" id="77">
+                <td class="boxo" id="77">
                     
                 </td>
-                <td class="box" id="78">
+                <td class="boxo" id="78">
                     
                 </td>
-                <td class="box" id="79">
+                <td class="boxo" id="79">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>9</p></th>
-                <td class="box" id="80">
+                <td class="boxo" id="80">
                     
                 </td>
-                <td class="box" id="81">
+                <td class="boxo" id="81">
                     
                 </td>
-                <td class="box" id="82">
+                <td class="boxo" id="82">
                     
                 </td>
-                <td class="box" id="83">
+                <td class="boxo" id="83">
                     
                 </td>
-                <td class="box" id="84">
+                <td class="boxo" id="84">
                     
                 </td>
-                <td class="box" id="85">
+                <td class="boxo" id="85">
                     
                 </td>
-                <td class="box" id="86">
+                <td class="boxo" id="86">
                     
                 </td>
-                <td class="box" id="87">
+                <td class="boxo" id="87">
                     
                 </td>
-                <td class="box" id="88">
+                <td class="boxo" id="88">
                     
                 </td>
-                <td class="box" id="89">
+                <td class="boxo" id="89">
                     
                 </td>
             </tr>
             <tr>
                 <th class = "legend"><p>10</p></th>
-                <td class="box" id="90">
+                <td class="boxo" id="90">
                     
                 </td>
-                <td class="box" id="91">
+                <td class="boxo" id="91">
                     
                 </td>
-                <td class="box" id="92">
+                <td class="boxo" id="92">
                     
                 </td>
-                <td class="box" id="93">
+                <td class="boxo" id="93">
                     
                 </td>
-                <td class="box" id="94">
+                <td class="boxo" id="94">
                     
                 </td>
-                <td class="box" id="95">
+                <td class="boxo" id="95">
                     
                 </td>
-                <td class="box" id="96">
+                <td class="boxo" id="96">
                     
                 </td>
-                <td class="box" id="97">
+                <td class="boxo" id="97">
                     
                 </td>
-                <td class="box" id="98">
+                <td class="boxo" id="98">
                     
                 </td>
-                <td class="box" id="99">
+                <td class="boxo" id="99">
                     
                 </td>
             </tr>
