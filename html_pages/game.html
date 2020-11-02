@@ -115,9 +115,9 @@
             var isoverlap = check_overlap(shiplength, flipped, row, col);
             if(!isoverlap){
                 for(var i = 0;i<shiplength;i++){
-                var box = document.getElementById(rowid + colid);//
+                var box = document.getElementById(rowid + colid);
                 ship_coords[rowid][colid] = 1;
-                box.style.backgroundColor = "white"; //changes background to black
+                box.style.backgroundColor = "black"; 
                 box.innerHTML = 1;
                 if(horizontal){
                         colid++;
