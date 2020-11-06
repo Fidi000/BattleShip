@@ -24,6 +24,10 @@
         width: auto;
         text-align: center;
     }
+    .boxo:hover
+    {
+        background-color: lightgray;
+    }
     table{
         border-collapse: collapse;
     }
@@ -50,7 +54,7 @@
     }
     .ship_placement, .ship_placement_flip
     {
-        background-color: blue; /* Green */
+        background-color:#13284c; /* Green */
         border: none;
         color: white;
         text-align: center;
@@ -63,14 +67,13 @@
         border-radius: 12px;
     }
     .ship_placement:hover{
-        background-color: red;
+        background-color:#c41230;
     }
     .ship_placement_flip:hover{
-        background-color: red;
+        background-color: #c41230;
         transition: all 0.4s ease;
         transform: scaleY(-1);
     }
-
     .ship_table
     {
         width: 100%;
@@ -91,16 +94,18 @@
     }
     /*sidebar ship select*/
     .shipSelectMenu {
-	  height: 100%;
+	  height: 75%;
 	  width: 0;
 	  position: fixed;
 	  z-index: 1;
-	  top: 0;
+	  top: 100px;
 	  left: 0;
 	  background-color: lightgray;
 	  overflow-x: hidden;
 	  transition: 0.5s;
 	  padding-top: 60px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
 	}
 
 	.shipSelectMenu .closebtn {
@@ -108,25 +113,71 @@
 	  right: 25px;
 	  top: 0px;
 	  margin-left: 50px;
-	  font-size: 36px;
+      font-size: 25px;
+      text-decoration: none;
+      color: #13284c;
 	}
 
 	@media screen and (max-height: 450px) {
 	  .shipSelectMenu {padding-top: 15px;}
-	}
+    }
+
+    /*Tool Menu*/
+    /* .toolSelectMenu {
+	  height: 0px;
+	  width: 60%;
+	  position: fixed;
+	  z-index: 1;
+	  top: 85%;
+	  left: 0;
+	  background-color: lightgray;
+	  overflow-x: hidden;
+	  transition: 0.5s;
+	  padding-top: 60px;
+    }
+    
+
+
+	.toolSelectMenu .closebtn_tool {
+	  position: absolute;
+	  top: 0px;
+      font-size: 25px;
+      text-decoration: none;
+      color: #13284c;
+	} */
+
+
+
+
+
+
+
+
+
+
     /*Overlap Alert*/
     .overlap_warning {
-	  height: 10%;
+	  height: 50px;
 	  width: 0px;
 	  position: fixed;
       overflow: hidden;
 	  z-index: 2;
-	  top: 60%;
+	  top: 85%;
 	  left: 0;
-	  background-color: red;
+	  background-color:#c41230;
 	  transition: 0.5s;
       white-space: nowrap;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      text-align: center;
+      line-height: 1px;
 	}
+    #overlap_text
+    {
+        font-size: 25px;
+        
+    }
+
 
 </style>
 <script>
@@ -142,6 +193,7 @@
     var s_count = 1;
     var p_count = 1;
     var shipType = "";
+    var shipValue = 1;
     function set_boardvalues()//creates empty 2d array
     {
         for(var i = 0;i<10;i++){
@@ -188,7 +240,10 @@
                 var rowid = coords.charAt(0);
                 var colid = coords.charAt(1);
 
+                var color;
+                var value;
                 var flipped = false;
+                value = get_shipvalue(); //GETS VALUE FROM 1-7 for each ship so each ship has a unique id, when determing if it has been destroyed
                 if((col+shiplength)>10 && horizontal)
                     {
                         col = cols - shiplength;
@@ -206,9 +261,11 @@
 
                     for(var i = 0;i<shiplength;i++){
                     var box = document.getElementById(rowid + colid);
-                    ship_coords[rowid][colid] = 1;
-                    box.style.backgroundColor = "lightblue";
-                    box.innerHTML = 1;
+                                           
+                    color = getColor();
+                    ship_coords[rowid][colid] = value;
+                    box.style.backgroundColor = color;
+                    box.innerHTML = value;
                     if(horizontal){
                             colid++;
                         }
@@ -221,7 +278,6 @@
                 }
                 else {
                     displayOverlapAlert();
-                    //alert("SHIPS OVERLAPPING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     setTimeout(hideOverlapAlert, 2000);
                     
                 }
@@ -229,6 +285,63 @@
             }   
         }
     }
+
+    function getColor()
+    {
+        var ship_id = shipType.slice(-1);
+
+        if(ship_id == 'c')
+        {
+            return "red";
+        }
+        if(ship_id == 'b')
+        {
+            return "lightblue";
+        }
+        if(ship_id == 'd')
+        {
+            return "lightgreen";
+        }
+        if(ship_id == 's')
+        {
+            return "purple";
+        }
+        if(ship_id == 'p')
+        {
+            return "orange";
+        }
+        
+    }
+    function get_shipvalue()
+    {
+        return shipValue++;
+
+        /*
+        var ship_id = shipType.slice(-1);
+        if(ship_id == 'c')
+        {
+            return 1;
+        }
+        if(ship_id == 'b')
+        {
+            return 2;
+        }
+        if(ship_id == 'd')
+        {
+            return 3;
+        }
+        if(ship_id == 's')
+        {
+            return 4;
+        }
+        if(ship_id == 'p')
+        {
+            return 5;
+        }
+        */
+
+    }
+    
     function check_overlap(len, flipped, row, col)
     {
         var overlap = false;
@@ -242,7 +355,7 @@
             {
                 if(flipped) 
                 {
-                    if(ship_coords[row][flippedcol]==1) 
+                    if(ship_coords[row][flippedcol] > 0) 
                         {
                         return true;
                         }
@@ -253,7 +366,7 @@
                 }
                 else
                     {
-                        if(ship_coords[row][normalcol]==1) 
+                        if(ship_coords[row][normalcol] > 0) 
                         {
                             return true;
                         }
@@ -267,11 +380,11 @@
         else { 
             for(var i = 0;i<len;i++){
                 if(flipped){
-                    if(ship_coords[flippedrow][col]==1){ return true;}
+                    if(ship_coords[flippedrow][col] > 0){ return true;}
                     else{flippedrow++;}
                 }
                 else {
-                        if(ship_coords[normalrow][col]==1){return true;}
+                        if(ship_coords[normalrow][col] > 0){return true;}
                         else{ normalrow++;}
                     }
             }
@@ -456,6 +569,14 @@
 	}
 	function closeMenu() {
 	  document.getElementById("myshipSelectMenu").style.width = "0";
+      return false;
+    }
+    function open_toolMenu() {
+	  document.getElementById("mytoolSelectMenu").style.width = "250px";
+	}
+	function close_toolMenu() {
+	  document.getElementById("mytoolSelectMenu").style.width = "0";
+      return false;
     }
     function amountIsZero(){
         if (document.getElementById(shipType+'_Num').innerHTML > 0){
@@ -472,7 +593,9 @@
         if (amount == 0){
             document.getElementById(shipType).removeAttribute("onClick");
             document.getElementById(shipType).innerHTML="";
+            document.getElementById(shipType).disabled=true;
             document.getElementById(shipType).style.backgroundColor="lightgray";
+            document.getElementById(shipType).style.cursor= "default";
         }
     }
     function getShipType(id){
@@ -500,14 +623,14 @@
 
 <body onload="set_boardvalues()"> 
     <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
-		<div> <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a> </div> <!-- 'X' button-->
+        <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
 		<div id="controls" class="controls">
             <table id="ship_table" class="ship_table"> <!-- Table holding buttons/images/text-->
 
                 <!--Courier ship -->
                 
                 <tr>
-                    <td colspan="2" style="text-align: center;">Number of couriers:</td>
+                    <td colspan="2" style="text-align: center;">Number of Couriers:</td>
                 </tr>
                 <tr>
                     <td colspan="2"style="text-align: center;" id="placeship_c_Num">1</td>
@@ -584,7 +707,7 @@
     <div> <span style="font-size:30px;cursor:pointer" onclick="openMenu()">&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
 
     <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
-		<h1>SHIPS OVERLAPPING</h1>
+            <p id="overlap_text">SHIPS OVERLAPPING</p>
     </div>
     
 	
@@ -961,7 +1084,7 @@
 
     <div id="opp">
         <table class="opp" id="boardopp">
-            <caption>Your board</caption>
+            <caption>Opponent board</caption>
             <tbody>
             <th>
                 <td class="letters">
@@ -1329,11 +1452,16 @@
         </table>
     </div>
 
-    <div>
-        <p id="test">
-
-        </p>
+    <!-- <div id="myToolMenu" class="toolSelectMenu"> 
+        <div class="closebtn_div_tool"> <a href="#" class="closebtn_tool" onclick="closeMenu()">Close &times;</a> </div> 
+		<div id="controls_tool" class="controls_tool">
+            <table id="tool_table" class="tool_table"> 
+            </table>
+        </div>
+	  
     </div>
+    <div> <span style="font-size:30px;cursor:pointer" onclick="open_toolMenu()">&#9776; Open Tools</span> </div> clicking this opens side menu to select ships 
+     -->
     
 </body>
 
