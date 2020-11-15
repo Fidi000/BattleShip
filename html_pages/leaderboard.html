@@ -1,27 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
     <title>Leaderboard</title>
 </head>
 <style>
+#board{ 
+  margin-left:auto;
+  margin-right:auto;
+  width:900px;
+  height:600px;
+  overflow-y: scroll;
+  display:block;
+  border-collapse: collapse;
+}
+th{
+    padding:15px;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+}
+td{
+    border-top: 1px solid white;
+    color: white;
+    width: 25%;
+    padding: 10px;
+    text-align: center;
+    vertical-align:middle;
+    font-size: 20px;
+}
+html {
+    height: 100%;
+}
+body{
+    background-repeat: no-repeat;
+    background: linear-gradient(to bottom,#c41230, #13284c);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
+.top_menu{
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.top_menu a
+{
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+
+}
+.top_menu a:hover, a:focus
+{
+    
+    background-color:rgba(0,0,0,0.3);
+}
 
 </style>
+<script> 
+    var playerarray;
+    var legnth;
+    function createLeaderboard(){
+        var x = 0;
+        var leaderBoard = document.getElementById("leaderboard");
+        for (var i = 0; i < length; i++){
+            var row = leaderBoard.insertRow(-1);
+                var user = row.insertCell(-1);
+                var won = row.insertCell(-1);
+                var played = row.insertCell(-1);
+                var time = row.insertCell(-1);
+                user.innerHTML = playerarray[i]['username'];
+                won.innerHTML = playerarray[i]['gameswon'];
+                played.innerHTML = playerarray[i]['gamesplayed'];
+                time.innerHTML = playerarray[i]['timeplayed'];
+        }
+    }
+    function totalPlayers(){
+
+        //get size of database
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+          playerarray = JSON.parse(j.responseText);
+          length = playerarray.length;
+          createLeaderboard();
+        }
+    };
+    j.open('GET','../php_pages/leaderboard.php'); 
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send();
+    }
+</script>
 <header>
-    <div id="top_menu">
-        <ul class="navigate">
-            <li class="navigate"><a class ="navigate" href="menu.html">Menu</a></li>
-            <li class="navigate"><a class ="navigate" href="index.html">Home</a></li>
-            <li class="navigate"><a class ="navigate" href="leaderboard.html">Leaderboard</a></li>
-            <li class="navigate"><a class ="navigate" href="game.html">Play</a></li>
-            <li class="navigate"><a class ="navigate" href="help.html">Help</a></li>
-            <li class="navigate"><a class ="navigate" href="contact.html">Contact</a></li>
-        </ul>
+    <div class="top_menu">
+        <a class ="navigatea" href="index.html">Home</a>
+        <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
+        <a class ="navigatea" href="game.html">Play</a>
+        <a class ="navigatea" href="help.html">Help</a>
+        <a class ="navigatea" href="contact.html">Contact</a>
     </div>
 </header>
-
-<body>
+<body onload="totalPlayers()">
     <h1>Leaderboard</h1>
+    <div>
+    <table id="board">
+        <th>Name</th>
+        <th>Games Won</th>
+        <th>Games Played</th>
+        <th>Time Played</th>
+        <tbody id="leaderboard">
+        </tbody>
+    </table>
+</div>
 </body>
 
 

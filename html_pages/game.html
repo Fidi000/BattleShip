@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
     <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css"/>
     <script src="../js_pages/userboard.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -74,12 +73,27 @@
         }
         setTimeout(starttimer,1000);
     }
+    function check()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+          var check = j.responseText;
+          if(check==0){
+              alert("Not logged in");
+              location.replace("../html_pages/login.html");
+          }
+        }
+    };
+    j.open('POST','../php_pages/check.php'); 
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send();
+    }
 </script>
 
 <header>
     <div id="top_menu">
         <ul class="navigate">
-            <li class="navigate"><a class ="navigate" href="menu.html">Menu</a></li>
             <li class="navigate"><a class ="navigate" href="index.html">Home</a></li>
             <li class="navigate"><a class ="navigate" href="leaderboard.html">Leaderboard</a></li>
             <li class="navigate"><a class ="navigate" href="game.html">Play</a></li>
@@ -89,7 +103,8 @@
     </div>
 </header>
 
-<body onload="set_boardvalues(); starttimer();"> 
+<body onload="check();set_boardvalues(); starttimer();"> 
+    <div>
     <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
 		<div id="controls" class="controls">
@@ -927,7 +942,7 @@
     <div id="timerdiv">
         <p id="timer"></p>
     </div>
-    
+</div>  
 </body>
 
 

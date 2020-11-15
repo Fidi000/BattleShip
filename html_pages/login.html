@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
     <title>Menu</title>
 </head>
 <style>
@@ -42,23 +41,72 @@ form
 </style>
 <script>
 
-function login(){
-    //location.replace("../html_pages/game.html");
+function signup(){
+  var good;
+  var user = document.getElementById("username").value;
+  var pass = document.getElementById("password").value;
 
-    var user = document.getElementById("username").value;
-    var pass = document.getElementById("password").value;
-    var j = new XMLHttpRequest(); 
-    j.onreadystatechange = function () {
+  if(user != "" && pass != "")
+  {
+  var j = new XMLHttpRequest(); 
+  j.onreadystatechange = function () {
         if (j.readyState == 4 && j.status == 200) {
-            document.getElementById("test").innerHTML =  j.responseText;
+          good = j.responseText;
+          document.getElementById("test").innerHTML =  j.responseText;
+          if(good=="1")
+          {
+            location.replace("../html_pages/game.html");
+          }
         }
-    };
-    j.open('POST','login.php'); 
+  };
+    j.open('POST','../php_pages/signup.php'); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("u=" + user , "p=" + pass);
-   
+    j.send("u=" + user + "&" + "p=" + pass);
+  }
+  else
+  {
+    document.getElementById("test").innerHTML = "Empty fields";
+  }
+}
+function login(){
+  var good;
+  var user = document.getElementById("username").value;
+  var pass = document.getElementById("password").value;
+
+  if(user != "" && pass != "")
+  {
+    var j = new XMLHttpRequest(); 
+  j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+          good = j.responseText;
+          document.getElementById("test").innerHTML =  j.responseText;
+          if(good=="1")
+          {
+            location.replace("../html_pages/game.html");
+          }
+        }
+  };
+    j.open('POST','../php_pages/login.php'); 
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send("u=" + user + "&" + "p=" + pass);
+  }
+  else
+  {
+    document.getElementById("test").innerHTML = "Empty fields";
+  }
 }
 
+function logout()
+{
+  var j = new XMLHttpRequest(); 
+  j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+
+        }
+  };
+    j.open('GET','../php_pages/logout.php'); 
+    j.send();
+}
 
 </script>
 <header>
@@ -74,7 +122,6 @@ function login(){
 </header> 
 
 <body>
-
 <div id="whole">
     <form>
         <div class="imgcontainer">
@@ -82,13 +129,14 @@ function login(){
         </div>
         <div class="container">
           <label for="uname"><b></b></label>
-          <input type="text" placeholder="Enter Username" id="username"required>
+          <input type="text" placeholder="Enter Username" id="username" required>
           <br>
           <label for="psw"></label>
-          <input type="password" placeholder="Enter Password"  id="password"required>
+          <input type="password" placeholder="Enter Password"  id="password" required>
           <br>
           <button type="button" onclick="login()">Login</button>
-          <button type="button" onclick="login()">Sign Up</button>
+          <button type="button" onclick="signup()">Sign Up</button><br>
+          <button type="button" onclick="logout()">Log Out</button>
         </div>
       </form>
     </div>

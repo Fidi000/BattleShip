@@ -1,5 +1,4 @@
 <?php
-
 $servername = "localhost";
 $dbusername = "battleshipproject";
 $dbpassword = "ContWdeOTzAb3Seh";
@@ -23,26 +22,30 @@ $exists = $results->num_rows;
 
 if ($exists > 0)
 {
-    echo "1";
+  echo "Username already exists";
 }
 else
 {
-  echo "Username does not exist";
+  $sql = "INSERT INTO players (username, password)
+          VALUES ('$playerusername','$playerpassword');";
+  echo "1";
+  
 }
+
 
 if ($conn->query($sql) !== FALSE) {
   } 
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
-  
-if($exists==1)
-{
-    session_start();
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $playerusername;
 
-}
+  if($exists==0)
+  {
+      session_start();
+      $_SESSION['loggedin'] = true;
+      $_SESSION['username'] = $playerusername;
+  
+  }
 
 $conn->close();
 
