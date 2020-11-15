@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css_pages/nav_menu.css"/>
+    <title>Menu</title>
+</head>
+<style>
+input[type=text], input[type=password] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+}
+button {
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 15%;
+}
+.imgcontainer {
+  text-align: center;
+}
+img.avatar {
+  width: 5%;
+}
+.container {
+    margin: 0 auto;
+  padding: 16px;
+}
+form
+{
+    text-align: center;
+}
+
+#whole
+    {
+        margin-top: 10%;
+    }
+</style>
+<script>
+
+function login(){
+    //location.replace("../html_pages/game.html");
+
+    var user = document.getElementById("username").value;
+    var pass = document.getElementById("password").value;
+    var j = new XMLHttpRequest(); 
+    j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            document.getElementById("test").innerHTML =  j.responseText;
+        }
+    };
+    j.open('POST','login.php'); 
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send("u=" + user , "p=" + pass);
+   
+}
+
+
+</script>
+<header>
+    <div id="top_menu">
+        <ul class="navigate">
+            <li class="navigate"><a class ="navigate" href="index.html">Home</a></li>
+            <li class="navigate"><a class ="navigate" href="leaderboard.html">Leaderboard</a></li>
+            <li class="navigate"><a class ="navigate" href="game.html">Play</a></li>
+            <li class="navigate"><a class ="navigate" href="help.html">Help</a></li>
+            <li class="navigate"><a class ="navigate" href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</header> 
+
+<body>
+
+<div id="whole">
+    <form>
+        <div class="imgcontainer">
+          <img src="../images/paw.png" class="avatar">
+        </div>
+        <div class="container">
+          <label for="uname"><b></b></label>
+          <input type="text" placeholder="Enter Username" id="username"required>
+          <br>
+          <label for="psw"></label>
+          <input type="password" placeholder="Enter Password"  id="password"required>
+          <br>
+          <button type="button" onclick="login()">Login</button>
+          <button type="button" onclick="login()">Sign Up</button>
+        </div>
+      </form>
+    </div>
+    <div id="test">
+
+    </div>
+
+</body>
+
+
+
+
+
+</html>

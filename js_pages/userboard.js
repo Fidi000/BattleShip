@@ -11,7 +11,6 @@ var rows = 10;
     var p_count = 1;
     var shipType = "";
     var shipValue = 1;
-    //var enemy_coords = new Array(10);
     function set_boardvalues()//creates empty 2d array
     {
         for(var i = 0;i<10;i++){
@@ -23,7 +22,6 @@ var rows = 10;
             }
         }
         printboard();
-        //enemy_coords = ship_coords;
     }
     function printboard()
     {
