@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css"/>
     <script src="../js_pages/userboard.js"></script>
+    <script src="../js_pages/gamestart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Game</title>
 </head>
@@ -13,51 +14,13 @@
     }
 </style>
 <script>
+    window.onload = resetall;
     var seconds = "00";
     var minutes = 0;
-    var enemy_coords = ship_coords;
-    function make_op_board_clickable()
-    {
-        var boxes = document.getElementsByClassName("boxo");
-        for(var i = 0 ; i<boxes.length ;i++)
-        {
-            boxes[i].setAttribute("onclick","return_oppval(this.id)");
-        }
-    }
-
-    function remove_op_clickable()
-    {
-        var boxes = document.getElementsByClassName("boxo");
-        for(var i = 0 ; i<boxes.length ;i++)
-        {
-            boxes[i].removeAttribute("onclick");
-        }
-    }
-
-    function return_oppval(id) {
-        place_fire(id);
-        remove_op_clickable();
-    }
-
-    function place_fire(id)
-    {
-        var row = parseInt(id.charAt(1));
-        var col = parseInt(id.charAt(2));
-
-        var rowid = id.charAt(1);
-        var colid = id.charAt(2);
-
-        if(enemy_coords[row][col] > 0)
-        {
-            document.getElementById(id).innerHTML = '&#10006;'; //X
-        }
-        else
-        {
-            document.getElementById(id).innerHTML = '&#11044'; //O
-        }
-        
-        
-    }
+    var enemy_coords;
+    var invitename;
+    var x = 0;
+    
     function starttimer()
     {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
@@ -73,22 +36,63 @@
         }
         setTimeout(starttimer,1000);
     }
-    function check()
+    function make_op_board_clickable()
+    {
+        var boxes = document.getElementsByClassName("boxo");
+        for(var i = 0 ; i<boxes.length ;i++)
+        {
+            boxes[i].setAttribute("onclick","return_oppval(this.id)");
+        }
+    }
+    function remove_op_clickable()
+    {
+        var boxes = document.getElementsByClassName("boxo");
+        for(var i = 0 ; i<boxes.length ;i++)
+        {
+            boxes[i].removeAttribute("onclick");
+        }
+    }
+    function return_oppval(id) {
+        place_fire(id);
+        remove_op_clickable();
+    }
+    function place_fire(id)
+    {
+        var row = parseInt(id.charAt(1));
+        var col = parseInt(id.charAt(2));
+
+        var rowid = id.charAt(1);
+        var colid = id.charAt(2);
+
+        if(enemy_coords[row][col] > 0){
+            document.getElementById(id).innerHTML = '&#10006;'; //X
+        }else
+        {
+            document.getElementById(id).innerHTML = '&#11044'; //O
+        }
+    }
+
+    function myFunction()
+    {
+        return "asdasd";
+    }
+
+    function resetall()
     {
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
-        if (j.readyState == 4 && j.status == 200) {
-          var check = j.responseText;
-          if(check==0){
-              alert("Not logged in");
-              location.replace("../html_pages/login.html");
-          }
-        }
-    };
-    j.open('POST','../php_pages/check.php'); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
+    
+            if (j.readyState == 4 && j.status == 200) {
+                console.log(j.responseText);
+
+            }
+        };
+        j.open('POST','../php_pages/deleteall.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
     }
+
+
 </script>
 
 <header>
@@ -103,8 +107,8 @@
     </div>
 </header>
 
-<body onload="check();set_boardvalues(); starttimer();"> 
-    <div>
+<body onload="check();set_boardvalues(); starttimer();" onbeforeunload="return myFunction()" > 
+<div>
     <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
 		<div id="controls" class="controls">
@@ -192,7 +196,6 @@
     <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
             <p id="overlap_text">SHIPS OVERLAPPING</p>
     </div>
-    
 	
     <div id="user">
         <table class="user" id="boarduser">
@@ -567,7 +570,7 @@
 
     <div id="opp">
         <table class="opp" id="boardopp">
-            <caption>Opponent board</caption>
+            <caption id="enemycaption">Opponent board</caption>
             <tbody>
             <th>
                 <td class="letters">
@@ -935,14 +938,21 @@
         </table>
     </div>
 
-    <div id="fire">
-        <button id="firebutton" onclick="make_op_board_clickable()">FIRE!!!!!</button>
-    </div>
-
     <div id="timerdiv">
         <p id="timer"></p>
     </div>
-</div>  
+</div>
+
+<div id="fire">
+    <button id="firebutton" onclick="make_op_board_clickable()">FIRE!!!!!</button>
+</div>
+
+<button type="button" onclick="sendcoords()">ENTER COORDS/READY</button><br>
+<input type="text" id="enemyname" placeholder="enter play name to invite">
+
+<button type="button" onclick="getenemyboard()">FINDPLAYER</button><br>
+<button type="button" onclick="checkinvite()">STARTGAME</button>
+<div id="test"></div>
 </body>
 
 

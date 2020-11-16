@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>Leaderboard</title>
 </head>
 <style>
@@ -31,10 +32,15 @@ td{
 html {
     height: 100%;
 }
-body{
-    background-repeat: no-repeat;
-    background: linear-gradient(to bottom,#c41230, #13284c);
-}
+body {
+    height: 0%;
+    background-position: 50% 0%;
+        transition: background-color 1s ease;
+        background-color: #c41230; /* For browsers that do not support gradients */
+    }
+    body:hover{
+        background: #00235d;
+        }
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -104,6 +110,9 @@ body{
     }
 </script>
 <header>
+    
+</header>
+<body onload="totalPlayers()">
     <div class="top_menu">
         <a class ="navigatea" href="index.html">Home</a>
         <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
@@ -111,10 +120,7 @@ body{
         <a class ="navigatea" href="help.html">Help</a>
         <a class ="navigatea" href="contact.html">Contact</a>
     </div>
-</header>
-<body onload="totalPlayers()">
-    <h1>Leaderboard</h1>
-    <div>
+   
     <table id="board">
         <th>Name</th>
         <th>Games Won</th>
@@ -123,7 +129,7 @@ body{
         <tbody id="leaderboard">
         </tbody>
     </table>
-</div>
+
 </body>
 
 
