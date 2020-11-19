@@ -6,8 +6,9 @@ $dbusername = "battleshipproject";
 $dbpassword = "ContWdeOTzAb3Seh";
 $dbname = "accountinfo";
 
-$playerusername = $_SESSION['username'];
-$enemyusername =  $_SESSION['enemyusername'];
+
+
+
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
@@ -15,13 +16,28 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$deleteyou = "UPDATE players SET currentopponent='NULL', readytoplay='0', coords='0' WHERE username='$playerusername'";
-$delete_enemy = "UPDATE players SET currentopponent='NULL', readytoplay='0', coords='0' WHERE username='$enemyusername'";
 
-$conn->query($deleteyou);
+if(isset($_SESSION["username"]))
+{
+  $playerusername = $_SESSION['username'];
+  $deleteyou = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL WHERE username='$playerusername'";
+  $conn->query($deleteyou);
+}
 
-$conn->query($delete_enemy);
+if(isset($_SESSION["enemyusername"]))
+{
+  $enemyusername =  $_SESSION['enemyusername'];
+  $delete_enemy = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL WHERE username='$enemyusername'";
+  $conn->query($delete_enemy);
 
-unset($_SESSION['enemyusername']);
+}
+
+
+
+if(isset($_SESSION['enemyusername'])){
+  unset($_SESSION['enemyusername']);
+}
+
+$conn->close();
 
 ?>

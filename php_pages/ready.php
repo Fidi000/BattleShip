@@ -23,4 +23,7 @@ if ($conn->query($sql) !== FALSE) {}
 else {echo "Error: " . $sql . "<br>" . $conn->error;}
 
 echo "You are now ready to play";
+
+$conn->close();
+
 ?>

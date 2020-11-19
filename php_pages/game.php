@@ -51,4 +51,6 @@ else
 if ($conn->query($getdata) !== FALSE) {} 
 else {echo "Error: " . $getdata . "<br>" . $conn->error;}
 
+$conn->close();
+
 ?>

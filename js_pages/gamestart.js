@@ -21,7 +21,6 @@ function sendcoords()
     j.onreadystatechange = function () {
     if (j.readyState == 4 && j.status == 200) {
         document.getElementById("test").innerHTML = j.responseText;
-
         checkinvite();
     }
 };
