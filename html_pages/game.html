@@ -206,7 +206,22 @@
 
     function setturn()
     {
+        starttimer();
         //set the turn values to dictate rest of the game
+        document.getElementById("test").innerHTML = "Your turn";
+    }
+
+    function getsessionvariables() //possible functoin to get current session variables for client side use
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+
+            }
+        };
+        j.open('GET','../php_pages/getsession.php', true); 
+        j.send();
+
     }
 
 
@@ -224,7 +239,7 @@
     </div>
 </header>
 
-<body onload="check();set_boardvalues(); starttimer();" onbeforeunload="return myFunction()" > 
+<body onload="check();set_boardvalues();" onbeforeunload="return myFunction()" > 
 <div>
     <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->

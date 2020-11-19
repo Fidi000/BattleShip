@@ -106,7 +106,7 @@ var rows = 10;
                     {
                         box.style.borderRight = "1px solid black";
                     }
-            
+                    horizontal = true;
                     reduceAmount();
                     
                 }
