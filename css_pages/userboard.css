@@ -42,7 +42,7 @@ table{
 {
     width: 20px;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid black !important;
 }
 .ship_placement, .ship_placement_flip
 {

@@ -22,8 +22,8 @@
     window.onbeforeunload = resetall();
     var seconds = "00";
     var minutes = 0;
-    //var enemy_coords;
-    var enemy_coords = ship_coords; //for debugging
+    var enemy_coords;
+    //var enemy_coords = ship_coords; //for debugging
     var invitename;
     var x = 0;
 
@@ -94,8 +94,8 @@
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
                 enemy_coords = JSON.parse(j.responseText);
+                place_fire();
                 printenemyboard();
-                //console.log(j.responseText);
                 var hitormiss = check_destroy();
                 if(hitormiss==1)
                 {
