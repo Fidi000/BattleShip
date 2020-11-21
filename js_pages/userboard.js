@@ -83,7 +83,7 @@ var rows = 10;
                     box.innerHTML = value;
                     if(horizontal){
                             colid++;
-                            console.log(colid);
+     
                             if(rowid==9)
                             {
                                 box.style.borderBottom = "1px solid black";
@@ -91,7 +91,7 @@ var rows = 10;
                         }
                     else{
                             rowid++;
-                            console.log(rowid);
+       
                             if(colid==9)
                             {
                                 box.style.borderRight = "1px solid black";

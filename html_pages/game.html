@@ -8,9 +8,10 @@
     <title>Game</title>
 </head>
 <style>
+    
     .boxo
     {
-        color: red;
+        color: black;
     }
     html{
         background-color: white;
@@ -19,14 +20,21 @@
 </style>
 <script>
     window.onload = resetall();
-    window.onbeforeunload = resetall();
+
+    window.addEventListener('beforeunload',(event) =>{
+        resetall();
+});
+
+
+
+
     var seconds = "00";
     var minutes = 0;
     var enemy_coords;
     //var enemy_coords = ship_coords; //for debugging
     var invitename;
     var x = 0;
-
+    //! 
     var ship1= false;
     var ship2= false;
     var ship3= false;
@@ -35,7 +43,7 @@
     var ship6= false;
     var ship7= false;
     
-    var totalship = 1;
+    var totalship = 7;
     function starttimer()
     {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
@@ -75,7 +83,6 @@
     {
         var row = parseInt(id.charAt(1));
         var col = parseInt(id.charAt(2));
-
         var rowid = id.charAt(1);
         var colid = id.charAt(2);
 
@@ -94,9 +101,8 @@
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
                 enemy_coords = JSON.parse(j.responseText);
-                place_fire();
-                printenemyboard();
                 var hitormiss = check_destroy();
+                console.log(enemy_coords);
                 if(hitormiss==1)
                 {
                     console.log("ship destroyed");
@@ -105,9 +111,9 @@
                     {
                         endgame();
                     }
-                }
-                
+                } 
             }
+    
         };
         j.open('POST','../php_pages/fire.php', true); 
         j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -115,6 +121,7 @@
     }
     function endgame()
     {
+        console.log("game done");
         document.getElementById("test").innerHTML = "game done"
     }
     function check_destroy()
@@ -179,12 +186,55 @@
 
         return 0;
     }
-
+    function updateyourboard()//right now its called on startgame button, but should be called when it becomes your turn again
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            ship_coords = JSON.parse(j.responseText);
+            console.log(ship_coords);
+            printupdatedboard();
+            setTimeout(updateyourboard,1000);
+        }
+        
+    };
+        j.open('GET','../php_pages/updateyourboard.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
+    }
+    function printupdatedboard()
+    {
+        for(var i = 0;i<10;i++){
+            for(var j = 0;j<10;j++){
+                if(ship_coords[i][j] == -1)
+                {
+                    var row = String(i);
+                    var col = String(j);
+                    var box = document.getElementById(row+col);
+                    box.style.backgroundColor = "black";
+                    box.innerHTML = "";
+                }
+                
+            }
+            
+        }
+        
+    
+    }
 
     function ismiss(id)
     {
         console.log("Miss");
         console.log(id);
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                enemy_coords = JSON.parse(j.responseText);
+            }
+        };
+        j.open('POST','../php_pages/fire.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("torpedo=" + id);
     }
 
     function myFunction()
@@ -211,7 +261,7 @@
         document.getElementById("test").innerHTML = "Your turn";
     }
 
-    function getsessionvariables() //possible functoin to get current session variables for client side use
+    function getsessionvariables() //possible function to get current session variables for client side use
     {
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
@@ -1079,11 +1129,11 @@
     <button id="firebutton" onclick="make_op_board_clickable()">FIRE!!!!!</button>
 </div>
 
-<button type="button" onclick="sendcoords()">ENTER COORDS/READY</button><br>
+<button type="button" onclick="sendcoords()">READY</button><br>
 <input type="text" id="enemyname" placeholder="enter play name to invite">
 
 <button type="button" onclick="getenemyboard()">FINDPLAYER</button><br>
-<button type="button" onclick="setturn()">STARTGAME</button>
+<button type="button" onclick="setturn();updateyourboard();">STARTGAME</button>
 <div id="test"></div>
 </body>
 

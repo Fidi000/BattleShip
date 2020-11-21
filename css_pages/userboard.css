@@ -64,7 +64,6 @@ table{
 .ship_placement_flip:hover{
     background-color: #c41230;
     transition: all 0.4s ease;
-    transform: scaleY(-1);
 }
 .ship_table
 {
