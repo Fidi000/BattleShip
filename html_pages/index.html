@@ -1,28 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css_pages/top_menu.css"/>
-    <title>Welcome</title>
+    <title>Home Page</title>
 </head>
 <style>
-    
+    #menu
+    {
+        position: fixed;
+        top: 35%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -150px;
+    }
+    .navigate
+    {
+        width: 150px;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #ffffff;
+        padding: 20px;
+        border: 4px solid #13284c !important;
+        display: inline-block;
+        transition: all 0.4s ease 0s;
+    }
+    .navigate:hover {
+        color:white !important;
+        background:#00235d;
+        border-color: white !important;
+        transition: all 0.4s ease 0s;
+    }
+    li{
+        margin:0 0 10px 0;
+    }
+    body {
+        background-position: 50% 0%;
+        background-image: url('../images/bulldog.png');
+        background-repeat: no-repeat;
+        transition: background-color 1s ease;
+        background-color: #c41230; /* For browsers that do not support gradients */
+    }
+    body:hover
+    {
+        background-color: #00235d;
+    }
+    a:link {
+        color: black;
+        }
+    a:visited {
+        color: black;
+        }
+    #whole
+    {
+        
+    }
 </style>
 <header>
-    <div id="top_menu">
-        <ul class="navigate">
-            <li class="navigate"><a class ="navigate" href="index.html">Home</a></li>
-            <li class="navigate"><a class ="navigate" href="leaderboard.html">Leaderboard</a></li>
-            <li class="navigate"><a class ="navigate" href="game.html">Play</a></li>
-            <li class="navigate"><a class ="navigate" href="help.html">Help</a></li>
-            <li class="navigate"><a class ="navigate" href="contact.html">Contact</a></li>
-        </ul>
-    </div>
+    
 </header>
 
 <body>
-    <h1>Welcome</h1>
+    <div id="menu">
+        <ul style="list-style-type: none;">
+            <li><a class ="navigate" href="login.html">Account</a></li>
+            <li><a class ="navigate" href="game.html">Play</a></li>
+            <li><a class ="navigate" href="leaderboard.html">Leaderboard</a></li>
+            <li><a class ="navigate" href="help.html">Help</a></li>
+            <li><a class ="navigate" href="contact.html">Contact</a></li>
+        </ul>
+</div>
 </body>
-
 
 
 

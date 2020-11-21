@@ -11,7 +11,6 @@ var rows = 10;
     var p_count = 1;
     var shipType = "";
     var shipValue = 1;
-    //var enemy_coords = new Array(10);
     function set_boardvalues()//creates empty 2d array
     {
         for(var i = 0;i<10;i++){
@@ -23,7 +22,6 @@ var rows = 10;
             }
         }
         printboard();
-        //enemy_coords = ship_coords;
     }
     function printboard()
     {
@@ -77,19 +75,38 @@ var rows = 10;
                 if(!isoverlap){
 
                     for(var i = 0;i<shiplength;i++){
-                    var box = document.getElementById(rowid + colid);
-                                           
+                    var box = document.getElementById(rowid + colid);  
                     color = getColor();
                     ship_coords[rowid][colid] = value;
                     box.style.backgroundColor = color;
+                    box.style.borderStyle = "none";
                     box.innerHTML = value;
                     if(horizontal){
                             colid++;
+     
+                            if(rowid==9)
+                            {
+                                box.style.borderBottom = "1px solid black";
+                            }
                         }
                     else{
                             rowid++;
+       
+                            if(colid==9)
+                            {
+                                box.style.borderRight = "1px solid black";
+                            }
                         }
                     }
+                    if(rowid==10)
+                    {
+                        box.style.borderBottom = "1px solid black";
+                    }
+                    if(colid==10)
+                    {
+                        box.style.borderRight = "1px solid black";
+                    }
+                    horizontal = true;
                     reduceAmount();
                     
                 }
@@ -276,7 +293,6 @@ var rows = 10;
                             rowid = row;
                             flipped = true;
                             var isoverlap = check_overlap(shiplength,flipped,row,col);
-                            console.log(isoverlap);
                             if(!isoverlap)
                             {
                                 $("#" + rowid + colid).each(function()
@@ -290,7 +306,6 @@ var rows = 10;
                         else{
                             flipped = false;
                             var isoverlap = check_overlap(shiplength, flipped, row, col);
-                            console.log(isoverlap);
                             if(!isoverlap)
                             {
                                 $("#" + rowid + colid).each(function()
