@@ -22,12 +22,12 @@ function sendcoords()
     if (j.readyState == 4 && j.status == 200) {
         document.getElementById("test").innerHTML = j.responseText;
         checkinvite();
+        removereadybutton();
     }
 };
     j.open('POST','../php_pages/ready.php', true); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("coords=" + test); 
-
 }
 function getenemyboard()
 {
@@ -42,6 +42,9 @@ function getenemyboard()
         }
         else
         {
+            hidefinddiv();
+   
+            invite_got=true;
             enemy_coords = returnedarray;
             printenemyboard();
         }
@@ -54,26 +57,34 @@ function getenemyboard()
 }
 function checkinvite()
 {
-    var invited;
-    var j = new XMLHttpRequest(); 
-    j.onreadystatechange = function () {
-    if (j.readyState == 4 && j.status == 200) {
-        invited = JSON.parse(j.responseText);
-        if(invited==0)
-        {
-            setTimeout(checkinvite,1000);
+    if(!invite_got)
+    {
+        var invited;
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            invited = JSON.parse(j.responseText);
+            if(invited==0)
+            {
+                setTimeout(checkinvite,1000);
+            }
+            else
+            {
+                invite_got = true;
+                removereadybutton();
+                hidefinddiv();
+                hidestart();
+                checkturn();
+                updateyourboard();
+                enemy_coords = invited;
+                printenemyboard();
+            }
         }
-        else
-        {
-            enemy_coords = invited;
-            printenemyboard();
-        }
+    };
+        j.open('POST','../php_pages/checkinvite.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
     }
-    
-};
-    j.open('POST','../php_pages/checkinvite.php', true); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
 }
 function printenemyboard()
 {

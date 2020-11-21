@@ -20,14 +20,14 @@ if ($conn->connect_error) {
 if(isset($_SESSION["username"]))
 {
   $playerusername = $_SESSION['username'];
-  $deleteyou = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL WHERE username='$playerusername'";
+  $deleteyou = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL, turn='0' WHERE username='$playerusername'";
   $conn->query($deleteyou);
 }
 
 if(isset($_SESSION["enemyusername"]))
 {
   $enemyusername =  $_SESSION['enemyusername'];
-  $delete_enemy = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL WHERE username='$enemyusername'";
+  $delete_enemy = "UPDATE players SET currentopponent=NULL, readytoplay='0', coords=NULL, turn='0' WHERE username='$enemyusername'";
   $conn->query($delete_enemy);
 
 }
