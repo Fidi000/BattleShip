@@ -77,7 +77,7 @@ function checkinvite()
                 checkturn();
                 updateyourboard();
                 enemy_coords = invited;
-                printenemyboard();
+                // printenemyboard();
             }
         }
     };

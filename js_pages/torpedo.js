@@ -189,7 +189,8 @@ var totalship = 7;
                     var row = String(i);
                     var col = String(j);
                     var box = document.getElementById(row+col);
-                    box.style.backgroundColor = "black";
+                    //box.style.backgroundColor = "black";
+                    box.style.backgroundImage = "url('../images/destroyed.png')";
                     box.innerHTML = "";
                 }
                 

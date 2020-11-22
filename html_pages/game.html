@@ -46,6 +46,35 @@
     background-color:rgba(0,0,0,0.3);
     width: 6%;
 }
+.torpedobuttons {
+    width: 250px; 
+    height: 30px;
+    border-radius: 12px;
+    transition: ease 0.5s;
+    cursor: pointer;
+    
+}
+.torpedobuttons:hover {
+    background-color: #c41230;
+}
+.nameinput {
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline-width: 0;
+    width: 242px;
+    height: 30px;
+}
+.toolbuttonsdiv {
+    margin-top: 34%;
+    margin-left: 45%;
+    width: 50%;
+
+}
+
+#fire, #readydiv, #findplayerdiv, #startdiv {
+    width: 300px;
+}
 
 </style>
 <script>
@@ -249,7 +278,7 @@
         </div>
 	  
     </div>
-    <div> <span style="font-size:30px;cursor:pointer" onclick="openMenu()">&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
+    <div> <span style="font-size:30px;cursor:pointer" onclick="openMenu()" >&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
 
     <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
             <p id="overlap_text">SHIPS OVERLAPPING</p>
@@ -258,40 +287,42 @@
     <div id="user">
         <table class="user" id="boarduser">
             <caption>Your board</caption>
-            <tbody>
-            <th>
-                <td class="letters">
-                    <p>A</p>
-                </td>
-                <td class="letters">
-                    <p>B</p>
-                </td>
-                <td class="letters">
-                    <p>C</p>
-                </td>
-                <td class="letters">
-                    <p>D</p>
-                </td>
-                <td class="letters">
-                    <p>E</p>
-                </td>
-                <td class="letters">
-                    <p>F</p>
-                </td>
-                <td class="letters"> 
-                    <p>G</p>
-                </td>
-                <td class="letters"> 
-                    <p>H</p>
-                </td>
-                <td class="letters">
-                    <p>I</p>
-                </td>
-                <td class="letters">
-                    <p>J</p>
-                </td>
-                
-            </th>
+            <thead>
+                <th class="topleftthing">
+                    <td class="letters">
+                        <p>A</p>
+                    </td>
+                    <td class="letters">
+                        <p>B</p>
+                    </td>
+                    <td class="letters">
+                        <p>C</p>
+                    </td>
+                    <td class="letters">
+                        <p>D</p>
+                    </td>
+                    <td class="letters">
+                        <p>E</p>
+                    </td>
+                    <td class="letters">
+                        <p>F</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>G</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>H</p>
+                    </td>
+                    <td class="letters">
+                        <p>I</p>
+                    </td>
+                    <td class="letters">
+                        <p>J</p>
+                    </td>
+                    
+                </th>
+            </thead>
+            <tbody class="testbody">
             <tr>
                 <th class = "legend"><p>1</p></th> 
                 <td class="box" id="00">
@@ -629,40 +660,42 @@
     <div id="opp">
         <table class="opp" id="boardopp">
             <caption id="enemycaption">Opponent board</caption>
-            <tbody>
-            <th>
-                <td class="letters">
-                    <p>A</p>
-                </td>
-                <td class="letters">
-                    <p>B</p>
-                </td>
-                <td class="letters">
-                    <p>C</p>
-                </td>
-                <td class="letters">
-                    <p>D</p>
-                </td>
-                <td class="letters">
-                    <p>E</p>
-                </td>
-                <td class="letters">
-                    <p>F</p>
-                </td>
-                <td class="letters"> 
-                    <p>G</p>
-                </td>
-                <td class="letters"> 
-                    <p>H</p>
-                </td>
-                <td class="letters">
-                    <p>I</p>
-                </td>
-                <td class="letters">
-                    <p>J</p>
-                </td>
-                
-            </th>
+            <thead>
+                <th class="topleftthing">
+                    <td class="letters">
+                        <p>A</p>
+                    </td>
+                    <td class="letters">
+                        <p>B</p>
+                    </td>
+                    <td class="letters">
+                        <p>C</p>
+                    </td>
+                    <td class="letters">
+                        <p>D</p>
+                    </td>
+                    <td class="letters">
+                        <p>E</p>
+                    </td>
+                    <td class="letters">
+                        <p>F</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>G</p>
+                    </td>
+                    <td class="letters"> 
+                        <p>H</p>
+                    </td>
+                    <td class="letters">
+                        <p>I</p>
+                    </td>
+                    <td class="letters">
+                        <p>J</p>
+                    </td>
+                    
+                </th>
+            </thead>
+            <tbody class="testbody">
             <tr>
                 <th class = "legend"><p>1</p></th> 
                 <td class="boxo" id="o00">
@@ -1000,24 +1033,25 @@
         <p id="timer"></p>
     </div>
 </div>
+<!-- MAKE STYLE DISAPLY NONE WHEN DONE WITH CSS -->
+<div class="toolbuttonsdiv">
+    <div id="fire">
+        <button id="firebutton" onclick="make_op_board_clickable()" class="torpedobuttons" style="display: none;">FIRE</button> 
+    </div>
 
-<div id="fire">
-    <button id="firebutton" style="display:none;" onclick="make_op_board_clickable()">FIRE</button>
+    <div id="readydiv">
+        <button type="button" id="readybutton"  onclick="sendcoords()" class="torpedobuttons">READY</button><br>
+    </div>
+
+    <div id="findplayerdiv" style="display: none;">
+        <input type="text" id="enemyname" placeholder="Enter player name to invite" class="nameinput"><br>
+        <button type="button" id="findPlayer" onclick="getenemyboard()" class="torpedobuttons">FINDPLAYER</button><br>
+    </div>
+
+    <div id="startdiv" >
+        <button type="button" id="startButton"onclick="initialturn();updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;">STARTGAME</button>
+    </div>
 </div>
-
-<div id="readydiv">
-    <button type="button" id="readybutton"  onclick="sendcoords()" class="torpedobuttons">READY</button><br>
-</div>
-
-<div id="findplayerdiv" style="display: none;">
-    <input type="text" id="enemyname" placeholder="enter play name to invite" class="torpedobuttons"><br>
-    <button type="button" id="findPlayer" onclick="getenemyboard()" class="torpedobuttons">FINDPLAYER</button><br>
-</div>
-
-<div id="startdiv" >
-    <button type="button" id="startButton"onclick="initialturn();updateyourboard();hidestart();checkturn();"style="display:none;" class="torpedobuttons">STARTGAME</button>
-</div>
-
 <div id="test"></div>
 </body>
 

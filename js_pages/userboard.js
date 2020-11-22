@@ -21,7 +21,7 @@ var rows = 10;
                 ship_coords[i][j] = 0; 
             }
         }
-        printboard();
+        //printboard();
     }
     function printboard()
     {
@@ -84,28 +84,28 @@ var rows = 10;
                     if(horizontal){
                             colid++;
      
-                            if(rowid==9)
-                            {
-                                box.style.borderBottom = "1px solid black";
-                            }
+                            // if(rowid==9)
+                            // {
+                            //     box.style.borderBottom = "1px solid black";
+                            // }
                         }
                     else{
                             rowid++;
        
-                            if(colid==9)
-                            {
-                                box.style.borderRight = "1px solid black";
-                            }
+                            // if(colid==9)
+                            // {
+                            //     box.style.borderRight = "1px solid black";
+                            // }
                         }
                     }
-                    if(rowid==10)
-                    {
-                        box.style.borderBottom = "1px solid black";
-                    }
-                    if(colid==10)
-                    {
-                        box.style.borderRight = "1px solid black";
-                    }
+                    // if(rowid==10)
+                    // {
+                    //     box.style.borderBottom = "1px solid black";
+                    // }
+                    // if(colid==10)
+                    // {
+                    //     box.style.borderRight = "1px solid black";
+                    // }
                     horizontal = true;
                     reduceAmount();
                     
@@ -426,7 +426,7 @@ var rows = 10;
             document.getElementById(shipType).removeAttribute("onClick");
             document.getElementById(shipType).innerHTML="";
             document.getElementById(shipType).disabled=true;
-            document.getElementById(shipType).style.backgroundColor="lightgray";
+            document.getElementById(shipType).style.backgroundColor= "transparent";
             document.getElementById(shipType).style.cursor= "default";
         }
     }

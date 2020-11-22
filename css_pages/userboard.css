@@ -4,6 +4,11 @@
     margin-left: auto;
     margin-right: 25px;
 }
+.testbody {
+    background: url("../images/water.gif");
+    background-repeat: none;
+    background-size: cover;
+}
 #boardopp{
     width: 600px;
     height: 600px;
@@ -15,10 +20,16 @@
     height: auto;
     width: auto;
     text-align: center;
+    
 }
-.boxo:hover
+.box {
+    border: none;
+    color: white;
+
+}
+.boxo
 {
-    background-color: lightgray;
+    cursor: url("../images/crosshair.png") 10 10, auto;
 }
 table{
     border-collapse: collapse;
@@ -33,16 +44,27 @@ table{
     height: 50%;
     float:right;
 }
+.topleftthing {
+    background: transparent !important;
+    background-image: none !important;
+    background-color: white !important;
+}
 .legend
 {
+    background: transparent !important;
+    background-image: none !important;
+    background-color: white !important;
     width: 20px;
-    border-right: 1px solid black;
+    /* border-right: 1px solid black; */
 }
 .letters
 {
+    background: transparent !important;
+    background-image: none !important;
+    background-color: white !important;
     width: 20px;
     text-align: center;
-    border-bottom: 1px solid black !important;
+    /* border-bottom: 1px solid black !important; */
     font-weight: bold;
 }
 .ship_placement, .ship_placement_flip
@@ -58,25 +80,31 @@ table{
     cursor: pointer;
     padding: 10px 10px;
     border-radius: 12px;
+    width: 65%;
 }
 .ship_placement:hover{
-    background-color:#c41230;
+    width: 80%;
+    color: black;
+    background-color: white;
     transition: all 0.4s ease;
 }
 .ship_placement_flip:hover{
-    background-color: #c41230;
+    width: 80%;
+    color: black;
+    background-color: white;
     
 }
 .ship_table
 {
     width: 100%;
-    height: 80%;
+    height: 100%;
     border-collapse: separate;
-    border-spacing: 0px 5px !important;
+    border-spacing: 0px 7px !important;
     
 }
 .shipsleft{
     font-weight: bold;
+    font-size: large;
 }
 .ship_button{
     height: auto;
@@ -93,13 +121,13 @@ table{
 }
 /*sidebar ship select*/
 .shipSelectMenu {
-  height: 75%;
+  height: 100%;
   width: 0;
   position: fixed;
   z-index: 1;
   top: 100px;
   left: 0;
-  background-color: lightgray;
+  background-color: rgba(196, 18, 14, 0.8);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -110,12 +138,18 @@ table{
 .shipSelectMenu .closebtn {
   position: absolute;
   right: 25px;
-  top: 0px;
+  top: 15px;
   margin-left: 50px;
   font-size: 25px;
   text-decoration: none;
   color: #13284c;
+  border-bottom: 2px solid black;
 }
+
+.openshipsbtn {
+    border-bottom: 2px solid black;
+}
+
 
 @media screen and (max-height: 450px) {
   .shipSelectMenu {padding-top: 15px;}
@@ -143,10 +177,3 @@ table{
     
 }
 
-.torpedobuttons {
-    position: absolute;
-    margin-top: 35%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 15%;
-}
