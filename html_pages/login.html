@@ -21,9 +21,8 @@ button {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
   width: 15%;
-  transition: ease 0.5s;
+ 
 }
 .imgcontainer {
   text-align: center;
@@ -51,13 +50,29 @@ body {
 .loginbutton {
   border: 1px solid white;
   background-color: #13284c;
+  transition: ease 0.25s;
 }
-.signupbutton, .logoutbutton {
+.signupbutton {
   border: 1px solid white;
   background-color: #c41230;
+  transition: ease 0.25s;
+}
+.logoutbutton {
+  border: 1px solid white;
+  background-color: transparent;
+  width: 10%;
+  position:absolute;
+  top:0;
+  right:0;
+
+} 
+.logoutbutton:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.75;
 }
 
-.loginbutton:hover, .signupbutton:hover, .logoutbutton:hover {
+.loginbutton:hover, .signupbutton:hover {
   color:black !important;
   background: white;
   border-color: black !important;

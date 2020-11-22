@@ -12,7 +12,6 @@
     html *
     {
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-        background-color: darkorange;
     }
     .boxo
     {
@@ -42,7 +41,7 @@
     transition: ease 0.5s;
 
 }
-.top_menu a:hover, a:focus
+.top_menu a:hover, .top_menu a:focus
 {
     background-color:rgba(0,0,0,0.3);
     width: 6%;
@@ -174,14 +173,12 @@
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
 		<div id="controls" class="controls">
             <table id="ship_table" class="ship_table"> <!-- Table holding buttons/images/text-->
-
                 <!--Courier ship -->
-                
                 <tr>
                     <td colspan="2" style="text-align: center;">Number of Couriers:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_c_Num">1</td>
+                    <td colspan="2"style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="../images/5.png" width="200px" height="25px"  class="ship_image"></td>
@@ -197,7 +194,7 @@
                     <td colspan="2" style="text-align: center;">Number of Battleships:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_b_Num">1</td>
+                    <td colspan="2"style="text-align: center;" id="placeship_b_Num" class="shipsleft">1</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="../images/4.png" width="160px" height="25px"  class="ship_image"></td>
@@ -211,7 +208,7 @@
                     <td colspan="2" style="text-align: center;">Number of Destroyers:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_d_Num">2</td>
+                    <td colspan="2"style="text-align: center;" id="placeship_d_Num" class="shipsleft">2</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
@@ -225,7 +222,7 @@
                     <td colspan="2" style="text-align: center;">Number of Submarines:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_s_Num">2</td>
+                    <td colspan="2"style="text-align: center;" id="placeship_s_Num" class="shipsleft">2</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
@@ -239,7 +236,7 @@
                     <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_p_Num">1</td>
+                    <td colspan="2"style="text-align: center;" id="placeship_p_Num" class="shipsleft">1</td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="../images/2.png" width="80px" height="25px"  class="ship_image"></td>
@@ -1009,16 +1006,16 @@
 </div>
 
 <div id="readydiv">
-    <button type="button" id="readybutton"  onclick="sendcoords()">READY</button><br>
+    <button type="button" id="readybutton"  onclick="sendcoords()" class="torpedobuttons">READY</button><br>
 </div>
 
 <div id="findplayerdiv" style="display: none;">
-    <input type="text" id="enemyname" placeholder="enter play name to invite">
-    <button type="button" id="findPlayer" onclick="getenemyboard()">FINDPLAYER</button><br>
+    <input type="text" id="enemyname" placeholder="enter play name to invite" class="torpedobuttons"><br>
+    <button type="button" id="findPlayer" onclick="getenemyboard()" class="torpedobuttons">FINDPLAYER</button><br>
 </div>
 
 <div id="startdiv" >
-    <button type="button" id="startButton"onclick="initialturn();updateyourboard();hidestart();checkturn();"style="display:none;">STARTGAME</button>
+    <button type="button" id="startButton"onclick="initialturn();updateyourboard();hidestart();checkturn();"style="display:none;" class="torpedobuttons">STARTGAME</button>
 </div>
 
 <div id="test"></div>
