@@ -6,9 +6,6 @@ var ship5= false;
 var ship6= false;
 var ship7= false;
 
-var totalship = 7;
-
-
     function starttimer()
     {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
@@ -32,18 +29,7 @@ var totalship = 7;
             boxes[i].setAttribute("onclick","return_oppval(this.id);setturn();");
         }
     }
-    // function nexturn()
-    // {
-    //     var j = new XMLHttpRequest(); 
-    //     j.onreadystatechange = function () {
-    //         if (j.readyState == 4 && j.status == 200) {
-    //             console.log(j.responseText);
-    //         }
-    //     };
-    //     j.open('POST','../php_pages/turns.php', true); 
-    //     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    //     j.send();
-    // }
+
     function remove_op_clickable()
     {
         var boxes = document.getElementsByClassName("boxo");
@@ -82,11 +68,12 @@ var totalship = 7;
                 console.log(enemy_coords);
                 if(hitormiss==1)
                 {
+                    //TODO EDIT OVERLAP WARNING TEXT TO DISPLAY SHIP DESTROYED AGAIN
                     console.log("ship destroyed");
                     totalship--;
                     if(totalship==0)
                     {
-                        endgame();
+                        endthegame();
                     }
                 } 
             }
@@ -96,11 +83,7 @@ var totalship = 7;
         j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         j.send("torpedo=" + id);
     }
-    function endgame()
-    {
-        console.log("game done");
-        document.getElementById("test").innerHTML = "game done"
-    }
+
     function check_destroy()
     {
         if(!ship1)

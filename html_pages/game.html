@@ -90,17 +90,8 @@
     var invitename;
     var x = 0;
     var enemyname;
-    function getenemyname()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                document.getElementById("enemycaption") = j.responseText + "'s Board";
-            }
-        };
-        j.open('GET','../php_pages/getname.php', true); 
-        j.send();
-    }
+    var totalship = 1;
+    var gameisdone = false;
     function removereadybutton()
     {
         var readyButtn = document.getElementById("readybutton");
@@ -138,7 +129,7 @@
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                console.log(j.responseText);
+                //console.log(j.responseText);
                 checkturn();
             }
         };
@@ -152,7 +143,7 @@
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                console.log(j.responseText);
+                //console.log(j.responseText);
             }
         };
         j.open('POST','../php_pages/initialturn.php', true); 
@@ -160,18 +151,50 @@
         j.send();
 
     }
+    function checkifgamedone()
+    {
+        if(totalship==0)
+        {
+            endthegame();
+        }
+    }
+    function endthegame()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                //console.log(j.responseText);
+                
+            }
+        };
+        j.open('GET','../php_pages/gameover.php', true); 
+        j.send();   
+    }
+    function getenemyname()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                document.getElementById("enemycaption") = j.responseText + "'s Board";
+            }
+        };
+        j.open('GET','../php_pages/getname.php', true); 
+        j.send();
+    }
     function checkturn()
     {
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                console.log(j.responseText);
+                //console.log(j.responseText);
                 if(j.responseText==1)
                 {
+                    constantcheckforgamedone();
                     allowfire();
                 }
                 else if(j.responseText==0)
                 {
+                    checkifgamedone();
                     hidefire();
                     setTimeout(checkturn, 1000);
                 }
@@ -182,6 +205,70 @@
         j.send();
  
     }
+    function constantcheckforgamedone()
+    {
+        if(!gameisdone)
+        {
+            var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                //console.log(j.responseText);
+                if(j.responseText==1)
+                {
+                    hidefire();
+                    //do someting else
+                    displayOverlapAlert("YOU WON I THINK IDK");
+                    setTimeout(hideOverlapAlert, 5000);
+                    addgameswon();
+                    gameisdone = true;
+
+                }
+                else if(j.responseText==2)
+                {
+                    hidefire();
+                    displayOverlapAlert("YOU LOST I THINK YOU SUCK");
+                    setTimeout(hideOverlapAlert, 5000);
+                    addgamesplayed();
+                    gameisdone = true;
+                }
+                else if(j.responseText==0)
+                {
+                    
+                    setTimeout(constantcheckforgamedone, 1000);
+                }
+            }
+        };
+        j.open('POST','../php_pages/checkifgamedone.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
+        }
+    }
+    function addgameswon()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                //console.log(j.responseText);
+            }
+        };
+        j.open('POST','../php_pages/addgamewon.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
+    }
+
+    function addgamesplayed()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                //console.log(j.responseText);
+            }
+        };
+        j.open('POST','../php_pages/addgamesplayed.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send();
+    }
+
     
 
 </script>

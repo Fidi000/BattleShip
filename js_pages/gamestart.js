@@ -55,6 +55,7 @@ function getenemyboard()
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("enemyname=" + invitename);
 }
+
 function checkinvite()
 {
     if(!invite_got)
@@ -70,6 +71,7 @@ function checkinvite()
             }
             else
             {
+                //getenemyname();
                 invite_got = true;
                 removereadybutton();
                 hidefinddiv();
@@ -77,7 +79,8 @@ function checkinvite()
                 checkturn();
                 updateyourboard();
                 enemy_coords = invited;
-                // printenemyboard();
+                constantcheckforgamedone();
+                printenemyboard();
             }
         }
     };

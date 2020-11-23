@@ -111,7 +111,7 @@ var rows = 10;
                     
                 }
                 else {
-                    displayOverlapAlert();
+                    displayOverlapAlert("SHIPS OVERLAPPING!");
                     setTimeout(hideOverlapAlert, 2000);
                     
                 }
@@ -433,7 +433,8 @@ var rows = 10;
     function getShipType(id){
         shipType = id;
     }
-    function displayOverlapAlert(){
+    function displayOverlapAlert(text){
+        document.getElementById("overlap_text").innerHTML = text;
         document.getElementById("myoverlap_warning").style.width = "350px";
     }
     function hideOverlapAlert(){
