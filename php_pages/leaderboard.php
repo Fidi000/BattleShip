@@ -5,6 +5,10 @@ $dbusername = "battleshipproject";
 $dbpassword = "ContWdeOTzAb3Seh";
 $dbname = "accountinfo";
 
+if(isset($_POST["orderby"]))
+{
+  $orderby = $_POST["orderby"];
+}
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
@@ -12,7 +16,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY gameswon";
+$sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby";
 
 $results = $conn->query($sql);
 
