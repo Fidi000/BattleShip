@@ -3,6 +3,7 @@
 <head>
     <title>Menu</title>
     <script src="../js_pages/login.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <style>
   html *
@@ -139,8 +140,17 @@ input:focus {
 
 </style>
 <script>
-
-
+  function huh() {
+    console.log("asd");
+    $('input').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+  }
 </script>
 <header>
   <div class="top_menu">
@@ -160,11 +170,12 @@ input:focus {
         </div>
         <div class="container">
           <label for="uname"><b></b></label>
-          <input type="text" placeholder="Enter Username to login or signup" id="username" required>
+          <input type="text" oninput="huh()" placeholder="Enter Username to login or signup" id="username" required >
           <br>
           <label for="psw"></label>
-          <input type="password" placeholder="Enter Password (please do not use a real one)"  id="password" required>
+          <input type="password"  placeholder="Enter Password (please do not use a real one)"  id="password" required>
           <br>
+          <div id="test" style="color: white; font-size: large;"></div><br>      
           <button type="button" onclick="login()" class="loginbutton">Login</button>
         </div>
       </form>
@@ -174,10 +185,7 @@ input:focus {
         </div>
       </form>
     </div>
-    <div id="test">
-
-    </div>
-
+    
 </body>
 
 

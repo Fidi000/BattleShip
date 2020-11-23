@@ -22,7 +22,7 @@ function signup(){
     }
     else
     {
-      document.getElementById("test").innerHTML = "Empty fields";
+      document.getElementById("test").innerHTML = "ERROR : EMPTY FIELDS";
     }
   }
   function login(){
@@ -49,7 +49,7 @@ function signup(){
     }
     else
     {
-      document.getElementById("test").innerHTML = "Empty fields";
+      document.getElementById("test").innerHTML = "ERROR : EMPTY FIELDS";
     }
   }
   

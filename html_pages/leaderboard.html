@@ -10,6 +10,7 @@
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
     }
 #board{ 
+    margin-top: 5%;
   margin-left:auto;
   margin-right:auto;
   width:900px;
@@ -23,6 +24,7 @@ th{
     text-align: center;
     color: #fff;
     font-size: 30px;
+    cursor: pointer;
 }
 td{
     border-top: 1px solid white;
@@ -85,6 +87,10 @@ body {
 
 </style>
 <script> 
+    window.onload = function()
+        {
+            totalPlayers("username");
+        }
     var playerarray;
     var legnth;
     function createLeaderboard(){
@@ -102,8 +108,9 @@ body {
                 time.innerHTML = playerarray[i]['timeplayed'];
         }
     }
-    function totalPlayers(){
-
+    function totalPlayers(orderbyproperty){
+        document.getElementById("leaderboard").innerHTML = "";
+        var order = orderbyproperty;
         //get size of database
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
@@ -113,15 +120,16 @@ body {
           createLeaderboard();
         }
     };
-    j.open('GET','../php_pages/leaderboard.php'); 
+    j.open('POST','../php_pages/leaderboard.php'); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
+    j.send("orderby=" + order);
     }
+    
 </script>
 <header>
     
 </header>
-<body onload="totalPlayers()">
+<body>
     <div class="top_menu">
         <a class ="navigatea" href="index.html">Home</a>
         <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
@@ -131,10 +139,10 @@ body {
     </div>
    
     <table id="board">
-        <th>Name</th>
-        <th>Games Won</th>
-        <th>Games Played</th>
-        <th>Time Played</th>
+        <th onclick="totalPlayers('username');" >Name</th>
+        <th onclick="totalPlayers('gameswon');">Games Won</th>
+        <th onclick="totalPlayers('gamesplayed');">Games Played</th>
+        <th onclick="totalPlayers('timeplayed');">Time Played</th>
         <tbody id="leaderboard">
         </tbody>
     </table>
