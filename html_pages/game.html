@@ -28,7 +28,11 @@
         text-align: center;
         transition: width 0.5s;
     }
-    
+    .timerposition {
+        position:absolute;
+        top:1%;
+        right:1%;
+    }
     .top_menu a
     {
         width: 5%;
@@ -95,6 +99,9 @@
     var totalship = 7;
     var totalyourship = 7;
     var gameisdone = false;
+    var numofshipplaced = 0;
+    var time_elapsed = 0;
+    var time_ms_start = 0;
     function removereadybutton()
     {
         var readyButtn = document.getElementById("readybutton");
@@ -112,7 +119,6 @@
     }
     function hidestart()
     {
-        console.log("ASDAS");
         var hideStart = document.getElementById("startdiv");
         hideStart.style.display = "none";
     }
@@ -144,7 +150,6 @@
     }
     function initialturn()
     {
-        console.log("asdsa");
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
@@ -180,7 +185,7 @@
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                //document.getElementById("enemycaption").innerHTML = j.responseText + "'s Board";
+                document.getElementById("enemycaption").innerHTML = j.responseText + "'s Board";
             }
         };
         j.open('GET','../php_pages/getname.php', true); 
@@ -189,22 +194,22 @@
 
     function checkturn()
     {
-        console.log("PELAE GOD WORK PLEAS");
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
                 //console.log(j.responseText);
-                console.log(j.responseText);
+               // console.log(j.responseText);
                 if(j.responseText==1)
                 {
-                    // displayOverlapAlert("YOUR TURN");
-                    // setTimeout(hideOverlapAlert, 1000);
+                    displayOverlapAlert("YOUR TURN");
+                    setTimeout(hideOverlapAlert, 3000);
                     constantcheckforgamedone();
                     allowfire();
                 }
                 else if(j.responseText==0)
                 {
-                    //document.getElementById("enemybody").style.boxShadow = "0 0 0 5px red";
+                    displayOverlapAlert("ENEMY TURN");
+                    //setTimeout(hideOverlapAlert, 1000);
                     document.getElementById("enemyshipcount").innerHTML = totalship;
                     checkifgamedone();
                     hidefire();
@@ -217,6 +222,28 @@
         j.send();
  
     }
+    function startmstimer()
+    {
+        console.log("ms timer started")
+        time_ms_start = Date.now();
+
+    }
+    function addtime()
+    {
+        time_elapsed = Date.now() - time_ms_start;
+
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                console.log(j.responseText);
+            }
+        };
+        j.open('POST','../php_pages/addtime.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("mstime=" + time_elapsed);
+
+    }
+
     function constantcheckforgamedone()
     {
         if(!gameisdone)
@@ -230,10 +257,10 @@
                     gameisdone = true;
                     hidefire();
                     //do someting else
-                    displayOverlapAlert("YOU WON I THINK IDK");
+                    displayOverlapAlert("YOU WON!");
                     setTimeout(hideOverlapAlert, 5000);
                     addgameswon();
-                    console.log("This should only show once");
+                    addtime();
                     
 
                 }
@@ -241,10 +268,10 @@
                 {
                     gameisdone = true;
                     hidefire();
-                    displayOverlapAlert("YOU LOST I THINK YOU SUCK");
+                    displayOverlapAlert("YOU LOST!");
                     setTimeout(hideOverlapAlert, 5000);
                     addgamesplayed();
-                    console.log("This should only show once");
+                    addtime();
                 }
                 else if(j.responseText==0)
                 {
@@ -797,7 +824,7 @@
                     
                 </th>
             </thead>
-            <tbody class="testbody">
+            <tbody class="testbody" id="enemybody">
             <tr>
                 <th class = "legend"><p>1</p></th> 
                 <td class="boxo" id="o00">
@@ -1131,7 +1158,7 @@
         </table>
     </div>
 
-    <div id="timerdiv">
+    <div id="timerdiv" class="timerposition">
         <p id="timer"></p>
     </div>
 </div>
@@ -1151,7 +1178,7 @@
     </div>
 
     <div id="startdiv">
-        <button type="button" id="startButton" onclick="initialturn();updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
+        <button type="button" id="startButton" onclick="initialturn();updateyourboard();hidestart();checkturn();addtime();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
         
     </div>
 </div>

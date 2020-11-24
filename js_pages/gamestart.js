@@ -16,18 +16,27 @@ function check()
 }
 function sendcoords()
 {
-    var test = JSON.stringify(ship_coords);
-    var j = new XMLHttpRequest(); 
-    j.onreadystatechange = function () {
-    if (j.readyState == 4 && j.status == 200) {
-        document.getElementById("test").innerHTML = j.responseText;
-        checkinvite();
-        removereadybutton();
+    if(numofshipplaced==7)
+    {
+        var test = JSON.stringify(ship_coords);
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            document.getElementById("test").innerHTML = j.responseText;
+            checkinvite();
+            removereadybutton();
+        }
+    };
+        j.open('POST','../php_pages/ready.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("coords=" + test); 
     }
-};
-    j.open('POST','../php_pages/ready.php', true); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("coords=" + test); 
+    else
+    {
+        displayOverlapAlert("Must place all 7 ships!");
+        setTimeout(hideOverlapAlert, 3000);
+    }
+
 }
 function getenemyboard()
 {
@@ -43,9 +52,9 @@ function getenemyboard()
         }
         else
         {
-            console.log("thisshouldbeoutputted");
-            //getenemyname();
-            //starttimer();
+            startmstimer();
+            getenemyname();
+            starttimer();
             hidefinddiv();
             invite_got=true;
             enemy_coords = returnedarray;
@@ -79,8 +88,9 @@ function checkinvite()
             }
             else
             {
-                //getenemyname();
-                //starttimer();
+                startmstimer();
+                getenemyname();
+                starttimer();
                 invite_got = true;
                 removereadybutton();
                 hidefinddiv();

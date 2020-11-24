@@ -10,13 +10,40 @@ if(isset($_POST["orderby"]))
   $orderby = $_POST["orderby"];
 }
 
+if(isset($_POST["test"]))
+{
+  $test = $_POST["test"];
+}
+
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby";
+if($test==1)
+{
+  if($orderby == "username")
+    {
+     $sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby DESC";
+    }
+      else
+    {
+      $sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby";
+    }
+}
+else
+{
+    if($orderby == "username")
+    {
+     $sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby";
+    }
+      else
+    {
+      $sql = "SELECT username,gameswon,gamesplayed,timeplayed FROM players ORDER BY $orderby DESC";
+    }
+}
+
 
 $results = $conn->query($sql);
 

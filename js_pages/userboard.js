@@ -108,6 +108,7 @@ var rows = 10;
                     // }
                     horizontal = true;
                     reduceAmount();
+                    numofshipplaced++;
                     
                 }
                 else {
