@@ -8,18 +8,19 @@ $dbname = "accountinfo";
 
 $playerusername = $_SESSION['username'];
 
+$elapsed = $_POST["mstime"];
+
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
  
-$get_turn = "UPDATE players SET gameswon = gameswon + 1 WHERE username='$playerusername'";
-
-$get_turn2 = $conn->query("UPDATE players SET gamesplayed = gamesplayed + 1 WHERE username='$playerusername'");
+$get_turn = "UPDATE players SET timeplayed = timeplayed + $elapsed WHERE username='$playerusername'";
 
 $result = $conn->query($get_turn);
 
+echo "time played updated in database";
 
 $conn->close();
 

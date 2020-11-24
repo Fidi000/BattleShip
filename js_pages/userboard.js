@@ -58,7 +58,7 @@ var rows = 10;
                 var color;
                 var value;
                 var flipped = false;
-                value = get_shipvalue(); //GETS VALUE FROM 1-7 for each ship so each ship has a unique id, when determing if it has been destroyed
+                 //GETS VALUE FROM 1-7 for each ship so each ship has a unique id, when determing if it has been destroyed
                 if((col+shiplength)>10 && horizontal)
                     {
                         col = cols - shiplength;
@@ -73,7 +73,7 @@ var rows = 10;
                 }
                 var isoverlap = check_overlap(shiplength, flipped, row, col);
                 if(!isoverlap){
-
+                    value = get_shipvalue();
                     for(var i = 0;i<shiplength;i++){
                     var box = document.getElementById(rowid + colid);  
                     color = getColor();
@@ -108,6 +108,7 @@ var rows = 10;
                     // }
                     horizontal = true;
                     reduceAmount();
+                    numofshipplaced++;
                     
                 }
                 else {

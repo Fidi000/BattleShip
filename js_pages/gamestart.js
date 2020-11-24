@@ -16,18 +16,27 @@ function check()
 }
 function sendcoords()
 {
-    var test = JSON.stringify(ship_coords);
-    var j = new XMLHttpRequest(); 
-    j.onreadystatechange = function () {
-    if (j.readyState == 4 && j.status == 200) {
-        document.getElementById("test").innerHTML = j.responseText;
-        checkinvite();
-        removereadybutton();
+    if(numofshipplaced==7)
+    {
+        var test = JSON.stringify(ship_coords);
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+        if (j.readyState == 4 && j.status == 200) {
+            document.getElementById("test").innerHTML = j.responseText;
+            checkinvite();
+            removereadybutton();
+        }
+    };
+        j.open('POST','../php_pages/ready.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("coords=" + test); 
     }
-};
-    j.open('POST','../php_pages/ready.php', true); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("coords=" + test); 
+    else
+    {
+        displayOverlapAlert("Must place all 7 ships!");
+        setTimeout(hideOverlapAlert, 3000);
+    }
+
 }
 function getenemyboard()
 {
@@ -38,15 +47,23 @@ function getenemyboard()
         var returnedarray = JSON.parse(j.responseText);
         if(returnedarray==0)
         {
-            document.getElementById("enemycaption").innerHTML = "User does not exist or is not ready";
+            displayOverlapAlert("Enemy does not exist or not ready");
+            setTimeout(hideOverlapAlert, 5000);
         }
         else
         {
+            startmstimer();
+            getenemyname();
+            starttimer();
             hidefinddiv();
-   
             invite_got=true;
             enemy_coords = returnedarray;
             printenemyboard();
+            document.getElementById("yourshipcountdiv").style.display = "block";
+            document.getElementById("yourshipcount").innerHTML = totalyourship;
+            document.getElementById("enemyshipcountdiv").style.display = "block";
+            document.getElementById("enemyshipcount").innerHTML = totalship;
+            
         }
 
     }
@@ -71,7 +88,9 @@ function checkinvite()
             }
             else
             {
-                //getenemyname();
+                startmstimer();
+                getenemyname();
+                starttimer();
                 invite_got = true;
                 removereadybutton();
                 hidefinddiv();
@@ -81,6 +100,11 @@ function checkinvite()
                 enemy_coords = invited;
                 constantcheckforgamedone();
                 printenemyboard();
+
+                document.getElementById("yourshipcountdiv").style.display = "block";
+                document.getElementById("yourshipcount").innerHTML = totalyourship;
+                document.getElementById("enemyshipcountdiv").style.display = "block";
+                document.getElementById("enemyshipcount").innerHTML = totalship;
             }
         }
     };

@@ -24,6 +24,8 @@ th{
     text-align: center;
     color: #fff;
     font-size: 30px;
+}
+button {
     cursor: pointer;
 }
 td{
@@ -89,10 +91,11 @@ body {
 <script> 
     window.onload = function()
         {
-            totalPlayers("username");
+            totalPlayers("gameswon");
         }
     var playerarray;
     var legnth;
+    var descending = 0;
     function createLeaderboard(){
         var x = 0;
         var leaderBoard = document.getElementById("leaderboard");
@@ -105,10 +108,10 @@ body {
                 user.innerHTML = playerarray[i]['username'];
                 won.innerHTML = playerarray[i]['gameswon'];
                 played.innerHTML = playerarray[i]['gamesplayed'];
-                time.innerHTML = playerarray[i]['timeplayed'];
+                time.innerHTML = ms_changeformat(playerarray[i]['timeplayed']);
         }
     }
-    function totalPlayers(orderbyproperty){
+    function totalPlayers(orderbyproperty, asc){
         document.getElementById("leaderboard").innerHTML = "";
         var order = orderbyproperty;
         //get size of database
@@ -118,11 +121,18 @@ body {
           playerarray = JSON.parse(j.responseText);
           length = playerarray.length;
           createLeaderboard();
+          
         }
     };
     j.open('POST','../php_pages/leaderboard.php'); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("orderby=" + order);
+    j.send("orderby=" + order + "&" + "test=" + asc);
+    }
+
+    function ms_changeformat(millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return (seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
     }
     
 </script>
@@ -139,10 +149,23 @@ body {
     </div>
    
     <table id="board">
-        <th onclick="totalPlayers('username');" >Name</th>
-        <th onclick="totalPlayers('gameswon');">Games Won</th>
-        <th onclick="totalPlayers('gamesplayed');">Games Played</th>
-        <th onclick="totalPlayers('timeplayed');">Time Played</th>
+        <th>Name <br>
+            <button onclick="totalPlayers('username', 0);" >ASC</button>
+            <button onclick="totalPlayers('username', 1);">DESC</button>
+        </th>
+        <th>Games Won<br>
+            <button onclick="totalPlayers('gameswon', 0);">ASC</button>
+            <button onclick="totalPlayers('gameswon', 1);">DESC</button>
+        </th>
+        <th>Games Played<br>
+            <button onclick="totalPlayers('gamesplayed', 0);">ASC</button>
+            <button onclick="totalPlayers('gamesplayed', 1);">DESC</button>
+        </th>
+        <th>Time Played<br>(m:s)<br>
+            <button onclick="totalPlayers('timeplayed', 0);">ASC</button>
+            <button onclick="totalPlayers('timeplayed', 1);">DESC</button>
+        </th>
+
         <tbody id="leaderboard">
         </tbody>
     </table>
