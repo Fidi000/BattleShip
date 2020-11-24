@@ -38,15 +38,23 @@ function getenemyboard()
         var returnedarray = JSON.parse(j.responseText);
         if(returnedarray==0)
         {
-            document.getElementById("enemycaption").innerHTML = "User does not exist or is not ready";
+            displayOverlapAlert("Enemy does not exist or not ready");
+            setTimeout(hideOverlapAlert, 5000);
         }
         else
         {
+            console.log("thisshouldbeoutputted");
+            //getenemyname();
+            //starttimer();
             hidefinddiv();
-   
             invite_got=true;
             enemy_coords = returnedarray;
             printenemyboard();
+            document.getElementById("yourshipcountdiv").style.display = "block";
+            document.getElementById("yourshipcount").innerHTML = totalyourship;
+            document.getElementById("enemyshipcountdiv").style.display = "block";
+            document.getElementById("enemyshipcount").innerHTML = totalship;
+            
         }
 
     }
@@ -72,6 +80,7 @@ function checkinvite()
             else
             {
                 //getenemyname();
+                //starttimer();
                 invite_got = true;
                 removereadybutton();
                 hidefinddiv();
@@ -81,6 +90,11 @@ function checkinvite()
                 enemy_coords = invited;
                 constantcheckforgamedone();
                 printenemyboard();
+
+                document.getElementById("yourshipcountdiv").style.display = "block";
+                document.getElementById("yourshipcount").innerHTML = totalyourship;
+                document.getElementById("enemyshipcountdiv").style.display = "block";
+                document.getElementById("enemyshipcount").innerHTML = totalship;
             }
         }
     };

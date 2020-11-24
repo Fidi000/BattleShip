@@ -6,6 +6,14 @@ var ship5= false;
 var ship6= false;
 var ship7= false;
 
+var usership1= false;
+var usership2= false;
+var usership3= false;
+var usership4= false;
+var usership5= false;
+var usership6= false;
+var usership7= false;
+
     function starttimer()
     {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
@@ -146,6 +154,68 @@ var ship7= false;
 
         return 0;
     }
+    function checkyour_destroy()
+    {
+        if(!usership1)
+        {
+            if(!ship_coords.some(row => row.includes(1)))
+            {
+                usership1 = true;
+
+                return 1;
+            }
+        }
+        if(!usership2)
+        {
+            if(!ship_coords.some(row => row.includes(2)))
+            {
+                usership2 = true;
+                return 1;
+            }
+        }
+        if(!usership3)
+        {
+            if(!ship_coords.some(row => row.includes(3)))
+            {
+                usership3 = true;
+                return 1;
+            }
+        }
+        if(!usership4)
+        {
+            if(!ship_coords.some(row => row.includes(4)))
+            {
+                usership4 = true;
+                return 1;
+            }
+        }
+        if(!usership5)
+        {
+            if(!ship_coords.some(row => row.includes(5)))
+            {
+                usership5= true;
+                return 1;
+            }
+        }
+        if(!usership6)
+        {
+            if(!ship_coords.some(row => row.includes(6)))
+            {
+                usership6 = true;
+                return 1;
+            }
+        }
+        if(!usership7)
+        {
+            if(!ship_coords.some(row => row.includes(7)))
+            {
+                usership7 = true;
+                return 1;
+            }
+        }
+
+        return 0;
+    }
     function updateyourboard()//right now its called on startgame button, but should be called when it becomes your turn again
     {
         var j = new XMLHttpRequest(); 
@@ -155,7 +225,16 @@ var ship7= false;
             //console.log(ship_coords);
             printupdatedboard();
             setTimeout(updateyourboard,1000);
+            var hitormiss = checkyour_destroy();
+            if(hitormiss==1)
+            {
+                totalyourship--;
+                
+                console.log("your ship destroyed");
+
+                document.getElementById("yourshipcount").innerHTML = totalyourship;
             
+            }
         }
         
     };

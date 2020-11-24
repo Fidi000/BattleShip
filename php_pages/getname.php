@@ -15,6 +15,4 @@ if(isset($_SESSION['enemyusername']))
 
 echo $enemyusername;
 
-$conn->close();
-
 ?>

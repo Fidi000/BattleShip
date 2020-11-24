@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css"/>
     <script src="../js_pages/userboard.js"></script>
     <script src="../js_pages/gamestart.js"></script>
     <script src="../js_pages/torpedo.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Game</title>
-</head>
-<style>
-    html *
-    {
-        font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+    <style>
+        html *
+        {
+            font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+        }
+        .boxo
+        {
+            color: black;
+        }
+        html{
+            background-color: white;
+        }
+        .top_menu{
+        width: 100%;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        transition: width 0.5s;
     }
-    .boxo
-    {
-        color: black;
-    }
-    html{
-        background-color: white;
-    }
-    .top_menu{
-    width: 100%;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    transition: width 0.5s;
-}
-
-.top_menu a
-{
-    width: 5%;
-    float: left;
-    padding: 12px;
-    color: white;
-    text-decoration: none;
-    font-size: 17px;
-    transition: width 0.5s;
-    transition: ease 0.5s;
-
-}
-.top_menu a:hover, .top_menu a:focus
-{
-    background-color:rgba(0,0,0,0.3);
-    width: 6%;
-}
-.torpedobuttons {
-    width: 250px; 
-    height: 30px;
-    border-radius: 12px;
-    transition: ease 0.5s;
-    cursor: pointer;
     
-}
-.torpedobuttons:hover {
-    background-color: #c41230;
-}
-.nameinput {
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid black;
-    outline-width: 0;
-    width: 242px;
-    height: 30px;
-}
-.toolbuttonsdiv {
-    margin-top: 34%;
-    margin-left: 45%;
-    width: 50%;
+    .top_menu a
+    {
+        width: 5%;
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        transition: width 0.5s;
+        transition: ease 0.5s;
+    
+    }
+    .top_menu a:hover, .top_menu a:focus
+    {
+        background-color:rgba(0,0,0,0.3);
+        width: 6%;
+    }
+    .torpedobuttons {
+        width: 250px; 
+        height: 30px;
+        border-radius: 12px;
+        transition: ease 0.5s;
+        cursor: pointer;
+        
+    }
+    .torpedobuttons:hover {
+        background-color: #c41230;
+    }
+    .nameinput {
+        margin-bottom: 10px;
+        border: none;
+        border-bottom: 1px solid black;
+        outline-width: 0;
+        width: 242px;
+        height: 30px;
+    }
+    .toolbuttonsdiv {
+        margin-top: 34%;
+        margin-left: 45%;
+        width: 50%;
+    
+    }
+    
+    #fire, #readydiv, #findplayerdiv, #startdiv {
+        width: 300px;
+    }
+    
+    </style>
 
-}
 
-#fire, #readydiv, #findplayerdiv, #startdiv {
-    width: 300px;
-}
-
-</style>
 <script>
     var invite_got = false;
     window.onload = resetall();
@@ -90,7 +92,8 @@
     var invitename;
     var x = 0;
     var enemyname;
-    var totalship = 1;
+    var totalship = 7;
+    var totalyourship = 7;
     var gameisdone = false;
     function removereadybutton()
     {
@@ -109,6 +112,7 @@
     }
     function hidestart()
     {
+        console.log("ASDAS");
         var hideStart = document.getElementById("startdiv");
         hideStart.style.display = "none";
     }
@@ -140,6 +144,7 @@
     }
     function initialturn()
     {
+        console.log("asdsa");
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
@@ -175,25 +180,32 @@
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
-                document.getElementById("enemycaption") = j.responseText + "'s Board";
+                //document.getElementById("enemycaption").innerHTML = j.responseText + "'s Board";
             }
         };
         j.open('GET','../php_pages/getname.php', true); 
         j.send();
     }
+
     function checkturn()
     {
+        console.log("PELAE GOD WORK PLEAS");
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
             if (j.readyState == 4 && j.status == 200) {
                 //console.log(j.responseText);
+                console.log(j.responseText);
                 if(j.responseText==1)
                 {
+                    // displayOverlapAlert("YOUR TURN");
+                    // setTimeout(hideOverlapAlert, 1000);
                     constantcheckforgamedone();
                     allowfire();
                 }
                 else if(j.responseText==0)
                 {
+                    //document.getElementById("enemybody").style.boxShadow = "0 0 0 5px red";
+                    document.getElementById("enemyshipcount").innerHTML = totalship;
                     checkifgamedone();
                     hidefire();
                     setTimeout(checkturn, 1000);
@@ -215,21 +227,24 @@
                 //console.log(j.responseText);
                 if(j.responseText==1)
                 {
+                    gameisdone = true;
                     hidefire();
                     //do someting else
                     displayOverlapAlert("YOU WON I THINK IDK");
                     setTimeout(hideOverlapAlert, 5000);
                     addgameswon();
-                    gameisdone = true;
+                    console.log("This should only show once");
+                    
 
                 }
                 else if(j.responseText==2)
                 {
+                    gameisdone = true;
                     hidefire();
                     displayOverlapAlert("YOU LOST I THINK YOU SUCK");
                     setTimeout(hideOverlapAlert, 5000);
                     addgamesplayed();
-                    gameisdone = true;
+                    console.log("This should only show once");
                 }
                 else if(j.responseText==0)
                 {
@@ -272,7 +287,7 @@
     
 
 </script>
-
+</head>
 <header>
     <div class="top_menu">
         <a class ="navigatea" href="index.html">Home</a>
@@ -1135,12 +1150,15 @@
         <button type="button" id="findPlayer" onclick="getenemyboard()" class="torpedobuttons">FINDPLAYER</button><br>
     </div>
 
-    <div id="startdiv" >
-        <button type="button" id="startButton"onclick="initialturn();updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;">STARTGAME</button>
+    <div id="startdiv">
+        <button type="button" id="startButton" onclick="initialturn();updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
+        
     </div>
 </div>
 <div id="test"></div>
 </body>
+<div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p></div>
+<div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p></div>
 
 
 

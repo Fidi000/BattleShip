@@ -127,7 +127,7 @@ table{
   z-index: 1;
   top: 100px;
   left: 0;
-  background-color: rgba(196, 18, 14, 0.8);
+  background-color: rgba(196, 18, 14, 1);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
