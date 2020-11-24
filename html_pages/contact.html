@@ -11,66 +11,90 @@
         <a class ="navigatea" href="help.html">Help</a>
         <a class ="navigatea" href="contact.html">Contact</a>
     </div>
-</header>	
-</head>
-<style>
-	.body{
-		
-	}
-	.left{
-		width: 50%;
-		float: left;
-		text-align: center;
-		background-color: #c41230;
-	}
-	
-	.right{
-		width: 50%;
-		float: right;
-		text-align: center;
-		background-color: #c41230;
-	}
-	.top_menu{
-		width: 100%;
-		overflow: auto;
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		transition: width 0.5s;	
-		background-color: white;
-	}
-	.top_menu a{
-		width: 5%;
-		float: left;
-		padding: 12px;
-		background-color: #ced1d4;
-		color: white;
-		text-decoration: none;
-		font-size: 17px;
-		transition: width 0.5s;
-		transition: ease 0.5s;
-	}
-	.top_menu a:hover, .top_menu a:focus{
-		background-color:rgba(0,0,0,0.3);
-		width: 6%;
+	</header>	
+	<style>
+		html{
+			background-image: url("../images/Contact.png");
+			height: 100%;
+			width: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
 		}
-	
+		.left{
+			width: 50%;
+			float: left;
+			color: white;
+			text-align: center;
+			background-color: none;
+		}
+		.right{
+			width: 50%;
+			float: right;
+			color: white;
+			text-align: center;
+			background-color: none;
+		}
+		.top_menu{
+			width: 100%;
+			overflow: auto;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			transition: width 0.5s;	
+			background-color: none;
+		}
+		.top_menu a{
+			width: 5%;
+			float: left;
+			padding: 12px;
+			background-color: rgba(0,0,0,0.3);
+			color: white;
+			text-decoration: none;
+			font-size: 17px;
+			transition: width 0.5s;
+			transition: ease 0.5s;
+		}
+		.top_menu a:hover, .top_menu a:focus{
+			background-color:#ced1d4;
+			width: 6%;
+		}
+		.top{
+			width: 75%;
+			height: 50%;
+			float: right;
+			color: white;
+			text-align: right;
+			background-color: none;
+		}
+		.bottom{
+			width: 75%;
+			height: 50%;
+			float: left;
+			color: white;
+			text-align: left;
+			background-color: none;
+		}
+		.content{
+			width: 100%;
+			height: 75%;
+		
+		}
 </style>
-
-
+</head>
 <body>
-	<div>
-		<div class="left"> 
+	<div class = "content">
+		<div class="top"> 
 			<h1> Aran Hayer</h1>
 			<p> code monkey</p>
-			<img src="C:\Users\fidel\Pictures\aranara.jpg" alt="Aranara" width="1024" height="878">
+			<img src="C:\Users\fidel\Pictures\aranara.jpg" alt="Aranara" width="256" height="219">
 
 		</div>
 		
-		<div class="right">
+		<div class="bottom">
 			<h1> Fidel Diaz </h1>
 			<p> code monkey 2</p>
-			<img src="C:\Users\fidel\Pictures\me.jpg" alt="Fiddle">
+			<img src="C:\Users\fidel\Pictures\me.jpg" alt="Fiddle" width="256" height="219">
 
 		</div>
 	</div>
