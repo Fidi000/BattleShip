@@ -1,0 +1,73 @@
+<html>
+	<head> 
+		<button type="button" onclick="printArr()">Generate Names</button>
+		<script type="text/javascript" src="names.json"></script>
+		<script>
+			var nameArr = ["James", "John", "Robert", "Micheal", "William", "David",
+			"Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew",
+			"Anthony", "Donald", "Mark", "Paul", "Steven", "Andrew", "Kenneth", "Joshua", 
+			"Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey"
+				];
+			function printArr(){
+				alert(nameArr);
+			}
+			function ranTime() {
+			   return Math.random() * maxLimit;
+			}   
+			
+			function ranWon() {
+			   return Math.random() * maxLimit;
+			}
+			function ranPlay() {
+			   return Math.random() * maxLimit;
+			}
+			
+			function createUsers(){ //create random users
+			
+				for (var i = 0; i < 29; i++){
+					var good;
+					var user = nameArr[i];
+					var pass = "RandomPassword" + i;
+					var gamesP = ranPlay();
+					var gamesW = ranWon();
+					var ranT = ranTime();
+					
+					
+				  
+					if(user != "" && pass != "")
+					{
+					var j = new XMLHttpRequest(); 
+					j.onreadystatechange = function () {
+						  if (j.readyState == 4 && j.status == 200) {
+							good = j.responseText;
+							document.getElementById("test").innerHTML =  j.responseText;
+							if(good=="1")
+							{
+							  location.replace("../html_pages/game.html");
+							}
+						  }
+					};
+					  j.open('POST','../php_pages/signup.php'); 
+					  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					  j.send("u=" + user + "&" + "p=" + pass + "&gp=" + gameP +"&tp=" + ranT + "&w=" + 
+					  gamesW + "&rtp=" + 0 + "&turn=" + 0);
+					}
+					else
+					{
+					  document.getElementById("test").innerHTML = "ERROR : EMPTY FIELDS";
+					}											
+				}
+			}
+
+		</script>
+	</head>
+	
+	<body> 
+		<div id = "t"> 
+			<p id="test"> </p> 
+		</div>
+	
+	
+	</body>
+
+</html>
