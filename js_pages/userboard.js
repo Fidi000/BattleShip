@@ -1,4 +1,4 @@
-var rows = 10;
+    var rows = 10;
     var cols = 10;
     var ship_coords = new Array(10);
     var horizontal = true; //true = horizontal, false = vertical
@@ -55,7 +55,7 @@ var rows = 10;
                 var rowid = coords.charAt(0);
                 var colid = coords.charAt(1);
 
-                var color;
+                //var color;
                 var value;
                 var flipped = false;
                  //GETS VALUE FROM 1-7 for each ship so each ship has a unique id, when determing if it has been destroyed
@@ -75,27 +75,27 @@ var rows = 10;
                 if(!isoverlap){
                     value = get_shipvalue();
                     for(var i = 0;i<shiplength;i++){
-                    var box = document.getElementById(rowid + colid);  
-                    color = getColor();
+                    var box = document.getElementById(rowid + colid); 
+                   // color = getColor();
                     ship_coords[rowid][colid] = value;
-                    box.style.backgroundColor = color;
-                    box.style.borderStyle = "none";
+                   // box.style.backgroundColor = color;
+                    //box.style.borderStyle = "none";
                     box.innerHTML = value;
                     if(horizontal){
+                            
+                            box.style.backgroundSize = "cover";
+                            box.style.backgroundImage = "url('../shipimages/" + shiplength +"/"+ shiplength + i + ".gif')";
+                            box.style.transform = "rotate(270deg)" 
                             colid++;
-     
-                            // if(rowid==9)
-                            // {
-                            //     box.style.borderBottom = "1px solid black";
-                            // }
+                            
                         }
-                    else{
-                            rowid++;
-       
-                            // if(colid==9)
-                            // {
-                            //     box.style.borderRight = "1px solid black";
-                            // }
+                    else {
+                        box.style.backgroundSize = "cover";
+                        box.style.backgroundImage = "url('../shipimages/"+ shiplength +"/"+ shiplength + i + ".gif')";
+                        box.style.backgroundRepeat = "none";
+                        rowid++;
+    
+                            
                         }
                     }
                     // if(rowid==10)

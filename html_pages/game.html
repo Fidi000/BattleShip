@@ -6,6 +6,7 @@
     <script src="../js_pages/userboard.js"></script>
     <script src="../js_pages/gamestart.js"></script>
     <script src="../js_pages/torpedo.js"></script>
+    <script src="../js_pages/turns.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Game</title>
     <style>
@@ -84,56 +85,28 @@
 
 
 <script>
-    var invite_got = false;
-    window.onload = resetall();
-    window.addEventListener('beforeunload',(event) =>{
-        resetall();
-    });
-    var seconds = "00";
-    var minutes = 0;
-    var enemy_coords;
-    //var enemy_coords = ship_coords; //for debugging
-    var invitename;
-    var x = 0;
-    var enemyname;
     var totalship = 7;
     var totalyourship = 7;
-    var gameisdone = false;
-    var numofshipplaced = 0;
-    var time_elapsed = 0;
-    var time_ms_start = 0;
-    function removereadybutton()
+    var used = false;
+    function showsuperpowers()
     {
-        var readyButtn = document.getElementById("readybutton");
-        readyButtn.style.display = "none";
-        var findP = document.getElementById("findplayerdiv");
-        findP.style.display="block";
-    }
-    function hidefinddiv()
-    {
-        var hideFind = document.getElementById("findplayerdiv");
-        hideFind.style.display = "none";
-        var showStart = document.getElementById("startButton");
-        showStart.style.display = "block";
-        
-    }
-    function hidestart()
-    {
-        var hideStart = document.getElementById("startdiv");
-        hideStart.style.display = "none";
-    }
-    function allowfire()
-    {
-        var fireButtn = document.getElementById("firebutton");
-        fireButtn.style.display = "block";
+        //console.log("can now see super powers");
+        var triple = document.getElementById("triple");
+        triple.style.display = "block";
+        var big = document.getElementById("big");
+        big.style.display= "block";
 
     }
-    function hidefire()
+    function hidesuper()
     {
-        var fireButtn = document.getElementById("firebutton");
-        fireButtn.style.display = "none";
+        //console.log("powers hidden");
+        var triple = document.getElementById("triple");
+        triple.style.display = "none";
+        var big = document.getElementById("big");
+        big.style.display= "none";
 
     }
+
     function setturn()
     {
         var j = new XMLHttpRequest(); 
@@ -148,171 +121,19 @@
         j.send();
 
     }
-    function initialturn()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-            }
-        };
-        j.open('POST','../php_pages/initialturn.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
+    function allowDrop(ev) {
+  ev.preventDefault();
+}
 
-    }
-    function checkifgamedone()
-    {
-        if(totalship==0)
-        {
-            endthegame();
-        }
-    }
-    function endthegame()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-                
-            }
-        };
-        j.open('GET','../php_pages/gameover.php', true); 
-        j.send();   
-    }
-    function getenemyname()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                document.getElementById("enemycaption").innerHTML = j.responseText + "'s Board";
-            }
-        };
-        j.open('GET','../php_pages/getname.php', true); 
-        j.send();
-    }
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
 
-    function checkturn()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-               // console.log(j.responseText);
-                if(j.responseText==1)
-                {
-                    displayOverlapAlert("YOUR TURN");
-                    setTimeout(hideOverlapAlert, 3000);
-                    constantcheckforgamedone();
-                    allowfire();
-                }
-                else if(j.responseText==0)
-                {
-                    displayOverlapAlert("ENEMY TURN");
-                    //setTimeout(hideOverlapAlert, 1000);
-                    document.getElementById("enemyshipcount").innerHTML = totalship;
-                    checkifgamedone();
-                    hidefire();
-                    setTimeout(checkturn, 1000);
-                }
-            }
-        };
-        j.open('POST','../php_pages/checkturns.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
- 
-    }
-    function startmstimer()
-    {
-        console.log("ms timer started")
-        time_ms_start = Date.now();
-
-    }
-    function addtime()
-    {
-        time_elapsed = Date.now() - time_ms_start;
-
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                console.log(j.responseText);
-            }
-        };
-        j.open('POST','../php_pages/addtime.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send("mstime=" + time_elapsed);
-
-    }
-
-    function constantcheckforgamedone()
-    {
-        if(!gameisdone)
-        {
-            var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-                if(j.responseText==1)
-                {
-                    gameisdone = true;
-                    hidefire();
-                    //do someting else
-                    displayOverlapAlert("YOU WON!");
-                    setTimeout(hideOverlapAlert, 5000);
-                    addgameswon();
-                    addtime();
-                    
-
-                }
-                else if(j.responseText==2)
-                {
-                    gameisdone = true;
-                    hidefire();
-                    displayOverlapAlert("YOU LOST!");
-                    setTimeout(hideOverlapAlert, 5000);
-                    addgamesplayed();
-                    addtime();
-                }
-                else if(j.responseText==0)
-                {
-                    
-                    setTimeout(constantcheckforgamedone, 1000);
-                }
-            }
-        };
-        j.open('POST','../php_pages/checkifgamedone.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
-        }
-    }
-    function addgameswon()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-            }
-        };
-        j.open('POST','../php_pages/addgamewon.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
-    }
-
-    function addgamesplayed()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-            }
-        };
-        j.open('POST','../php_pages/addgamesplayed.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
-    }
-
-    
-
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
 </script>
 </head>
 <header>
@@ -327,7 +148,7 @@
 
 <body onload="check();set_boardvalues();" onbeforeunload="return myFunction()" > 
 <div>
-    <div id="myshipSelectMenu" class="shipSelectMenu"> <!-- Side menu for placing ships-->
+    <div id="myshipSelectMenu" class="shipSelectMenu" > <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
 		<div id="controls" class="controls">
             <table id="ship_table" class="ship_table"> <!-- Table holding buttons/images/text-->
@@ -339,7 +160,7 @@
                     <td colspan="2"style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="../images/5.png" width="200px" height="25px"  class="ship_image"></td>
+                    <td colspan="2"><img src="../images/5.png" draggable="true" width="200px" height="25px"  class="ship_image"></td>
                 </tr>
                 <tr >
                     <td class="ship_button"><button id="placeship_c" onclick="make_clickable();place();set_length(5);getShipType(this.id);" class="ship_placement">Place</button></td>
@@ -1162,10 +983,12 @@
         <p id="timer"></p>
     </div>
 </div>
-<!-- MAKE STYLE DISAPLY NONE WHEN DONE WITH CSS -->
+
 <div class="toolbuttonsdiv">
     <div id="fire">
-        <button id="firebutton" onclick="make_op_board_clickable()" class="torpedobuttons" style="display: none;">FIRE</button> 
+        <button id="firebutton" onclick="make_op_board_clickable('normal')" class="torpedobuttons" style="display: none;">FIRE</button>
+        <button id="triple" onclick="make_op_board_clickable('triple')" class="torpedobuttons" style="display: none;">TRIPLE TORPEDO</button> 
+        <button id="big" onclick="make_op_board_clickable('big')" class="torpedobuttons" style="display: none;">BIG TORPEDO</button>
     </div>
 
     <div id="readydiv">
@@ -1174,12 +997,13 @@
 
     <div id="findplayerdiv" style="display: none;">
         <input type="text" id="enemyname" placeholder="Enter player name to invite" class="nameinput"><br>
-        <button type="button" id="findPlayer" onclick="getenemyboard()" class="torpedobuttons">FINDPLAYER</button><br>
+        <button type="button" id="findPlayer" onclick="getenemyboard();initialturn();" class="torpedobuttons">FINDPLAYER</button><br>
+        <input type="checkbox" id="superpowercheck" name="superpower" value="1" style="display: none;" class="supercheck">
+        <label id="powerlabel" style="display: none;">Enable superpowers?</label>
     </div>
 
     <div id="startdiv">
-        <button type="button" id="startButton" onclick="initialturn();updateyourboard();hidestart();checkturn();addtime();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
-        
+        <button type="button" id="startButton" onclick="updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
     </div>
 </div>
 <div id="test"></div>

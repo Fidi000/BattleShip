@@ -1,11 +1,11 @@
 #boarduser{
-    width: 600px;
-    height: 600px;
+    width: 600px !important;
+    height: 600px !important;
     margin-left: auto;
     margin-right: 25px;
 }
 .testbody {
-    background: url("../images/water.gif");
+    background: url("../images/possiblebackground.jpg");
     background-repeat: none;
     background-size: cover;
 }
@@ -17,9 +17,11 @@
 }
 .box, .boxo{
     border: 1px solid black;
-    height: auto;
-    width: auto;
+    height: auto !important;
+    width: auto !important;
     text-align: center;
+
+    color: white;
     
 }
 .box {

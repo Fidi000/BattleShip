@@ -16,6 +16,7 @@ function check()
 }
 function sendcoords()
 {
+    //TODO CHANGE TO 7 WHEN DONE
     if(numofshipplaced==7)
     {
         var test = JSON.stringify(ship_coords);
@@ -52,6 +53,7 @@ function getenemyboard()
         }
         else
         {
+            
             startmstimer();
             getenemyname();
             starttimer();
@@ -72,7 +74,32 @@ function getenemyboard()
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("enemyname=" + invitename);
 }
-
+function checkifpower()
+{
+    var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                console.log(j.responseText);
+                if(j.responseText == 1)
+                {
+                    superenabled = true;
+                }
+                if(superenabled == true)
+                {
+                    console.log("Super powers are enbaled")
+                }
+                else
+                {
+                    superenabled = false;
+                    console.log("Powers are not enabled")
+                }
+            }
+        };
+    j.open('POST','../php_pages/powers.php', true); 
+    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    j.send();
+    
+}
 function checkinvite()
 {
     if(!invite_got)
@@ -88,6 +115,7 @@ function checkinvite()
             }
             else
             {
+                checkifpower();
                 startmstimer();
                 getenemyname();
                 starttimer();
@@ -95,11 +123,13 @@ function checkinvite()
                 removereadybutton();
                 hidefinddiv();
                 hidestart();
-                checkturn();
+                
                 updateyourboard();
                 enemy_coords = invited;
                 constantcheckforgamedone();
                 printenemyboard();
+
+                checkturn();
 
                 document.getElementById("yourshipcountdiv").style.display = "block";
                 document.getElementById("yourshipcount").innerHTML = totalyourship;
