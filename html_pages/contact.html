@@ -15,7 +15,7 @@
 	<style>
 		header{
 			color: white;
-			background-color: rgba(0,0,0,0.3);
+			background-color: rgba(0,0,0,0.15);
 			text-align:center;
 		}
 		html{
@@ -25,20 +25,6 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
-		}
-		.left{
-			width: 100%;
-			float: left;
-			color: white;
-			text-align: left;
-			background-color: none;
-		}
-		.right{
-			width: 100%;
-			float: right;
-			color: white;
-			text-align: right;
-			background-color: none;
 		}
 		.top_menu{
 			width: 100%;
@@ -65,8 +51,8 @@
 			width: 6%;
 		}
 		.top{
-			background-color: rgba(0,0,0,0.3);
-			width: 75%;
+			background-color: rgba(0,0,0,0.15);
+			width: 100%;
 			height: 50%;
 			float: right;
 			color: white;
@@ -74,8 +60,8 @@
 			background-color: none;
 		}
 		.bottom{
-			background-color: rgba(0,0,0,0.3);
-			width: 75%;
+			background-color: rgba(0,0,0,0.15);
+			width: 100%;
 			height: 50%;
 			float: left;
 			color: white;
@@ -85,53 +71,65 @@
 		.content{
 			width: 100%;
 			height: 75%;
-		
+		}
+		.left{
+			/*background-color: rgba(0,0,0,0.3);*/
+			float: left;
+			color: white;
+			text-align: left;
+			background-color: none;
+		}
+		.right{
+			/*background-color: rgba(0,0,0,0.3);*/
+			float: right;
+			color: white;
+			text-align:center;
+			background-color: none;
 		}
 		.expandLtR {
-			
-			max-width: 10px;
+			max-width: 37px;
 			white-space: nowrap;
 			overflow: hidden;
-			transition: 1s;
+			transition: 2s;
+			
 		}
-
 		.expandLtR:hover {
 			max-width: 1000px;
 		}
+		
 		.expandRtL {
-			/*float: left;*/
-		  max-width: 10px;
+			
+		  max-width: 37px;
 		  white-space: nowrap;
 		  overflow: hidden;
-		  transition: 1s;
+		  transition: 2s;
 		}
 
 		.expandRtL:hover {
 		  max-width: 1000px;
 		}
+		td:hover{
+			color: white;
+		}
+		a{
+			color: white;
+		}
 </style>
 </head>
 <body>
-	<div class = "content">
-		<div class="top"> 
+	<!--<div class = "content">-->
+		<div class="top">
 			<table class = "right"> 
 				<tr> 
-					<td class = "expandRtL"> test expansiiiiiiiooooooonnnnnnnnn</td>  <!--Where to reach us--> 
+					<td class = "expandRtL"> Email <a href="mailto:webmaster@example.com">me!</a></td>  <!--Where to reach us--> 
 					<td> <h1> Aran Hayer</h1> </td> <!--name--> 
 				</tr> 
 				<tr> 
-					<td class = "expandRtL"> <p> code monkey</p> </td>   <!--Short description-->
+					<td class = "expandRtL"> <p> Info: bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td>   <!--Short description-->
 					<td> <img src="C:\Users\fidel\Pictures\aranara.jpg" alt="Aranara" width="256" height="219"> </td>  <!--Picture-->  
 					 
 				</tr> 
-				
-				
 			</table>
-		
-			
-			
-			
-
 		</div>
 		
 		<div class="bottom">
@@ -139,27 +137,16 @@
 			<table class = "left"> 
 				<tr> 
 					<td> <h1> Fidel Diaz </h1> </td> 
-					<td class = "expandLtR"> </td>
+					<td class = "expandLtR">  Email <a href="mailto:webmaster@example.com">me!</a></td>
 				</tr> 
 				<tr>
 					<td> <img src="C:\Users\fidel\Pictures\me.jpg" alt="Fiddle" width="256" height="219"> </td> 
 					
-					<td class = "expandLtR"> <p> code monkey 2</p> </td> 
+					<td class = "expandLtR"> <p> Info:     bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td> 
 				</tr> 
 			</table>
 			
-			
-			
-
 		</div>
-	</div>
-	 
-
-	
+	<!--</div>-->
 </body>
-
-
-
-
-
 </html>
