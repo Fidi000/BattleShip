@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Contact Us!</title>
-		<h1>Contact</h1>
 	<header>
+	<h1 class = "header1">Contact</h1>
     <div class="top_menu">
         <a class ="navigatea" href="index.html">Home</a>
         <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
@@ -13,6 +13,11 @@
     </div>
 	</header>	
 	<style>
+		header{
+			color: white;
+			background-color: rgba(0,0,0,0.3);
+			text-align:center;
+		}
 		html{
 			background-image: url("../images/Contact.png");
 			height: 100%;
@@ -22,17 +27,17 @@
 			background-size: cover;
 		}
 		.left{
-			width: 50%;
+			width: 100%;
 			float: left;
 			color: white;
-			text-align: center;
+			text-align: left;
 			background-color: none;
 		}
 		.right{
-			width: 50%;
+			width: 100%;
 			float: right;
 			color: white;
-			text-align: center;
+			text-align: right;
 			background-color: none;
 		}
 		.top_menu{
@@ -48,7 +53,7 @@
 			width: 5%;
 			float: left;
 			padding: 12px;
-			background-color: rgba(0,0,0,0.3);
+			/*background-color: rgba(0,0,0,0.3);*/
 			color: white;
 			text-decoration: none;
 			font-size: 17px;
@@ -60,6 +65,7 @@
 			width: 6%;
 		}
 		.top{
+			background-color: rgba(0,0,0,0.3);
 			width: 75%;
 			height: 50%;
 			float: right;
@@ -68,6 +74,7 @@
 			background-color: none;
 		}
 		.bottom{
+			background-color: rgba(0,0,0,0.3);
 			width: 75%;
 			height: 50%;
 			float: left;
@@ -80,24 +87,73 @@
 			height: 75%;
 		
 		}
+		.expandLtR {
+			
+			max-width: 10px;
+			white-space: nowrap;
+			overflow: hidden;
+			transition: 1s;
+		}
+
+		.expandLtR:hover {
+			max-width: 1000px;
+		}
+		.expandRtL {
+			/*float: left;*/
+		  max-width: 10px;
+		  white-space: nowrap;
+		  overflow: hidden;
+		  transition: 1s;
+		}
+
+		.expandRtL:hover {
+		  max-width: 1000px;
+		}
 </style>
 </head>
 <body>
 	<div class = "content">
 		<div class="top"> 
-			<h1> Aran Hayer</h1>
-			<p> code monkey</p>
-			<img src="C:\Users\fidel\Pictures\aranara.jpg" alt="Aranara" width="256" height="219">
+			<table class = "right"> 
+				<tr> 
+					<td class = "expandRtL"> test expansiiiiiiiooooooonnnnnnnnn</td>  <!--Where to reach us--> 
+					<td> <h1> Aran Hayer</h1> </td> <!--name--> 
+				</tr> 
+				<tr> 
+					<td class = "expandRtL"> <p> code monkey</p> </td>   <!--Short description-->
+					<td> <img src="C:\Users\fidel\Pictures\aranara.jpg" alt="Aranara" width="256" height="219"> </td>  <!--Picture-->  
+					 
+				</tr> 
+				
+				
+			</table>
+		
+			
+			
+			
 
 		</div>
 		
 		<div class="bottom">
-			<h1> Fidel Diaz </h1>
-			<p> code monkey 2</p>
-			<img src="C:\Users\fidel\Pictures\me.jpg" alt="Fiddle" width="256" height="219">
+		
+			<table class = "left"> 
+				<tr> 
+					<td> <h1> Fidel Diaz </h1> </td> 
+					<td class = "expandLtR"> </td>
+				</tr> 
+				<tr>
+					<td> <img src="C:\Users\fidel\Pictures\me.jpg" alt="Fiddle" width="256" height="219"> </td> 
+					
+					<td class = "expandLtR"> <p> code monkey 2</p> </td> 
+				</tr> 
+			</table>
+			
+			
+			
 
 		</div>
 	</div>
+	 
 
 	
 </body>
