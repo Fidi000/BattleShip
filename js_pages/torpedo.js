@@ -33,6 +33,7 @@ function starttimer()
 }
 function make_op_board_clickable(firetype)
 {
+    document.getElementById("opp").style.cursor = "url(../images/crosshair.png) 10 10, auto";
     console.log(firetype);
     if(firetype == "normal")
     {

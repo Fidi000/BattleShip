@@ -18,12 +18,15 @@
   overflow-y: scroll;
   display:block;
   border-collapse: collapse;
+  
 }
 th{
+    width: 225px !important;
     padding:15px;
     text-align: center;
     color: #fff;
     font-size: 30px;
+   
 }
 button {
     cursor: pointer;
@@ -149,22 +152,25 @@ body {
     </div>
    
     <table id="board">
-        <th>Name <br>
-            <button onclick="totalPlayers('username', 0);" >ASC</button>
-            <button onclick="totalPlayers('username', 1);">DESC</button>
-        </th>
-        <th>Games Won<br>
-            <button onclick="totalPlayers('gameswon', 0);">ASC</button>
-            <button onclick="totalPlayers('gameswon', 1);">DESC</button>
-        </th>
-        <th>Games Played<br>
-            <button onclick="totalPlayers('gamesplayed', 0);">ASC</button>
-            <button onclick="totalPlayers('gamesplayed', 1);">DESC</button>
-        </th>
-        <th>Time Played<br>(m:s)<br>
-            <button onclick="totalPlayers('timeplayed', 0);">ASC</button>
-            <button onclick="totalPlayers('timeplayed', 1);">DESC</button>
-        </th>
+        <thead>
+            <th>Name <br>
+                <button onclick="totalPlayers('username', 0);" >ASC</button>
+                <button onclick="totalPlayers('username', 1);">DESC</button>
+            </th>
+            <th>Games Won<br>
+                <button onclick="totalPlayers('gameswon', 0);">ASC</button>
+                <button onclick="totalPlayers('gameswon', 1);">DESC</button>
+            </th>
+            <th>Games Played<br>
+                <button onclick="totalPlayers('gamesplayed', 0);">ASC</button>
+                <button onclick="totalPlayers('gamesplayed', 1);">DESC</button>
+            </th>
+            <th>Time Played<br>(m:s)<br>
+                <button onclick="totalPlayers('timeplayed', 0);">ASC</button>
+                <button onclick="totalPlayers('timeplayed', 1);">DESC</button>
+            </th>
+        </thead>
+        
 
         <tbody id="leaderboard">
         </tbody>

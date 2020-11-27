@@ -19,9 +19,14 @@
         {
             color: black;
         }
-        html{
-            
+        html {
+            background-color: black;
+            background-image: url(../images/backship2.png);
+            background-repeat: repeat-x;
+            background-size: 20%;
+            background-position: 95% 128%;
         }
+        
         .top_menu{
         width: 100%;
         overflow: auto;
@@ -140,7 +145,7 @@
     </div>
 </header>
 
-<body onload="check();set_boardvalues();" > 
+<body onload="check();set_boardvalues();" class="brightness" > 
 <div>
     <div id="myshipSelectMenu" class="shipSelectMenu" > <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
@@ -222,7 +227,7 @@
         </div>
 	  
     </div>
-    <div> <span style="font-size:30px;cursor:pointer" onclick="openMenu()" >&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
+    <div > <span style="font-size:30px;cursor:pointer;color: white;" onclick="openMenu()" >&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
 
     <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
             <p id="overlap_text">SHIPS OVERLAPPING</p>

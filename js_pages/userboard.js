@@ -82,17 +82,11 @@
                     //box.style.borderStyle = "none";
                     //box.innerHTML = value;
                     if(horizontal){
-                            
-                            box.style.backgroundSize = "cover";
-                            box.style.backgroundImage = "url('../shipimages/" + shiplength +"/"+ shiplength + i + ".gif')";
-                            box.style.transform = "rotate(270deg)" 
+                            box.style.backgroundImage = "url('../shipimages/horizontal/" + shiplength +"/"+ shiplength + i + ".gif')";
                             colid++;
-                            
                         }
                     else {
-                        box.style.backgroundSize = "cover";
                         box.style.backgroundImage = "url('../shipimages/"+ shiplength +"/"+ shiplength + i + ".gif')";
-                        box.style.backgroundRepeat = "none";
                         rowid++;
     
                             
