@@ -405,18 +405,19 @@ function printupdatedboard()
                     var col = String(j);
                     var box = document.getElementById(row+col);
                     //box.style.backgroundColor = "black";
-                    box.style.transform = "rotate(90deg)"
-                    box.style.backgroundImage = "url('../images/fire.gif')";
-
+                    //box.style.transform = "rotate(90deg)"
+                    
+                    box.style.background = "url('../images/fire.gif') no-repeat center, url('../images/wreck.png')";
                     box.innerHTML = "";
                 }
+
                 else if(ship_coords[i][j] == -2)
                 {
                     var row = String(i);
                     var col = String(j);
                     var box = document.getElementById(row+col);
                     //box.style.backgroundColor = "black";
-                    box.style.backgroundImage = "url('../images/miss.gif')";
+                    box.style.background = "url('../images/miss.gif')";
                     box.innerHTML = "";
                 }
             }

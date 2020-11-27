@@ -9,7 +9,7 @@ function signup(){
     j.onreadystatechange = function () {
           if (j.readyState == 4 && j.status == 200) {
             good = j.responseText;
-            document.getElementById("test").innerHTML =  j.responseText;
+            //document.getElementById("test").innerHTML =  j.responseText;
             if(good=="1")
             {
               location.replace("../html_pages/game.html");
@@ -36,7 +36,7 @@ function signup(){
     j.onreadystatechange = function () {
           if (j.readyState == 4 && j.status == 200) {
             good = j.responseText;
-            document.getElementById("test").innerHTML =  j.responseText;
+            //document.getElementById("test").innerHTML =  j.responseText;
             if(good=="1")
             {
               location.replace("../html_pages/game.html");

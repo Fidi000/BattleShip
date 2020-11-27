@@ -404,13 +404,7 @@
 	  document.getElementById("myshipSelectMenu").style.width = "0";
       return false;
     }
-    function open_toolMenu() {
-	  document.getElementById("mytoolSelectMenu").style.width = "250px";
-	}
-	function close_toolMenu() {
-	  document.getElementById("mytoolSelectMenu").style.width = "0";
-      return false;
-    }
+   
     function amountIsZero(){
         if (document.getElementById(shipType+'_Num').innerHTML > 0){
             return false;

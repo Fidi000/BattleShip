@@ -13,13 +13,14 @@
         html *
         {
             font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+            
         }
         .boxo
         {
             color: black;
         }
         html{
-            background-color: white;
+            
         }
         .top_menu{
         width: 100%;
@@ -33,6 +34,11 @@
         position:absolute;
         top:1%;
         right:1%;
+    }
+    .shipcounterdiv {
+        position: absolute;
+        top: 85%;
+        right: 1%;
     }
     .top_menu a
     {
@@ -121,19 +127,7 @@
         j.send();
 
     }
-    function allowDrop(ev) {
-  ev.preventDefault();
-}
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
 </script>
 </head>
 <header>
@@ -146,7 +140,7 @@ function drop(ev) {
     </div>
 </header>
 
-<body onload="check();set_boardvalues();" onbeforeunload="return myFunction()" > 
+<body onload="check();set_boardvalues();" > 
 <div>
     <div id="myshipSelectMenu" class="shipSelectMenu" > <!-- Side menu for placing ships-->
         <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
@@ -992,7 +986,7 @@ function drop(ev) {
     </div>
 
     <div id="readydiv">
-        <button type="button" id="readybutton"  onclick="sendcoords()" class="torpedobuttons">READY</button><br>
+        <button type="button" id="readybutton"  onclick="sendcoords();closeMenu();" class="torpedobuttons">READY</button><br>
     </div>
 
     <div id="findplayerdiv" style="display: none;">
@@ -1008,8 +1002,11 @@ function drop(ev) {
 </div>
 <div id="test"></div>
 </body>
-<div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p></div>
-<div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p></div>
+<div class="shipcounterdiv">
+    <div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p></div>
+    <div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p></div>
+
+</div>
 
 
 

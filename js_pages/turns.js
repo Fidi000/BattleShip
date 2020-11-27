@@ -1,8 +1,8 @@
 var invite_got = false;
     window.onload = resetall();
-    window.addEventListener('beforeunload',(event) =>{
-        resetall();
-    });
+    // window.addEventListener('beforeunload',(event) =>{
+    //     resetall();
+    // });
     var seconds = "00";
     var minutes = 0;
     var enemy_coords;
@@ -43,7 +43,16 @@ var invite_got = false;
     function allowfire()
     {
         var fireButtn = document.getElementById("firebutton");
-        fireButtn.style.display = "block";
+        if(!gameisdone)
+        {
+            
+            fireButtn.style.display = "block";
+        }
+        else
+        {
+            fireButtn.innerHTML = "GG!"
+        }
+        
 
     }
     function hidefire()
