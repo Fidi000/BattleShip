@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Help</title>	
 <style>
-	body{
-		/*background-color: #ced1d4;*/
-		background-repeat: repeat;
-	}
+
 	html{
 			background-image: url("../images/help_page/background.jpg");
 			width: 100%;
 			height: 100%;
 			background-position: center;
-			background-repeat: no-repeat;
+			background-repeat: repeat-y;
 			background-size: cover;
 		}
 	.top_menu{
@@ -62,18 +60,36 @@
 		display: none;
 		overflow: hidden;
 		background-color: white;
+		text-align: center;
 	}
 	.spacer{
 		width: 100%;
 		height: 25px;
 		background-color: none;
 	}
-	
+	h1{
+		color: white;
+		text-align: center;
+	}
+
+	.left{
+		width: 50%;
+		height: 100%;
+		float: left;
+
+	}
+	.right{
+		width: 50%;
+		height: 100%;
+		float: right;
+
+	}
 </style>
 
 </head>
 
 <body>
+	<h1>How to Play</h1>
 	<header>
 		<div class="top_menu">
 			<a class ="navigatea" href="index.html">Home</a>
@@ -84,77 +100,94 @@
 		</div>
 	</header> 
 
-    <h1>How to Play</h1>
-	<button type="button" class="expandButton">Logging in / Signing up  </button>
-	<div class = "expandingDiv"> 
-		<p>Go to the Login Page, found here: <a href="login.html" target="_blank"> login </a></p> 
-		<img src="..\\images\help_page\BlankLogin.png" alt="blank Login Page" width=75% height=75%>
-		<p>If you have already created an account, type in your username and password into the boxes. <br> 
-			If you don't have an account, just type in a username and password into the boxes. 
-		</p>
-		<img src="..\\images\help_page\UsernameExample.png" alt="Login Page with example Username" width=75% height=75%>
-		<p>If you already have an account, just hit the blue 'Login' button and you will be taken to the game board.</p>
-		<img src="..\\images\Login.png" alt="Login" width=75% height=75%>
-		<p>If you are creating a new account, just hit the red 'Sign Up' button and your account will automatically be created. <br> 
-			If someone already has the username you entered, try a different username.</p>
-		<img src="..\\images\SignUp.png" alt="Signup" width=75% height=75%>
-	</div>
-	<div class="spacer"> </div>
-	
-	<button type="button" class="expandButton">Placing your ships</button>
-	<div class = "expandingDiv"> 
-		<p>Go to the Game Page, found here: <a href="game.html" target="_blank"> Play </a></p> 
-		<img src="" alt="" width=75% height=75%>
-		<p>Once on the page, click the 3 bars in order to open up your ship list. <br> 
-		</p>
-		<img src="" alt="" width=75% height=75%>
-		<p>Once open, you are able to select the ship you want to place by clicking on place. <br> 
-			if you want to flip the orientation of the ship, just click flip after you've selected which ship you want to place.
-		</p>
-		<img src="" alt="" width=75% height=75%>
-		<p>Once you've selected a ship, place it anywhere on the left board (Your board).<br> 
-			Make sure you place all your ships before you start the game.</p>
-		<img src="" alt="" width=75% height=75%>
-	</div>
-	<div class="spacer"> </div>
-	
-	<button type="button" class="expandButton">Inviting/Joining a friend  </button>
-	<div class = "expandingDiv"> 
-		<p>In order to play a game, go to the page page found here: <a href="login.html" target="_blank"> play</a>,
-			and place your ships first.</p> 
-		<img src="" alt="" width=75% height=75%>
-		<p>Once you have your ships placed, click 'READY'.  <br> 
-		</p>
-		<img src="" alt="Login Page with example Username" width=75% height=75%>
-		<p>Once you've click ready, if you are going to invite your friend, type their username into the invited box. <br> 
-			then </p>
-		<img src="" alt="" width=75% height=75%>
-		<p>If you are joining your friend, give them your username so that they can invite you to their game.<br> 
+
+		<div class="spacer"> </div>
+		<button type="button" class="expandButton">Logging in / Signing up <i class="far fa-caret-square-down"></i> </button>
+		<div class = "expandingDiv">
+			<p>Go to the Login Page, found here: <a href="login.html" target="_blank"> login </a></p> 
+			<img src="..\\images\help_page\BlankLogin.png" alt="blank Login Page" width=75% height=75%>
+			<div class = "left"> 
+				<h2> Logging in</h2>
+			
+			
+			</div>
+			
+			<div class = "right"> 
+				<h2> Signing up  </h2>
+			
+			
+			</div>
+			
+			<p>If you have already created an account, type in your username and password into the boxes. <br> 
+				If you don't have an account, just type in a username and password into the boxes. 
 			</p>
-		<img src="" alt="" width=75% height=75%>
-	
-	</div>
-	<div class="spacer"> </div>
-	
-	<button type="button" class="expandButton">How to Fire </button>
-	<div class = "expandingDiv"> 
-		<p>Go to the Game page and set up game in order to begin firing. <a href="game.html" target="_blank"> Game Page </a></p> 
-			<img src="" alt="Game Page" width=75% height=75%>
-		<p>When it is your turn, a 'Fire' button will appear at the bottom center of the page.
-		</p>
-			<img src="" alt="Fire Button" width=75% height=75%>
-		<p>In order to fire, click the 'Fire' button and then choose where on the enemy board you would like <br>
-		to fire a torpedo to. In order to shoot the torpedo, click the box you want to fire it to.</p>
-			<img src="" alt="CrossHair" width=75% height=75%>
-		<p> If you hit an enemy ship, a fire animation will play in the box where you fired a missle. </p> 
-			<img src="" alt="FireHit" width=75% height=75%>	
-		<p>If you there is no ship where you fired, a splash animation will play where you fired a missle. 
-		</p>
-			<img src="" alt="FireMiss" width=75% height=75%>
-	
-	</div>
-	<div class="spacer"> </div>
-	<!--<iframe src="C:\Users\fidel\Documents\PP Test.pdf" width='50%' height='575px' frameborder='0'>-->
+			<img src="..\\images\help_page\UsernameExample.png" alt="Login Page with example Username" width=45% height=45%>
+			<p>If you already have an account, just hit the blue 'Login' button and you will be taken to the game board.</p>
+			<img src="..\\images\help_page\Login.png" alt="Login" width=45% height=45%>
+			<p>If you are creating a new account, just hit the red 'Sign Up' button and your account will automatically be created. <br> 
+				If someone already has the username you entered, try a different username.</p>
+			<img src="..\\images\help_page\SignUp.png" alt="Signup" width=45% height=45%>
+		</div>
+		<div class="spacer"> </div>
+		
+		<button type="button" class="expandButton">Placing your ships</button>
+		<div class = "expandingDiv"> 
+			<p>Go to the Game Page, found here: <a href="game.html" target="_blank"> Play </a></p> 
+			<img src="" alt="" width=45% height=45%>
+			<p>Once on the page, click the 3 bars in order to open up your ship list. <br> 
+			</p>
+			<img src="" alt="" width=45% height=45%>
+			<p>Once open, you are able to select the ship you want to place by clicking on place. <br> 
+				if you want to flip the orientation of the ship, just click flip after you've selected which ship you want to place.
+			</p>
+			<img src="" alt="" width=45% height=45%>
+			<p>Once you've selected a ship, place it anywhere on the left board (Your board).<br> 
+				Make sure you place all your ships before you start the game.</p>
+			<img src="" alt="" width=45% height=45%>
+		</div>
+		<div class="spacer"> </div>
+		
+		<button type="button" class="expandButton">Inviting/Joining a friend  </button>
+		<div class = "expandingDiv"> 
+			<div class = "left"> </div>
+			
+			<div class = "right"> </div>
+			<p>In order to play a game, go to the page page found here: <a href="login.html" target="_blank"> play</a>,
+				and place your ships first.</p> 
+			<img src="" alt="" width=75% height=75%>
+			<p>Once you have your ships placed, click 'READY'.  <br> 
+			</p>
+			<img src="" alt="Login Page with example Username" width=75% height=75%>
+			<p>Once you've click ready, if you are going to invite your friend, type their username into the invited box. <br> 
+				then </p>
+			<img src="" alt="" width=75% height=75%>
+			<p>If you are joining your friend, give them your username so that they can invite you to their game.<br> 
+				</p>
+			<img src="" alt="" width=75% height=75%>
+		
+		</div>
+		<div class="spacer"> </div>
+		
+		<button type="button" class="expandButton">How to Fire </button>
+		<div class = "expandingDiv"> 
+			<p>Go to the Game page and set up game in order to begin firing. <a href="game.html" target="_blank"> Game Page </a></p> 
+				<img src="" alt="Game Page" width=75% height=75%>
+			<p>When it is your turn, a 'Fire' button will appear at the bottom center of the page.
+			</p>
+				<img src="" alt="Fire Button" width=75% height=75%>
+			<p>In order to fire, click the 'Fire' button and then choose where on the enemy board you would like <br>
+			to fire a torpedo to. In order to shoot the torpedo, click the box you want to fire it to.</p>
+				<img src="" alt="CrossHair" width=75% height=75%>
+			<p> If you hit an enemy ship, a fire animation will play in the box where you fired a missle. </p> 
+				<img src="" alt="FireHit" width=75% height=75%>	
+			<p>If you there is no ship where you fired, a splash animation will play where you fired a missle. 
+			</p>
+				<img src="" alt="FireMiss" width=75% height=75%>
+		
+		</div>
+		<div class="spacer"> </div>
+		<!--<iframe src="C:\Users\fidel\Documents\PP Test.pdf" width='50%' height='575px' frameborder='0'>-->
+
 
 	<script>
 	var coll = document.getElementsByClassName("expandButton");
