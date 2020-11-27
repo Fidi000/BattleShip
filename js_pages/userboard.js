@@ -435,3 +435,38 @@
     function hideOverlapAlert(){
         document.getElementById("myoverlap_warning").style.width = "0px";
     }
+	function genName(){
+		for (var i = 0; i < 29; i++){
+			var good;
+			var user = nameArr[i];
+			var pass = "RandomPassword" + i;  
+			if(user != "" && pass != ""){
+				var j = new XMLHttpRequest(); 
+				j.onreadystatechange = function () {
+					if (j.readyState == 4 && j.status == 200) {
+						good = j.responseText;
+						document.getElementById("test").innerHTML =  j.responseText;
+						if(good=="1")
+						{
+							location.replace("../html_pages/game.html");
+						}
+					}
+				};
+				j.open('POST','../php_pages/signup.php'); 
+				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				j.send("u=" + user + "&" + "p=" + pass);
+				}
+			else{
+				document.getElementById("test").innerHTML = "ERROR : EMPTY FIELDS";
+			}											
+		}
+		
+		
+	}
+	function generateRan(){
+		genName();
+		genTime();
+		genGamesPlay();
+		genGamesWon();
+		
+	}
