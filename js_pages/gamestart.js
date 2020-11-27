@@ -60,7 +60,7 @@ function getenemyboard()
             hidefinddiv();
             invite_got=true;
             enemy_coords = returnedarray;
-            printenemyboard();
+            //printenemyboard();
             document.getElementById("yourshipcountdiv").style.display = "block";
             document.getElementById("yourshipcount").innerHTML = totalyourship;
             document.getElementById("enemyshipcountdiv").style.display = "block";
@@ -127,7 +127,7 @@ function checkinvite()
                 updateyourboard();
                 enemy_coords = invited;
                 constantcheckforgamedone();
-                printenemyboard();
+                //printenemyboard();
 
                 checkturn();
 

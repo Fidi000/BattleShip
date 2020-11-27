@@ -4,9 +4,10 @@
     <title>Menu</title>
     <script src="../js_pages/login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
 </head>
 <style>
-  html *
+  html 
     {
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
     }
@@ -154,11 +155,11 @@ input:focus {
 </script>
 <header>
   <div class="top_menu">
-    <a class ="navigatea" href="index.html">Home</a>
-    <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
-    <a class ="navigatea" href="game.html">Play</a>
-    <a class ="navigatea" href="help.html">Help</a>
-    <a class ="navigatea" href="contact.html">Contact</a>
+    <a class ="navigate" href="login.html"><i class="fas fa-user-circle"></i><br>Login/Sign Up</a>
+    <a class ="navigate" href="game.html"><i class="fas fa-gamepad"></i><br>Play Battleship</a>
+    <a class ="navigate" href="leaderboard.html"><i class="fas fa-trophy"></i><br>View Leaderboard</a>
+    <a class ="navigate" href="help.html"><i class="fas fa-question-circle"></i><br>How to Play</a>
+    <a class ="navigate" href="contact.html"><i class="fas fa-address-book"></i><br>Contact Us</a>
 </div>
 </header> 
 
@@ -170,8 +171,10 @@ input:focus {
         </div>
         <div class="container">
           <label for="uname"><b></b></label>
+          <i class="fas fa-user-circle" style="color: white;"></i>
           <input type="text" oninput="huh()" placeholder="Enter Username to login or signup" id="username" required >
           <br>
+          <i class="fas fa-key" style="color: white;"></i>
           <label for="psw"></label>
           <input type="password"  placeholder="Enter Password (please do not use a real one)"  id="password" required>
           <br>

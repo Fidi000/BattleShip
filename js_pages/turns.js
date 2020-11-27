@@ -12,7 +12,7 @@ var invite_got = false;
     var enemyname;
     
     var gameisdone = false;
-    var numofshipplaced = 0;
+    var numofshipplaced = 6;
     var time_elapsed = 0;
     var time_ms_start = 0;
     var superenabled = false;

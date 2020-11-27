@@ -1,8 +1,9 @@
 #boarduser{
-    width: 600px !important;
-    height: 600px !important;
+    width: 600px;
+    height: 600px;
     margin-left: auto;
     margin-right: 25px;
+    
 }
 .testbody {
     background: url("../images/possiblebackground.jpg");
@@ -15,28 +16,35 @@
     margin-right: auto;
     margin-left: 25px;
     
+    
 }
 .box, .boxo{
     border: 1px solid black;
+    text-align: center;
+    overflow: hidden;
     height: auto !important;
     width: auto !important;
-    text-align: center;
 
 }
 .box {
+    
     border: none;
+    
 }
 .boxo
 {
     border-color: white;
     cursor: url("../images/crosshair.png") 10 10, auto;
-    color: white;
+    color: white !important;
+    
 }
 table{
+    
     border-collapse: collapse;
 }
 #user{
     width: 50%;
+    min-width: 600px;
     height: 50%;
     float:left;
 }
@@ -44,8 +52,14 @@ table{
     width: 50%;
     height: 50%;
     float:right;
+    
+}
+.opp, .user {
+    table-layout:fixed;
+    
 }
 .topleftthing {
+    width: 10px;
     background: transparent !important;
     background-image: none !important;
     background-color: white !important;
