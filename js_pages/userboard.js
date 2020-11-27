@@ -80,7 +80,7 @@
                     ship_coords[rowid][colid] = value;
                    // box.style.backgroundColor = color;
                     //box.style.borderStyle = "none";
-                    box.innerHTML = value;
+                    //box.innerHTML = value;
                     if(horizontal){
                             
                             box.style.backgroundSize = "cover";

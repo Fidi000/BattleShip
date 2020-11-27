@@ -108,11 +108,11 @@ function place_firebig(id)
     }
     if(enemy_coords[row][col] > 0){
         
-        document.getElementById(id).innerHTML = '&#10006;'; //X
+        document.getElementById(id).innerHTML = '&#128163;'; //X
         ishit(id);
     }
     else{
-        document.getElementById(id).innerHTML = '&#11044'; //O
+        document.getElementById(id).innerHTML = '&#9711;'; //O
         ismiss(id);
     }
     if(top)
@@ -120,11 +120,11 @@ function place_firebig(id)
         var topid = 'o' + (row-1) + col;
 
         if(enemy_coords[row-1][col] > 0){
-            document.getElementById(topid).innerHTML = '&#10006;'; //X
+            document.getElementById(topid).innerHTML = '&#128163;'; //X
             ishit(topid);
         }
         else{
-            document.getElementById(topid).innerHTML = '&#11044'; //O
+            document.getElementById(topid).innerHTML = '&#9711;'; //O
             ismiss(topid);
         }
     }
@@ -133,11 +133,11 @@ function place_firebig(id)
         var bottomid = 'o' + (row+1) + col;
 
         if(enemy_coords[row+1][col] > 0){
-            document.getElementById(bottomid).innerHTML = '&#10006;'; //X
+            document.getElementById(bottomid).innerHTML = '&#128163;'; //X
             ishit(bottomid);
         }
         else{
-            document.getElementById(bottomid).innerHTML = '&#11044'; //O
+            document.getElementById(bottomid).innerHTML = '&#9711;'; //O
             ismiss(bottomid);
         }       
     }
@@ -146,11 +146,11 @@ function place_firebig(id)
         var leftid = 'o' + row + (col-1);
 
         if(enemy_coords[row][col-1] > 0){
-            document.getElementById(leftid).innerHTML = '&#10006;'; //X
+            document.getElementById(leftid).innerHTML = '&#128163;'; //X
             ishit(leftid);
         }
         else{
-            document.getElementById(leftid).innerHTML = '&#11044'; //O
+            document.getElementById(leftid).innerHTML = '&#9711;'; //O
             ismiss(leftid);
         }
     }
@@ -159,11 +159,11 @@ function place_firebig(id)
         var rightid = 'o' + row + (col+1);
 
         if(enemy_coords[row][col+1] > 0){
-            document.getElementById(rightid).innerHTML = '&#10006;'; //X
+            document.getElementById(rightid).innerHTML = '&#128163;'; //X
             ishit(rightid);
         }
         else{
-            document.getElementById(rightid).innerHTML = '&#11044'; //O
+            document.getElementById(rightid).innerHTML = '&#9711;'; //O
             ismiss(rightid);
         }       
     }
@@ -190,11 +190,11 @@ function place_fire(id)
     var colid = id.charAt(2);
 
     if(enemy_coords[row][col] > 0){
-        document.getElementById(id).innerHTML = '&#10006;'; //X
+        document.getElementById(id).innerHTML = '&#128163;'; //X
         ishit(id);
     }else
     {
-        document.getElementById(id).innerHTML = '&#11044'; //O
+        document.getElementById(id).innerHTML = '&#9711;'; //O
         ismiss(id);
     }
 }
