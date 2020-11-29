@@ -1,127 +1,146 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Menu</title>
-    <script src="../js_pages/login.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <link rel="stylesheet"  type="text/css" href="../icons/all.css">
+  <title>Menu</title>
+  <script src="../js_pages/login.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <link rel="stylesheet" type="text/css" href="../icons/all.css">
 </head>
 <style>
-  html 
-    {
-        font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-    }
-input[type=text], input[type=password] {
-  width: 20%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-}
-button {
-  background-color: blue;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  width: 15%;
- 
-}
-.imgcontainer {
-  text-align: center;
-}
-img.avatar {
-  width: 5%;
-}
-.container {
-  margin: 0 auto;
-  padding: 16px;
-}
-form{
-  text-align: center;
-}
-html {
-  background-image: url('../images/campus.jpg');
-  height: 100%;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  html {
+    font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  }
 
-}
-body {
-  background-color: transparent;
-  
-}
-#whole {
+  input[type=text],
+  input[type=password] {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    background-color: blue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    width: 15%;
+
+  }
+
+  .imgcontainer {
+    text-align: center;
+  }
+
+  img.avatar {
+    width: 5%;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  html {
+    background-image: url('../images/campus.jpg');
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+
+  body {
+    background-color: transparent;
+
+  }
+
+  #whole {
     margin-top: 10%;
-    
-}
 
-.loginbutton {
-  border: 1px solid white;
-  background-color: #13284c;
-  transition: ease 0.25s;
-  cursor: pointer;
-}
-.signupbutton {
-  border: 1px solid white;
-  background-color: #c41230;
-  transition: ease 0.25s;
-  cursor: pointer;
-}
-.logoutbutton {
-  border: 1px solid white;
-  background-color: transparent;
-  width: 10%;
-  position:absolute;
-  top:0;
-  right:1%;
-  cursor: pointer;
+  }
 
-} 
-.logoutbutton:hover {
-  background-color: white;
-  color: black;
-  opacity: 0.75;
-}
+  .loginbutton {
+    border: 1px solid white;
+    background-color: #13284c;
+    transition: ease 0.25s;
+    cursor: pointer;
+  }
 
-.loginbutton:hover, .signupbutton:hover {
-  color:black !important;
-  background: white;
-  border-color: black !important;
-  
-  width: 17%;
-}
-#username, #password {
-  border: none;
-  border-bottom: 2px solid white;
-  color: white;
-  background-color: transparent;
-}
-::placeholder {
-  color: white;
-  opacity: 0.75;
-  
-}
-input{
-  transition: ease 0.5s;
-}
-input:focus {
+  .signupbutton {
+    border: 1px solid white;
+    background-color: #c41230;
+    transition: ease 0.25s;
+    cursor: pointer;
+  }
+
+  .logoutbutton {
+    border: 1px solid white;
+    background-color: transparent;
+    width: 10%;
+    position: absolute;
+    top: 0;
+    right: 1%;
+    cursor: pointer;
+
+  }
+
+  .logoutbutton:hover {
+    background-color: white;
+    color: black;
+    opacity: 0.75;
+  }
+
+  .loginbutton:hover,
+  .signupbutton:hover {
+    color: black !important;
+    background: white;
+    border-color: black !important;
+
+    width: 17%;
+  }
+
+  #username,
+  #password {
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    background-color: transparent;
+  }
+
+  ::placeholder {
+    color: white;
+    opacity: 0.75;
+
+  }
+
+  input {
+    transition: ease 0.5s;
+  }
+
+  input:focus {
     outline-width: 0;
     width: 25% !important;
-    
-}
-.top_menu{
+
+  }
+
+  .top_menu {
     width: 100%;
     overflow: auto;
     display: flex;
     justify-content: center;
     text-align: center;
     transition: width 0.5s;
-}
+  }
 
-.top_menu a
-{
+  .top_menu a {
     width: 5%;
     float: left;
     padding: 12px;
@@ -131,64 +150,63 @@ input:focus {
     transition: width 0.5s;
     transition: ease 0.5s;
 
-}
-.top_menu a:hover, a:focus
-{
-    background-color:rgba(0,0,0,0.1);
+  }
+
+  .top_menu a:hover,
+  a:focus {
+    background-color: rgba(0, 0, 0, 0.1);
     width: 6%;
-}
-
-
+  }
 </style>
 <script>
   function huh() {
     console.log("asd");
     $('input').on('keypress', function (event) {
-    var regex = new RegExp("^[a-zA-Z0-9]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-       event.preventDefault();
-       return false;
-    }
-});
+      var regex = new RegExp("^[a-zA-Z0-9]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+      }
+    });
   }
 </script>
 <header>
   <div class="top_menu">
-    <a class ="navigate" href="login.html"><i class="fas fa-user-circle"></i><br>Login/Sign Up</a>
-    <a class ="navigate" href="game.html"><i class="fas fa-gamepad"></i><br>Play Battleship</a>
-    <a class ="navigate" href="leaderboard.html"><i class="fas fa-trophy"></i><br>View Leaderboard</a>
-    <a class ="navigate" href="help.html"><i class="fas fa-question-circle"></i><br>How to Play</a>
-    <a class ="navigate" href="contact.html"><i class="fas fa-address-book"></i><br>Contact Us</a>
-</div>
-</header> 
+    <a class="navigate" href="login.html"><i class="fas fa-user-circle"></i><br>Login/Sign Up</a>
+    <a class="navigate" href="game.html"><i class="fas fa-gamepad"></i><br>Play Battleship</a>
+    <a class="navigate" href="leaderboard.html"><i class="fas fa-trophy"></i><br>View Leaderboard</a>
+    <a class="navigate" href="help.html"><i class="fas fa-question-circle"></i><br>How to Play</a>
+    <a class="navigate" href="contact.html"><i class="fas fa-address-book"></i><br>Contact Us</a>
+  </div>
+</header>
 
 <body>
-<div id="whole">
+  <div id="whole">
     <form>
-        <div class="imgcontainer">
-          <img src="../images/paw.png" class="avatar">
-        </div>
-        <div class="container">
-          <label for="uname"><b></b></label>
-          <i class="fas fa-user-circle" style="color: white;"></i>
-          <input type="text" oninput="huh()" placeholder="Enter Username to login or signup" id="username" required >
-          <br>
-          <i class="fas fa-key" style="color: white;"></i>
-          <label for="psw"></label>
-          <input type="password"  placeholder="Enter Password (please do not use a real one)"  id="password" required>
-          <br>
-          <div id="test" style="color: white; font-size: large;"></div><br>      
-          <button type="button" onclick="login()" class="loginbutton">Login</button>
-        </div>
-      </form>
-      <form>
-          <button type="button" onclick="signup()" class="signupbutton">Sign Up (for new users)</button>
-          <button type="button" onclick="logout()"class="logoutbutton" >Log Out</button>
-        </div>
-      </form>
-    </div>
-    
+      <div class="imgcontainer">
+        <img src="../images/paw.png" class="avatar">
+      </div>
+      <div class="container">
+        <label for="uname"><b></b></label>
+        <i class="fas fa-user-circle" style="color: white;"></i>
+        <input type="text" oninput="huh()" placeholder="Enter Username to login or signup" id="username" required>
+        <br>
+        <i class="fas fa-key" style="color: white;"></i>
+        <label for="psw"></label>
+        <input type="password" placeholder="Enter Password (please do not use a real one)" id="password" required>
+        <br>
+        <div id="test" style="color: white; font-size: large;"></div><br>
+        <button type="button" onclick="login()" class="loginbutton">Login</button>
+      </div>
+    </form>
+    <form>
+      <button type="button" onclick="signup()" class="signupbutton">Sign Up (for new users)</button>
+      <button type="button" onclick="logout()" class="logoutbutton">Log Out</button>
+  </div>
+  </form>
+  </div>
+
 </body>
 
 

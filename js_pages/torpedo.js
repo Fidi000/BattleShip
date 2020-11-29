@@ -397,7 +397,7 @@ function printupdatedboard()
         for(var j = 0;j<10;j++){
             if(ship_coords[i][j] == null || ship_coords == null)
             {
-                displayOverlapAlert("ENEMY HAS LEFT");
+                displayOverlapAlert("ENEMY HAS LEFT", "red");
             }
             else{
                 if(ship_coords[i][j] == -1)
@@ -407,8 +407,17 @@ function printupdatedboard()
                     var box = document.getElementById(row+col);
                     //box.style.backgroundColor = "black";
                     //box.style.transform = "rotate(90deg)"
+                    var img = document.getElementById(row+col),
+
+                    source = img.currentStyle || window.getComputedStyle(img, false),
+
+                    bi = source.backgroundImage;
+
+                    var ogship = bi.replace("http://73.235.199.12/mysite/project/GitHub/BattleShip","..")
                     
-                    box.style.background = "url('../images/fire.gif') no-repeat center, url('../images/wreck.png')";
+
+
+                    box.style.background =   "url('../images/fire.gif') no-repeat center, url('../images/wreck.png')";
                     box.innerHTML = "";
                 }
 

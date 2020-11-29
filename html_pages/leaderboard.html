@@ -2,10 +2,11 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../icons/all.css">
     <title>Leaderboard</title>
 </head>
 <style>
-    html *
+    html 
     {
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
     }
@@ -89,6 +90,19 @@ body {
     background-color:rgba(0,0,0,0.3);
     width: 6%;
 }
+.sortbuttons{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 50px;
+    transition: color 0.75s;
+   
+}
+.sortbuttons:hover, .sortbuttons:focus {
+    color: red;
+    text-shadow: 2px 2px white;
+}
+
 
 </style>
 <script> 
@@ -153,22 +167,28 @@ body {
    
     <table id="board">
         <thead>
-            <th>Name <br>
-                <button onclick="totalPlayers('username', 0);" >ASC</button>
-                <button onclick="totalPlayers('username', 1);">DESC</button>
+           <tr>
+            <th>Player <br> Name <br>
+                <button onclick="totalPlayers('username', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
+                <button onclick="totalPlayers('username', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
             </th>
-            <th>Games Won<br>
-                <button onclick="totalPlayers('gameswon', 0);">ASC</button>
-                <button onclick="totalPlayers('gameswon', 1);">DESC</button>
+            <th>Games<br> Won<br>
+                <button onclick="totalPlayers('gameswon', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
+                <button onclick="totalPlayers('gameswon', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
             </th>
-            <th>Games Played<br>
-                <button onclick="totalPlayers('gamesplayed', 0);">ASC</button>
-                <button onclick="totalPlayers('gamesplayed', 1);">DESC</button>
+            <th>Games<br> Played<br>
+                <button onclick="totalPlayers('gamesplayed', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
+                <button onclick="totalPlayers('gamesplayed', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
             </th>
             <th>Time Played<br>(m:s)<br>
-                <button onclick="totalPlayers('timeplayed', 0);">ASC</button>
-                <button onclick="totalPlayers('timeplayed', 1);">DESC</button>
+                <button onclick="totalPlayers('timeplayed', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
+                <button onclick="totalPlayers('timeplayed', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
             </th>
+           </tr>
+           
+                
+            
+            
         </thead>
         
 

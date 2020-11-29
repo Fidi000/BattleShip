@@ -106,7 +106,7 @@
                     
                 }
                 else {
-                    displayOverlapAlert("SHIPS OVERLAPPING!");
+                    displayOverlapAlert("SHIPS OVERLAPPING!", "red");
                     setTimeout(hideOverlapAlert, 2000);
                     
                 }
@@ -395,6 +395,7 @@
 	  document.getElementById("myshipSelectMenu").style.width = "250px";
 	}
 	function closeMenu() {
+       
 	  document.getElementById("myshipSelectMenu").style.width = "0";
       return false;
     }
@@ -422,9 +423,10 @@
     function getShipType(id){
         shipType = id;
     }
-    function displayOverlapAlert(text){
+    function displayOverlapAlert(text, color){
         document.getElementById("overlap_text").innerHTML = text;
-        document.getElementById("myoverlap_warning").style.width = "350px";
+        document.getElementById("myoverlap_warning").style.backgroundColor = color;
+        document.getElementById("myoverlap_warning").style.width = "400px";
     }
     function hideOverlapAlert(){
         document.getElementById("myoverlap_warning").style.width = "0px";

@@ -170,11 +170,23 @@ table{
   font-size: 25px;
   text-decoration: none;
   color: #13284c;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
+  transition: all ease 0.75s;
 }
-
+.closebtn:hover {
+    color: blue;
+}
 .openshipsbtn {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid white;
+    transition: all ease 0.75s;
+    font-size:30px;
+    cursor:pointer;
+    color: white;
+    
+}
+.openshipsbtn:hover {
+    color: blue;
+    
 }
 
 

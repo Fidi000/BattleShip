@@ -12,7 +12,7 @@ var invite_got = false;
     var enemyname;
     
     var gameisdone = false;
-    var numofshipplaced = 6;
+    
     var time_elapsed = 0;
     var time_ms_start = 0;
     var superenabled = false;
@@ -123,7 +123,7 @@ var invite_got = false;
                 if(j.responseText==1)
                 {
                     checkifgamedone();
-                    displayOverlapAlert("YOUR TURN");
+                    displayOverlapAlert("YOUR TURN", "blue");
                     setTimeout(hideOverlapAlert, 3000);
                     constantcheckforgamedone();
                     allowfire();
@@ -135,7 +135,7 @@ var invite_got = false;
                 }
                 else if(j.responseText==0)
                 {
-                    displayOverlapAlert("ENEMY TURN");
+                    displayOverlapAlert("ENEMY TURN", "white");
                     //setTimeout(hideOverlapAlert, 1000);
                     document.getElementById("enemyshipcount").innerHTML = totalship;
                     checkifgamedone();
@@ -185,7 +185,7 @@ var invite_got = false;
                     gameisdone = true;
                     hidefire();
                     //do someting else
-                    displayOverlapAlert("YOU WON!");
+                    displayOverlapAlert("YOU WON!", "green");
                     setTimeout(hideOverlapAlert, 5000);
                     addgameswon();
                     addtime();
@@ -196,7 +196,7 @@ var invite_got = false;
                 {
                     gameisdone = true;
                     hidefire();
-                    displayOverlapAlert("YOU LOST!");
+                    displayOverlapAlert("YOU LOST!", "red");
                     setTimeout(hideOverlapAlert, 5000);
                     addgamesplayed();
                     addtime();

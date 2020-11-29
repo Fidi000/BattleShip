@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css"/>
+    <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css" />
     <script src="../js_pages/userboard.js"></script>
     <script src="../js_pages/gamestart.js"></script>
     <script src="../js_pages/torpedo.js"></script>
@@ -10,234 +11,666 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Game</title>
     <style>
-        html *
-        {
+        html * {
             font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-            
+
         }
-        .boxo
-        {
+
+        .boxo {
             color: black;
         }
+
         html {
             background-color: black;
             background-image: url(../images/backship2.png);
             background-repeat: repeat-x;
             background-size: 20%;
-            background-position: 95% 128%;
+            background-position: 95% 100%;
+            background-attachment: fixed;
         }
-        
-        .top_menu{
-        width: 100%;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        transition: width 0.5s;
-    }
-    .timerposition {
-        position:absolute;
-        top:1%;
-        right:1%;
-    }
-    .shipcounterdiv {
-        position: absolute;
-        top: 85%;
-        right: 1%;
-    }
-    .top_menu a
-    {
-        width: 5%;
-        float: left;
-        padding: 12px;
-        color: white;
-        text-decoration: none;
-        font-size: 17px;
-        transition: width 0.5s;
-        transition: ease 0.5s;
-    
-    }
-    .top_menu a:hover, .top_menu a:focus
-    {
-        background-color:rgba(0,0,0,0.3);
-        width: 6%;
-    }
-    .torpedobuttons {
-        width: 250px; 
-        height: 30px;
-        border-radius: 12px;
-        transition: ease 0.5s;
-        cursor: pointer;
-        
-    }
-    .torpedobuttons:hover {
-        background-color: #c41230;
-    }
-    .nameinput {
-        margin-bottom: 10px;
-        border: none;
-        border-bottom: 1px solid black;
-        outline-width: 0;
-        width: 242px;
-        height: 30px;
-    }
-    .toolbuttonsdiv {
-        margin-top: 34%;
-        margin-left: 45%;
-        width: 50%;
-    
-    }
-    
-    #fire, #readydiv, #findplayerdiv, #startdiv {
-        width: 300px;
-    }
-    
+
+        .top_menu {
+            width: 100%;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            transition: width 0.5s;
+        }
+
+        .timerposition {
+            color: white;
+            position: absolute;
+            top: 1%;
+            right: 1%;
+        }
+
+        .shipcounterdiv {
+            color: white;
+            position: absolute;
+            top: 65%;
+            right: 1%;
+        }
+
+        .top_menu a {
+            width: 5%;
+            float: left;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            transition: width 0.5s;
+            transition: ease 0.5s;
+            border-radius: 10px;
+
+        }
+
+        .top_menu a:hover,
+        .top_menu a:focus {
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 6%;
+            border: 1px solid white;
+            
+        }
+
+        .torpedobuttons {
+            background: linear-gradient(to right, red 50%,white 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            width: 200px;
+            height: 30px;
+            border-radius: 10px;
+            transition: all ease 0.5s;
+            cursor: pointer;
+            border: none;
+
+        }
+
+        .torpedobuttons:hover, .torpedobuttons:focus {
+            background-position: left bottom;
+          
+        }
+
+        .nameinput {
+            margin-bottom: 10px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline-width: 0;
+            width: 242px;
+            height: 30px;
+        }
+
+        .toolbuttonsdiv {
+            margin-top: 34%;
+            margin-left: 45%;
+            width: 50%;
+
+        }
+
+        #fire,
+        #readydiv,
+        #findplayerdiv,
+        #startdiv {
+            width: 300px;
+        }
     </style>
 
 
-<script>
-    var totalship = 7;
-    var totalyourship = 7;
-    var used = false;
-    function showsuperpowers()
-    {
-        //console.log("can now see super powers");
-        var triple = document.getElementById("triple");
-        triple.style.display = "block";
-        var big = document.getElementById("big");
-        big.style.display= "block";
+    <script>
+        var totalship = 7;
+        var totalyourship = 7;
+        var used = false;
+        var numofshipplaced = 0;
+        function showsuperpowers() {
+            //console.log("can now see super powers");
+            var triple = document.getElementById("triple");
+            triple.style.display = "block";
+            var big = document.getElementById("big");
+            big.style.display = "block";
 
-    }
-    function hidesuper()
-    {
-        //console.log("powers hidden");
-        var triple = document.getElementById("triple");
-        triple.style.display = "none";
-        var big = document.getElementById("big");
-        big.style.display= "none";
+        }
+        function hidesuper() {
+            //console.log("powers hidden");
+            var triple = document.getElementById("triple");
+            triple.style.display = "none";
+            var big = document.getElementById("big");
+            big.style.display = "none";
 
-    }
+        }
 
-    function setturn()
-    {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-                checkturn();
-            }
-        };
-        j.open('POST','../php_pages/turns.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
+        function setturn() {
+            var j = new XMLHttpRequest();
+            j.onreadystatechange = function () {
+                if (j.readyState == 4 && j.status == 200) {
+                    //console.log(j.responseText);
+                    checkturn();
+                }
+            };
+            j.open('POST', '../php_pages/turns.php', true);
+            j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            j.send();
 
-    }
+        }
 
-</script>
+    </script>
 </head>
 <header>
     <div class="top_menu">
-        <a class ="navigatea" href="index.html">Home</a>
-        <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
-        <a class ="navigatea" href="game.html">Play</a>
-        <a class ="navigatea" href="help.html">Help</a>
-        <a class ="navigatea" href="contact.html">Contact</a>
+        <a class="navigatea" href="index.html">Home</a>
+        <a class="navigatea" href="leaderboard.html">Leaderboard</a>
+        <a class="navigatea" href="game.html">Play</a>
+        <a class="navigatea" href="help.html">Help</a>
+        <a class="navigatea" href="contact.html">Contact</a>
     </div>
 </header>
 
-<body onload="check();set_boardvalues();" class="brightness" > 
-<div>
-    <div id="myshipSelectMenu" class="shipSelectMenu" > <!-- Side menu for placing ships-->
-        <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div> <!-- 'X' button-->
-		<div id="controls" class="controls">
-            <table id="ship_table" class="ship_table"> <!-- Table holding buttons/images/text-->
-                <!--Courier ship -->
-                <tr>
-                    <td colspan="2" style="text-align: center;">Number of Couriers:</td>
-                </tr>
-                <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="../images/5.png" draggable="true" width="200px" height="25px"  class="ship_image"></td>
-                </tr>
-                <tr >
-                    <td class="ship_button"><button id="placeship_c" onclick="make_clickable();place();set_length(5);getShipType(this.id);" class="ship_placement">Place</button></td>
-                    
-                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
-                </tr>
+<body onload="check();set_boardvalues();" class="brightness">
+    <div>
+        <div id="myshipSelectMenu" class="shipSelectMenu">
+            <!-- Side menu for placing ships-->
+            <div class="closebtn_div"> <a href="#" class="closebtn" onclick="closeMenu()">Close &times;</a> </div>
+            <!-- 'X' button-->
+            <div id="controls" class="controls">
+                <table id="ship_table" class="ship_table">
+                    <!-- Table holding buttons/images/text-->
+                    <!--Courier ship -->
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Number of Couriers:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><img src="../images/5.png" draggable="true" width="200px" height="25px"
+                                class="ship_image"></td>
+                    </tr>
+                    <tr>
+                        <td class="ship_button"><button id="placeship_c"
+                                onclick="make_clickable();place();set_length(5);getShipType(this.id);"
+                                class="ship_placement">Place</button></td>
 
-                <!-- Battleships-->
-                <tr>
-                    <td colspan="2" style="text-align: center;">Number of Battleships:</td>
-                </tr>
-                <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_b_Num" class="shipsleft">1</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="../images/4.png" width="160px" height="25px"  class="ship_image"></td>
-                </tr>
-                <tr>
-                    <td class="ship_button"><button id="placeship_b" onclick="make_clickable();place();set_length(4);getShipType(this.id);" class="ship_placement">Place</button></td>
-                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
-                </tr>
-                <!-- Destroyers-->
-                <tr>
-                    <td colspan="2" style="text-align: center;">Number of Destroyers:</td>
-                </tr>
-                <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_d_Num" class="shipsleft">2</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
-                </tr>
-                <tr>
-                    <td class="ship_button"><button id="placeship_d" onclick="make_clickable();place();set_length(3);getShipType(this.id);" class="ship_placement">Place</button></td>
-                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
-                </tr>
-                <!-- Submarines-->
-                <tr>
-                    <td colspan="2" style="text-align: center;">Number of Submarines:</td>
-                </tr>
-                <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_s_Num" class="shipsleft">2</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="../images/3.png" width="120px" height="25px"  class="ship_image"></td>
-                </tr>
-                <tr>
-                    <td class="ship_button"><button id="placeship_s" onclick="make_clickable();place();set_length(3);getShipType(this.id);" class="ship_placement">Place</button></td>
-                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
-                </tr>
-                <!-- Patrol boats -->
-                <tr>
-                    <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td>
-                </tr>
-                <tr>
-                    <td colspan="2"style="text-align: center;" id="placeship_p_Num" class="shipsleft">1</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="../images/2.png" width="80px" height="25px"  class="ship_image"></td>
-                </tr>
-                <tr>
-                    <td class="ship_button"><button id="placeship_p" onclick="make_clickable();place();set_length(2);getShipType(this.id);" class="ship_placement">Place</button></td>
-                    <td class="ship_button"><button id="flip" onclick="flip()" class="ship_placement_flip">Flip</button></td>
-                </tr>
+                        <td class="ship_button"><button id="flip" onclick="flip()"
+                                class="ship_placement_flip">Flip</button></td>
+                    </tr>
+
+                    <!-- Battleships-->
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Number of Battleships:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;" id="placeship_b_Num" class="shipsleft">1</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><img src="../images/4.png" width="160px" height="25px" class="ship_image"></td>
+                    </tr>
+                    <tr>
+                        <td class="ship_button"><button id="placeship_b"
+                                onclick="make_clickable();place();set_length(4);getShipType(this.id);"
+                                class="ship_placement">Place</button></td>
+                        <td class="ship_button"><button id="flip" onclick="flip()"
+                                class="ship_placement_flip">Flip</button></td>
+                    </tr>
+                    <!-- Destroyers-->
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Number of Destroyers:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;" id="placeship_d_Num" class="shipsleft">2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><img src="../images/3.png" width="120px" height="25px" class="ship_image"></td>
+                    </tr>
+                    <tr>
+                        <td class="ship_button"><button id="placeship_d"
+                                onclick="make_clickable();place();set_length(3);getShipType(this.id);"
+                                class="ship_placement">Place</button></td>
+                        <td class="ship_button"><button id="flip" onclick="flip()"
+                                class="ship_placement_flip">Flip</button></td>
+                    </tr>
+                    <!-- Submarines-->
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Number of Submarines:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;" id="placeship_s_Num" class="shipsleft">2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><img src="../images/3.png" width="120px" height="25px" class="ship_image"></td>
+                    </tr>
+                    <tr>
+                        <td class="ship_button"><button id="placeship_s"
+                                onclick="make_clickable();place();set_length(3);getShipType(this.id);"
+                                class="ship_placement">Place</button></td>
+                        <td class="ship_button"><button id="flip" onclick="flip()"
+                                class="ship_placement_flip">Flip</button></td>
+                    </tr>
+                    <!-- Patrol boats -->
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;" id="placeship_p_Num" class="shipsleft">1</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><img src="../images/2.png" width="80px" height="25px" class="ship_image"></td>
+                    </tr>
+                    <tr>
+                        <td class="ship_button"><button id="placeship_p"
+                                onclick="make_clickable();place();set_length(2);getShipType(this.id);"
+                                class="ship_placement">Place</button></td>
+                        <td class="ship_button"><button id="flip" onclick="flip()"
+                                class="ship_placement_flip">Flip</button></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div> <span class = "openshipsbtn"onclick="openMenu()">&#9776; Open Ships</span>
+        </div> <!-- clicking this opens side menu to select ships-->
+
+        <div id="myoverlap_warning" class="overlap_warning">
+            <!-- overlap alert-->
+            <p id="overlap_text">SHIPS OVERLAPPING</p>
+        </div>
+
+        <div id="user">
+            <table class="user" id="boarduser">
+                <caption>Your board</caption>
+                <thead>
+                    <th class="topleftthing">
+                    <td class="letters">
+                        <p>A</p>
+                    </td>
+                    <td class="letters">
+                        <p>B</p>
+                    </td>
+                    <td class="letters">
+                        <p>C</p>
+                    </td>
+                    <td class="letters">
+                        <p>D</p>
+                    </td>
+                    <td class="letters">
+                        <p>E</p>
+                    </td>
+                    <td class="letters">
+                        <p>F</p>
+                    </td>
+                    <td class="letters">
+                        <p>G</p>
+                    </td>
+                    <td class="letters">
+                        <p>H</p>
+                    </td>
+                    <td class="letters">
+                        <p>I</p>
+                    </td>
+                    <td class="letters">
+                        <p>J</p>
+                    </td>
+
+                    </th>
+                </thead>
+                <tbody class="testbody">
+                    <tr>
+                        <th class="legend">
+                            <p>1</p>
+                        </th>
+                        <td class="box" id="00">
+
+                        </td>
+                        <td class="box" id="01">
+
+                        </td>
+                        <td class="box" id="02">
+
+                        </td>
+                        <td class="box" id="03">
+
+                        </td>
+                        <td class="box" id="04">
+
+                        </td>
+                        <td class="box" id="05">
+
+                        </td>
+                        <td class="box" id="06">
+
+                        </td>
+                        <td class="box" id="07">
+
+                        </td>
+                        <td class="box" id="08">
+
+                        </td>
+                        <td class="box" id="09">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>2</p>
+                        </th>
+                        <td class="box" id="10">
+
+                        </td>
+                        <td class="box" id="11">
+
+                        </td>
+                        <td class="box" id="12">
+
+                        </td>
+                        <td class="box" id="13">
+
+                        </td>
+                        <td class="box" id="14">
+
+                        </td>
+                        <td class="box" id="15">
+
+                        </td>
+                        <td class="box" id="16">
+
+                        </td>
+                        <td class="box" id="17">
+
+                        </td>
+                        <td class="box" id="18">
+
+                        </td>
+                        <td class="box" id="19">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>3</p>
+                        </th>
+                        <td class="box" id="20">
+
+                        </td>
+                        <td class="box" id="21">
+
+                        </td>
+                        <td class="box" id="22">
+
+                        </td>
+                        <td class="box" id="23">
+
+                        </td>
+                        <td class="box" id="24">
+
+                        </td>
+                        <td class="box" id="25">
+
+                        </td>
+                        <td class="box" id="26">
+
+                        </td>
+                        <td class="box" id="27">
+
+                        </td>
+                        <td class="box" id="28">
+
+                        </td>
+                        <td class="box" id="29">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>4</p>
+                        </th>
+                        <td class="box" id="30">
+
+                        </td>
+                        <td class="box" id="31">
+
+                        </td>
+                        <td class="box" id="32">
+
+                        </td>
+                        <td class="box" id="33">
+
+                        </td>
+                        <td class="box" id="34">
+
+                        </td>
+                        <td class="box" id="35">
+
+                        </td>
+                        <td class="box" id="36">
+
+                        </td>
+                        <td class="box" id="37">
+
+                        </td>
+                        <td class="box" id="38">
+
+                        </td>
+                        <td class="box" id="39">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>5</p>
+                        </th>
+                        <td class="box" id="40">
+
+                        </td>
+                        <td class="box" id="41">
+
+                        </td>
+                        <td class="box" id="42">
+
+                        </td>
+                        <td class="box" id="43">
+
+                        </td>
+                        <td class="box" id="44">
+
+                        </td>
+                        <td class="box" id="45">
+
+                        </td>
+                        <td class="box" id="46">
+
+                        </td>
+                        <td class="box" id="47">
+
+                        </td>
+                        <td class="box" id="48">
+
+                        </td>
+                        <td class="box" id="49">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>6</p>
+                        </th>
+                        <td class="box" id="50">
+
+                        </td>
+                        <td class="box" id="51">
+
+                        </td>
+                        <td class="box" id="52">
+
+                        </td>
+                        <td class="box" id="53">
+
+                        </td>
+                        <td class="box" id="54">
+
+                        </td>
+                        <td class="box" id="55">
+
+                        </td>
+                        <td class="box" id="56">
+
+                        </td>
+                        <td class="box" id="57">
+
+                        </td>
+                        <td class="box" id="58">
+
+                        </td>
+                        <td class="box" id="59">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>7</p>
+                        </th>
+                        <td class="box" id="60">
+
+                        </td>
+                        <td class="box" id="61">
+
+                        </td>
+                        <td class="box" id="62">
+
+                        </td>
+                        <td class="box" id="63">
+
+                        </td>
+                        <td class="box" id="64">
+
+                        </td>
+                        <td class="box" id="65">
+
+                        </td>
+                        <td class="box" id="66">
+
+                        </td>
+                        <td class="box" id="67">
+
+                        </td>
+                        <td class="box" id="68">
+
+                        </td>
+                        <td class="box" id="69">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>8</p>
+                        </th>
+                        <td class="box" id="70">
+
+                        </td>
+                        <td class="box" id="71">
+
+                        </td>
+                        <td class="box" id="72">
+
+                        </td>
+                        <td class="box" id="73">
+
+                        </td>
+                        <td class="box" id="74">
+
+                        </td>
+                        <td class="box" id="75">
+
+                        </td>
+                        <td class="box" id="76">
+
+                        </td>
+                        <td class="box" id="77">
+
+                        </td>
+                        <td class="box" id="78">
+
+                        </td>
+                        <td class="box" id="79">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>9</p>
+                        </th>
+                        <td class="box" id="80">
+
+                        </td>
+                        <td class="box" id="81">
+
+                        </td>
+                        <td class="box" id="82">
+
+                        </td>
+                        <td class="box" id="83">
+
+                        </td>
+                        <td class="box" id="84">
+
+                        </td>
+                        <td class="box" id="85">
+
+                        </td>
+                        <td class="box" id="86">
+
+                        </td>
+                        <td class="box" id="87">
+
+                        </td>
+                        <td class="box" id="88">
+
+                        </td>
+                        <td class="box" id="89">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>10</p>
+                        </th>
+                        <td class="box" id="90">
+
+                        </td>
+                        <td class="box" id="91">
+
+                        </td>
+                        <td class="box" id="92">
+
+                        </td>
+                        <td class="box" id="93">
+
+                        </td>
+                        <td class="box" id="94">
+
+                        </td>
+                        <td class="box" id="95">
+
+                        </td>
+                        <td class="box" id="96">
+
+                        </td>
+                        <td class="box" id="97">
+
+                        </td>
+                        <td class="box" id="98">
+
+                        </td>
+                        <td class="box" id="99">
+
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-	  
-    </div>
-    <div > <span style="font-size:30px;cursor:pointer;color: white;" onclick="openMenu()" >&#9776; Open Ships</span> </div> <!-- clicking this opens side menu to select ships-->
 
-    <div id="myoverlap_warning" class="overlap_warning"> <!-- overlap alert-->
-            <p id="overlap_text">SHIPS OVERLAPPING</p>
-    </div>
-	
-    <div id="user">
-        <table class="user" id="boarduser">
-            <caption>Your board</caption>
-            <thead>
-                <th class="topleftthing">
+        <div id="opp">
+            <table class="opp" id="boardopp">
+                <caption id="enemycaption">Opponent board</caption>
+                <thead>
+                    <th class="topleftthing">
                     <td class="letters">
                         <p>A</p>
                     </td>
@@ -256,10 +689,10 @@
                     <td class="letters">
                         <p>F</p>
                     </td>
-                    <td class="letters"> 
+                    <td class="letters">
                         <p>G</p>
                     </td>
-                    <td class="letters"> 
+                    <td class="letters">
                         <p>H</p>
                     </td>
                     <td class="letters">
@@ -268,748 +701,406 @@
                     <td class="letters">
                         <p>J</p>
                     </td>
-                    
-                </th>
-            </thead>
-            <tbody class="testbody">
-            <tr>
-                <th class = "legend"><p>1</p></th> 
-                <td class="box" id="00">
-                    
-                </td>
-                <td class="box" id="01">
-                    
-                </td>
-                <td class="box" id="02">
-                    
-                </td>
-                <td class="box" id="03">
-                    
-                </td>
-                <td class="box" id="04">
-                    
-                </td>
-                <td class="box" id="05">
-                   
-                </td>
-                <td class="box" id="06">
-                    
-                </td>
-                <td class="box" id="07">
-                    
-                </td>
-                <td class="box" id="08">
-                    
-                </td>
-                <td class="box" id="09">
-                   
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>2</p></th>
-                <td class="box" id="10">
-                    
-                </td>
-                <td class="box" id="11">
-                    
-                </td>
-                <td class="box" id="12">
-                    
-                </td>
-                <td class="box" id="13">
-                    
-                </td>
-                <td class="box" id="14">
-                    
-                </td>
-                <td class="box" id="15">
-                    
-                </td>
-                <td class="box" id="16">
-                    
-                </td>
-                <td class="box" id="17">
-                   
-                </td>
-                <td class="box" id="18">
-                    
-                </td>
-                <td class="box" id="19">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>3</p></th>
-                <td class="box" id="20">
-                    
-                </td>
-                <td class="box" id="21">
-                   
-                </td>
-                <td class="box" id="22">
-                    
-                </td>
-                <td class="box" id="23">
-                    
-                </td>
-                <td class="box" id="24">
-                    
-                </td>
-                <td class="box" id="25">
-                    
-                </td>
-                <td class="box" id="26">
-                    
-                </td>
-                <td class="box" id="27">
-                   
-                </td>
-                <td class="box" id="28">
-                    
-                </td>
-                <td class="box" id="29">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>4</p></th>
-                <td class="box" id="30">
-                    
-                </td>
-                <td class="box" id="31">
-                    
-                </td>
-                <td class="box" id="32">
-                    
-                </td>
-                <td class="box" id="33">
-                    
-                </td>
-                <td class="box" id="34">
-                    
-                </td>
-                <td class="box" id="35">
-                    
-                </td>
-                <td class="box" id="36">
-                    
-                </td>
-                <td class="box" id="37">
-                    
-                </td>
-                <td class="box" id="38">
-                    
-                </td>
-                <td class="box" id="39">
-                    
-                </td>
-            </tr>
-            <tr >
-                <th class = "legend"><p>5</p></th>
-                <td class="box" id="40">
-                    
-                </td>
-                <td class="box" id="41">
-                    
-                </td>
-                <td class="box" id="42">
-                    
-                </td>
-                <td class="box" id="43">
-                    
-                </td>
-                <td class="box" id="44">
-                    
-                </td>
-                <td class="box" id="45">
-                    
-                </td>
-                <td class="box" id="46">
-                    
-                </td>
-                <td class="box" id="47">
-                    
-                </td>
-                <td class="box" id="48">
-                    
-                </td>
-                <td class="box" id="49">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>6</p></th>
-                <td class="box" id="50">
-                    
-                </td>
-                <td class="box" id="51">
-                    
-                </td>
-                <td class="box" id="52">
-                    
-                </td>
-                <td class="box" id="53">
-                    
-                </td>
-                <td class="box" id="54">
-                    
-                </td>
-                <td class="box" id="55">
-                    
-                </td>
-                <td class="box" id="56">
-                    
-                </td>
-                <td class="box" id="57">
-                    
-                </td>
-                <td class="box" id="58">
-                    
-                </td>
-                <td class="box" id="59">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>7</p></th>
-                <td class="box" id="60">
-                    
-                </td>
-                <td class="box" id="61">
-                    
-                </td>
-                <td class="box" id="62">
-                    
-                </td>
-                <td class="box" id="63">
-                    
-                </td>
-                <td class="box" id="64">
-                    
-                </td>
-                <td class="box" id="65">
-                    
-                </td>
-                <td class="box" id="66">
-                    
-                </td>
-                <td class="box" id="67">
-                    
-                </td>
-                <td class="box" id="68">
-                    
-                </td>
-                <td class="box" id="69">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>8</p></th>
-                <td class="box" id="70">
-                    
-                </td>
-                <td class="box" id="71">
-                    
-                </td>
-                <td class="box" id="72">
-                    
-                </td>
-                <td class="box" id="73">
-                    
-                </td>
-                <td class="box" id="74">
-                    
-                </td>
-                <td class="box" id="75">
-                    
-                </td>
-                <td class="box" id="76">
-                    
-                </td>
-                <td class="box" id="77">
-                    
-                </td>
-                <td class="box" id="78">
-                    
-                </td>
-                <td class="box" id="79">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>9</p></th>
-                <td class="box" id="80">
-                    
-                </td>
-                <td class="box" id="81">
-                    
-                </td>
-                <td class="box" id="82">
-                    
-                </td>
-                <td class="box" id="83">
-                    
-                </td>
-                <td class="box" id="84">
-                    
-                </td>
-                <td class="box" id="85">
-                    
-                </td>
-                <td class="box" id="86">
-                    
-                </td>
-                <td class="box" id="87">
-                    
-                </td>
-                <td class="box" id="88">
-                    
-                </td>
-                <td class="box" id="89">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>10</p></th>
-                <td class="box" id="90">
-                    
-                </td>
-                <td class="box" id="91">
-                    
-                </td>
-                <td class="box" id="92">
-                    
-                </td>
-                <td class="box" id="93">
-                    
-                </td>
-                <td class="box" id="94">
-                    
-                </td>
-                <td class="box" id="95">
-                    
-                </td>
-                <td class="box" id="96">
-                    
-                </td>
-                <td class="box" id="97">
-                    
-                </td>
-                <td class="box" id="98">
-                    
-                </td>
-                <td class="box" id="99">
-                    
-                </td>
-            </tr>
-        </tbody>
-        </table>
+
+                    </th>
+                </thead>
+                <tbody class="testbody" id="enemybody">
+                    <tr>
+                        <th class="legend">
+                            <p>1</p>
+                        </th>
+                        <td class="boxo" id="o00">
+
+                        </td>
+                        <td class="boxo" id="o01">
+
+                        </td>
+                        <td class="boxo" id="o02">
+
+                        </td>
+                        <td class="boxo" id="o03">
+
+                        </td>
+                        <td class="boxo" id="o04">
+
+                        </td>
+                        <td class="boxo" id="o05">
+
+                        </td>
+                        <td class="boxo" id="o06">
+
+                        </td>
+                        <td class="boxo" id="o07">
+
+                        </td>
+                        <td class="boxo" id="o08">
+
+                        </td>
+                        <td class="boxo" id="o09">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>2</p>
+                        </th>
+                        <td class="boxo" id="o10">
+                        </td>
+                        <td class="boxo" id="o11">
+
+                        </td>
+                        <td class="boxo" id="o12">
+
+                        </td>
+                        <td class="boxo" id="o13">
+
+                        </td>
+                        <td class="boxo" id="o14">
+
+                        </td>
+                        <td class="boxo" id="o15">
+
+                        </td>
+                        <td class="boxo" id="o16">
+
+                        </td>
+                        <td class="boxo" id="o17">
+
+                        </td>
+                        <td class="boxo" id="o18">
+
+                        </td>
+                        <td class="boxo" id="o19">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>3</p>
+                        </th>
+                        <td class="boxo" id="o20">
+
+                        </td>
+                        <td class="boxo" id="o21">
+
+                        </td>
+                        <td class="boxo" id="o22">
+
+                        </td>
+                        <td class="boxo" id="o23">
+
+                        </td>
+                        <td class="boxo" id="o24">
+
+                        </td>
+                        <td class="boxo" id="o25">
+
+                        </td>
+                        <td class="boxo" id="o26">
+
+                        </td>
+                        <td class="boxo" id="o27">
+
+                        </td>
+                        <td class="boxo" id="o28">
+
+                        </td>
+                        <td class="boxo" id="o29">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>4</p>
+                        </th>
+                        <td class="boxo" id="o30">
+
+                        </td>
+                        <td class="boxo" id="o31">
+
+                        </td>
+                        <td class="boxo" id="o32">
+
+                        </td>
+                        <td class="boxo" id="o33">
+
+                        </td>
+                        <td class="boxo" id="o34">
+
+                        </td>
+                        <td class="boxo" id="o35">
+
+                        </td>
+                        <td class="boxo" id="o36">
+
+                        </td>
+                        <td class="boxo" id="o37">
+
+                        </td>
+                        <td class="boxo" id="o38">
+
+                        </td>
+                        <td class="boxo" id="o39">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>5</p>
+                        </th>
+                        <td class="boxo" id="o40">
+
+                        </td>
+                        <td class="boxo" id="o41">
+
+                        </td>
+                        <td class="boxo" id="o42">
+
+                        </td>
+                        <td class="boxo" id="o43">
+
+                        </td>
+                        <td class="boxo" id="o44">
+
+                        </td>
+                        <td class="boxo" id="o45">
+
+                        </td>
+                        <td class="boxo" id="o46">
+
+                        </td>
+                        <td class="boxo" id="o47">
+
+                        </td>
+                        <td class="boxo" id="o48">
+
+                        </td>
+                        <td class="boxo" id="o49">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>6</p>
+                        </th>
+                        <td class="boxo" id="o50">
+
+                        </td>
+                        <td class="boxo" id="o51">
+
+                        </td>
+                        <td class="boxo" id="o52">
+
+                        </td>
+                        <td class="boxo" id="o53">
+
+                        </td>
+                        <td class="boxo" id="o54">
+
+                        </td>
+                        <td class="boxo" id="o55">
+
+                        </td>
+                        <td class="boxo" id="o56">
+
+                        </td>
+                        <td class="boxo" id="o57">
+
+                        </td>
+                        <td class="boxo" id="o58">
+
+                        </td>
+                        <td class="boxo" id="o59">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>7</p>
+                        </th>
+                        <td class="boxo" id="o60">
+
+                        </td>
+                        <td class="boxo" id="o61">
+
+                        </td>
+                        <td class="boxo" id="o62">
+
+                        </td>
+                        <td class="boxo" id="o63">
+
+                        </td>
+                        <td class="boxo" id="o64">
+
+                        </td>
+                        <td class="boxo" id="o65">
+
+                        </td>
+                        <td class="boxo" id="o66">
+
+                        </td>
+                        <td class="boxo" id="o67">
+
+                        </td>
+                        <td class="boxo" id="o68">
+
+                        </td>
+                        <td class="boxo" id="o69">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>8</p>
+                        </th>
+                        <td class="boxo" id="o70">
+
+                        </td>
+                        <td class="boxo" id="o71">
+
+                        </td>
+                        <td class="boxo" id="o72">
+
+                        </td>
+                        <td class="boxo" id="o73">
+
+                        </td>
+                        <td class="boxo" id="o74">
+
+                        </td>
+                        <td class="boxo" id="o75">
+
+                        </td>
+                        <td class="boxo" id="o76">
+
+                        </td>
+                        <td class="boxo" id="o77">
+
+                        </td>
+                        <td class="boxo" id="o78">
+
+                        </td>
+                        <td class="boxo" id="o79">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>9</p>
+                        </th>
+                        <td class="boxo" id="o80">
+
+                        </td>
+                        <td class="boxo" id="o81">
+
+                        </td>
+                        <td class="boxo" id="o82">
+
+                        </td>
+                        <td class="boxo" id="o83">
+
+                        </td>
+                        <td class="boxo" id="o84">
+
+                        </td>
+                        <td class="boxo" id="o85">
+
+                        </td>
+                        <td class="boxo" id="o86">
+
+                        </td>
+                        <td class="boxo" id="o87">
+
+                        </td>
+                        <td class="boxo" id="o88">
+
+                        </td>
+                        <td class="boxo" id="o89">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="legend">
+                            <p>10</p>
+                        </th>
+                        <td class="boxo" id="o90">
+
+                        </td>
+                        <td class="boxo" id="o91">
+
+                        </td>
+                        <td class="boxo" id="o92">
+
+                        </td>
+                        <td class="boxo" id="o93">
+
+                        </td>
+                        <td class="boxo" id="o94">
+
+                        </td>
+                        <td class="boxo" id="o95">
+
+                        </td>
+                        <td class="boxo" id="o96">
+
+                        </td>
+                        <td class="boxo" id="o97">
+
+                        </td>
+                        <td class="boxo" id="o98">
+
+                        </td>
+                        <td class="boxo" id="o99">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="timerdiv" class="timerposition">
+            <p>Timer</p>
+            <p id="timer"></p>
+        </div>
     </div>
 
-    <div id="opp">
-        <table class="opp" id="boardopp">
-            <caption id="enemycaption">Opponent board</caption>
-            <thead>
-                <th class="topleftthing">
-                    <td class="letters">
-                        <p>A</p>
-                    </td>
-                    <td class="letters">
-                        <p>B</p>
-                    </td>
-                    <td class="letters">
-                        <p>C</p>
-                    </td>
-                    <td class="letters">
-                        <p>D</p>
-                    </td>
-                    <td class="letters">
-                        <p>E</p>
-                    </td>
-                    <td class="letters">
-                        <p>F</p>
-                    </td>
-                    <td class="letters"> 
-                        <p>G</p>
-                    </td>
-                    <td class="letters"> 
-                        <p>H</p>
-                    </td>
-                    <td class="letters">
-                        <p>I</p>
-                    </td>
-                    <td class="letters">
-                        <p>J</p>
-                    </td>
-                    
-                </th>
-            </thead>
-            <tbody class="testbody" id="enemybody">
-            <tr>
-                <th class = "legend"><p>1</p></th> 
-                <td class="boxo" id="o00">
-                    
-                </td>
-                <td class="boxo" id="o01">
-                    
-                </td>
-                <td class="boxo" id="o02">
-                    
-                </td>
-                <td class="boxo" id="o03">
-                    
-                </td>
-                <td class="boxo" id="o04">
-                    
-                </td>
-                <td class="boxo" id="o05">
-                   
-                </td>
-                <td class="boxo" id="o06">
-                    
-                </td>
-                <td class="boxo" id="o07">
-                    
-                </td>
-                <td class="boxo" id="o08">
-                    
-                </td>
-                <td class="boxo" id="o09">
-                   
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>2</p></th>
-                <td class="boxo" id="o10">
-                </td>
-                <td class="boxo" id="o11">
-                    
-                </td>
-                <td class="boxo" id="o12">
-                    
-                </td>
-                <td class="boxo" id="o13">
-                    
-                </td>
-                <td class="boxo" id="o14">
-                    
-                </td>
-                <td class="boxo" id="o15">
-                    
-                </td>
-                <td class="boxo" id="o16">
-                    
-                </td>
-                <td class="boxo" id="o17">
-                   
-                </td>
-                <td class="boxo" id="o18">
-                    
-                </td>
-                <td class="boxo" id="o19">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>3</p></th>
-                <td class="boxo" id="o20">
-                    
-                </td>
-                <td class="boxo" id="o21">
-                   
-                </td>
-                <td class="boxo" id="o22">
-                    
-                </td>
-                <td class="boxo" id="o23">
-                    
-                </td>
-                <td class="boxo" id="o24">
-                    
-                </td>
-                <td class="boxo" id="o25">
-                    
-                </td>
-                <td class="boxo" id="o26">
-                    
-                </td>
-                <td class="boxo" id="o27">
-                   
-                </td>
-                <td class="boxo" id="o28">
-                    
-                </td>
-                <td class="boxo" id="o29">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>4</p></th>
-                <td class="boxo" id="o30">
-                    
-                </td>
-                <td class="boxo" id="o31">
-                    
-                </td>
-                <td class="boxo" id="o32">
-                    
-                </td>
-                <td class="boxo" id="o33">
-                    
-                </td>
-                <td class="boxo" id="o34">
-                    
-                </td>
-                <td class="boxo" id="o35">
-                    
-                </td>
-                <td class="boxo" id="o36">
-                    
-                </td>
-                <td class="boxo" id="o37">
-                    
-                </td>
-                <td class="boxo" id="o38">
-                    
-                </td>
-                <td class="boxo" id="o39">
-                    
-                </td>
-            </tr>
-            <tr >
-                <th class = "legend"><p>5</p></th>
-                <td class="boxo" id="o40">
-                    
-                </td>
-                <td class="boxo" id="o41">
-                    
-                </td>
-                <td class="boxo" id="o42">
-                    
-                </td>
-                <td class="boxo" id="o43">
-                    
-                </td>
-                <td class="boxo" id="o44">
-                    
-                </td>
-                <td class="boxo" id="o45">
-                    
-                </td>
-                <td class="boxo" id="o46">
-                    
-                </td>
-                <td class="boxo" id="o47">
-                    
-                </td>
-                <td class="boxo" id="o48">
-                    
-                </td>
-                <td class="boxo" id="o49">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>6</p></th>
-                <td class="boxo" id="o50">
-                    
-                </td>
-                <td class="boxo" id="o51">
-                    
-                </td>
-                <td class="boxo" id="o52">
-                    
-                </td>
-                <td class="boxo" id="o53">
-                    
-                </td>
-                <td class="boxo" id="o54">
-                    
-                </td>
-                <td class="boxo" id="o55">
-                    
-                </td>
-                <td class="boxo" id="o56">
-                    
-                </td>
-                <td class="boxo" id="o57">
-                    
-                </td>
-                <td class="boxo" id="o58">
-                    
-                </td>
-                <td class="boxo" id="o59">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>7</p></th>
-                <td class="boxo" id="o60">
-                    
-                </td>
-                <td class="boxo" id="o61">
-                    
-                </td>
-                <td class="boxo" id="o62">
-                    
-                </td>
-                <td class="boxo" id="o63">
-                    
-                </td>
-                <td class="boxo" id="o64">
-                    
-                </td>
-                <td class="boxo" id="o65">
-                    
-                </td>
-                <td class="boxo" id="o66">
-                    
-                </td>
-                <td class="boxo" id="o67">
-                    
-                </td>
-                <td class="boxo" id="o68">
-                    
-                </td>
-                <td class="boxo" id="o69">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>8</p></th>
-                <td class="boxo" id="o70">
-                    
-                </td>
-                <td class="boxo" id="o71">
-                    
-                </td>
-                <td class="boxo" id="o72">
-                    
-                </td>
-                <td class="boxo" id="o73">
-                    
-                </td>
-                <td class="boxo" id="o74">
-                    
-                </td>
-                <td class="boxo" id="o75">
-                    
-                </td>
-                <td class="boxo" id="o76">
-                    
-                </td>
-                <td class="boxo" id="o77">
-                    
-                </td>
-                <td class="boxo" id="o78">
-                    
-                </td>
-                <td class="boxo" id="o79">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>9</p></th>
-                <td class="boxo" id="o80">
-                    
-                </td>
-                <td class="boxo" id="o81">
-                    
-                </td>
-                <td class="boxo" id="o82">
-                    
-                </td>
-                <td class="boxo" id="o83">
-                    
-                </td>
-                <td class="boxo" id="o84">
-                    
-                </td>
-                <td class="boxo" id="o85">
-                    
-                </td>
-                <td class="boxo" id="o86">
-                    
-                </td>
-                <td class="boxo" id="o87">
-                    
-                </td>
-                <td class="boxo" id="o88">
-                    
-                </td>
-                <td class="boxo" id="o89">
-                    
-                </td>
-            </tr>
-            <tr>
-                <th class = "legend"><p>10</p></th>
-                <td class="boxo" id="o90">
-                    
-                </td>
-                <td class="boxo" id="o91">
-                    
-                </td>
-                <td class="boxo" id="o92">
-                    
-                </td>
-                <td class="boxo" id="o93">
-                    
-                </td>
-                <td class="boxo" id="o94">
-                    
-                </td>
-                <td class="boxo" id="o95">
-                    
-                </td>
-                <td class="boxo" id="o96">
-                    
-                </td>
-                <td class="boxo" id="o97">
-                    
-                </td>
-                <td class="boxo" id="o98">
-                    
-                </td>
-                <td class="boxo" id="o99">
-                    
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
+    <div class="toolbuttonsdiv">
+        <div id="fire">
+            <button id="firebutton" onclick="make_op_board_clickable('normal')" class="torpedobuttons"
+                style="display: none;">FIRE</button>
+            <button id="triple" onclick="make_op_board_clickable('triple')" class="torpedobuttons"
+                style="display: none;">TRIPLE TORPEDO</button>
+            <button id="big" onclick="make_op_board_clickable('big')" class="torpedobuttons" style="display: none;">BIG
+                TORPEDO</button>
+        </div>
 
-    <div id="timerdiv" class="timerposition">
-        <p id="timer"></p>
-    </div>
-</div>
+        <div id="readydiv">
+            <button type="button" id="readybutton" onclick="sendcoords();closeMenu();"
+                class="torpedobuttons">READY</button><br>
+        </div>
 
-<div class="toolbuttonsdiv">
-    <div id="fire">
-        <button id="firebutton" onclick="make_op_board_clickable('normal')" class="torpedobuttons" style="display: none;">FIRE</button>
-        <button id="triple" onclick="make_op_board_clickable('triple')" class="torpedobuttons" style="display: none;">TRIPLE TORPEDO</button> 
-        <button id="big" onclick="make_op_board_clickable('big')" class="torpedobuttons" style="display: none;">BIG TORPEDO</button>
-    </div>
+        <div id="findplayerdiv" style="display: none;">
+            <input type="text" id="enemyname" placeholder="Enter player name to invite" class="nameinput"><br>
+            <button type="button" id="findPlayer" onclick="getenemyboard();initialturn();"
+                class="torpedobuttons">FINDPLAYER</button><br>
+            <input type="checkbox" id="superpowercheck" name="superpower" value="1" style="display: none;"
+                class="supercheck">
+            <label id="powerlabel" style="display: none; color: gray;">Enable superpowers?</label>
+        </div>
 
-    <div id="readydiv">
-        <button type="button" id="readybutton"  onclick="sendcoords();closeMenu();" class="torpedobuttons">READY</button><br>
+        <div id="startdiv">
+            <button type="button" id="startButton" onclick="updateyourboard();hidestart();checkturn();"
+                class="torpedobuttons" style="display: none;"> STARTGAME</button>
+        </div>
     </div>
-
-    <div id="findplayerdiv" style="display: none;">
-        <input type="text" id="enemyname" placeholder="Enter player name to invite" class="nameinput"><br>
-        <button type="button" id="findPlayer" onclick="getenemyboard();initialturn();" class="torpedobuttons">FINDPLAYER</button><br>
-        <input type="checkbox" id="superpowercheck" name="superpower" value="1" style="display: none;" class="supercheck">
-        <label id="powerlabel" style="display: none;">Enable superpowers?</label>
-    </div>
-
-    <div id="startdiv">
-        <button type="button" id="startButton" onclick="updateyourboard();hidestart();checkturn();" class="torpedobuttons" style="display: none;"> STARTGAME</button>
-    </div>
-</div>
-<div id="test"></div>
+    <div id="test"></div>
 </body>
 <div class="shipcounterdiv">
-    <div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p></div>
-    <div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p></div>
+    <p>Ship Count</p>
+    <div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p>
+    </div>
+    <div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p>
+    </div>
 
 </div>
 
@@ -1018,4 +1109,3 @@
 
 
 </html>
-
