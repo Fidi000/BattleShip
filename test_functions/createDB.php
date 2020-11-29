@@ -1,8 +1,8 @@
 <?php  
 $servername = "localhost";
-$username = "AranFidel";
-$password = "Fall2020Project";
-$db = "BattleShip";
+$username = "battleshipproject";
+$password = "ContWdeOTzAb3Seh";
+$db = "accountinfo";
 // Create connection
 $conn = new mysqli($servername, $username, $password);
 // Check connection
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // Create database
-$sql = "CREATE DATABASE BattleShip";
+$sql = "CREATE DATABASE accountinfo";
 if ($conn->query($sql) === TRUE) {
   echo "Database created successfully";
 } else {
@@ -20,7 +20,7 @@ if ($conn->query($sql) === TRUE) {
 $conn->close();
 
 $conn = new mysqli($servername, $username, $password, $db);
-$sql = "CREATE TABLE gameData (
+$sql = "CREATE TABLE players (
 username VARCHAR(16) NOT NULL,
 password VARCHAR(16) NOT NULL,
 gamesplayed INT(4) NOT NULL,

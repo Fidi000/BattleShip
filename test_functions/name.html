@@ -1,6 +1,6 @@
 <html>
 	<head> 
-		<button type="button" onclick="printArr()">Generate Names</button>
+		<button type="button" onclick="createUsers()">Generate Names</button>
 		<script src="../js_pages/userboard.js"></script>
 		<script src="../js_pages/gamestart.js"></script>
 		<script src="../js_pages/torpedo.js"></script>
@@ -50,34 +50,71 @@
 				}
 			}
 			function signup(){
-				
-				
-			  
-				if(user != "" && pass != "")
-				{
 				var j = new XMLHttpRequest(); 
 				j.onreadystatechange = function () {
 					  if (j.readyState == 4 && j.status == 200) {
 						good = j.responseText;
+						document.getElementById("test").innerHTML = good;
 					  }
 				};
 				  j.open('POST','../php_pages/signup.php'); 
 				  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				  j.send("u=" + user + "&" + "p=" + pass);
-				}
-				else
-				{
-				  document.getElementById("test").innerHTML = "ERROR : EMPTY FIELDS";
-				}
-			  }
-			function createUsers(){ //create random users
+				
+			}
 			
+			function addtime(){
+				var time_elapsed = Math.random() * 999;
+				var j = new XMLHttpRequest(); 
+				j.onreadystatechange = function () {
+					if (j.readyState == 4 && j.status == 200) {
+						console.log(j.responseText);
+					}
+				};
+				j.open('POST','../php_pages/addtime.php', true); 
+				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				j.send("mstime=" + time_elapsed);
+			}
+			function addgameswon(){
+				var j = new XMLHttpRequest(); 
+				j.onreadystatechange = function () {
+					if (j.readyState == 4 && j.status == 200) {
+					}
+				};
+				j.open('POST','../php_pages/addgamewon.php', true); 
+				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				j.send();
+			}
+			function addgamesplayed()
+			{
+				var j = new XMLHttpRequest(); 
+				j.onreadystatechange = function () {
+					if (j.readyState == 4 && j.status == 200) {
+						//console.log(j.responseText);
+					}
+				};
+				j.open('POST','../php_pages/addgamesplayed.php', true); 
+				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				j.send();
+			}
+			function addRanData(){
+				var j = new XMLHttpRequest(); 
+				j.onreadystatechange = function () {
+					if (j.readyState == 4 && j.status == 200) {
+					}
+				};
+				j.open('POST','../test_functions/genRanData.php', true); 
+				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				j.send();
+			}
+			
+			function createUsers(){ //create random users
 				for (var i = 0; i < 29; i++){
 					var good;
-					var user = nameArr[i];
-					var pass = "RandomPassword" + i;
+					user = nameArr[i];
+					pass = "RandomPassword" + i;
 					signup();
-					
+					addRanData();
 				}
 			}
 
