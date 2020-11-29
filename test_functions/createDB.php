@@ -1,8 +1,8 @@
-<?php 
+<?php  
 $servername = "localhost";
-$username = "AdminLab12";
-$password = "4VPnroTOC6wOU3mn";
-$db = "MyCarsLab12";
+$username = "AranFidel";
+$password = "Fall2020Project";
+$db = "BattleShip";
 // Create connection
 $conn = new mysqli($servername, $username, $password);
 // Check connection
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // Create database
-$sql = "CREATE DATABASE MyCarsLab12";
+$sql = "CREATE DATABASE BattleShip";
 if ($conn->query($sql) === TRUE) {
   echo "Database created successfully";
 } else {
@@ -20,14 +20,12 @@ if ($conn->query($sql) === TRUE) {
 $conn->close();
 
 $conn = new mysqli($servername, $username, $password, $db);
-$sql = "CREATE TABLE Car (
-brand VARCHAR(16) NOT NULL,
-model VARCHAR(16) NOT NULL,
-year YEAR(4) NOT NULL,
-color VARCHAR(16),
-bodyStyle VARCHAR(16),
-transmission VARCHAR(16),
-type VARCHAR(16)
+$sql = "CREATE TABLE gameData (
+username VARCHAR(16) NOT NULL,
+password VARCHAR(16) NOT NULL,
+gamesplayed INT(4) NOT NULL,
+timeplayed INT(12),
+gameswon INT(16)
 )";
 
 if ($conn->query($sql) === TRUE) {

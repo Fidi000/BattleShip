@@ -46,13 +46,14 @@
 			transition: ease 0.5s;
 		}
 		.top_menu a:hover, .top_menu a:focus{
-			background-color:#ced1d4;
+			background-color: rgba(0,0,0,0.2);
 			width: 6%;
+			
 		}
 		.top{
 			/*background-color: #c41230;*/
 			/*background-color: rgba(196,18,48,0.9);*/
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.0);
 			width: 65%;
 			height: 50%;
 			float: right;
@@ -64,12 +65,12 @@
 		.bottom{
 			/*background-color: #c41230;*/
 			/*background-color: rgba(196,18,48,0.9);*/
-			background-color: rgba(0,0,0,0.1);
+			background-color: rgba(0,0,0,0.0);
 			width: 65%;
 			height: 50%;
 			float: right;
 			color: white;
-			text-align: left;
+			text-align: right;
 			background-color: none;
 		}
 		.content{
@@ -78,33 +79,47 @@
 			height: 100%;
 		}
 		.left{
-			/*background-color: rgba(196,18,48,0.3);*/
 			float: left;
 			color: white;
 			text-align: left;
 			background-color: none;
 		}
 		.right{
-			/*background-color: rgba(196,18,48,0.3);*/
+			
 			float: right;
 			color: white;
 			text-align:right;
 			background-color: none;
 		}
-		
+		.bigText{
+			font-size: 18px;
+		}
+
+		table{
+			transition: ease 0.5s;
+		}
+		table:hover{
+			background-color: rgba(0,0,0,0.3);
+			
+		}
+		.spacer{
+			width: 100%;
+			height: 85px;
+		}
 </style>
 </head>
 <body>
+	<div class="spacer"> </div>
 	<div class = "content">
 		<div class="top">
 			<table > 
 				<tr> 
 					<td> <h1> Aran Hayer</h1> </td> <!--name--> 
-					<td > Email <a href="mailto:webmaster@example.com">example@fresnostate.mail.edu</a></td>  <!--Where to reach us--> 
+					<td class="bigText"> Email <a class="bigText" href="mailto:webmaster@example.com">example@fresnostate.mail.edu</a></td>  <!--Where to reach us--> 
 				</tr> 
 				<tr> 
 					<td> <img src="..\\images\.jpg" alt="Aranara" width="256" height="219"> </td>  <!--Picture-->  
-					<td > <p> Info: bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td>   <!--Short description-->
+					<td > <p class = "bigText"> Info: bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td>   <!--Short description-->
 				</tr> 
 			</table>
 		</div>
@@ -113,13 +128,16 @@
 		
 			<table > 
 				<tr> 
+					
+					<td class="bigText">  Email <a href="mailto:webmaster@example.com">example@fresnostate.mail.edu</a></td>
 					<td> <h1> Fidel Diaz </h1> </td> 
-					<td >  Email <a href="mailto:webmaster@example.com">example@fresnostate.mail.edu</a></td>
+					
 				</tr> 
 				<tr>
-					<td> <img src="..\\images\.jpg" alt="Fiddle" width="256" height="219"> </td> 
 					
-					<td > <p> Info:bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td> 
+					
+					<td > <p class="bigText"> Info:bla bla bla bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p> </td> 
+					<td> <img src="..\\images\.jpg" alt="Fiddle" width="256" height="219"> </td> 
 				</tr> 
 			</table>
 			
