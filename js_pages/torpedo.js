@@ -397,7 +397,7 @@ function printupdatedboard()
         for(var j = 0;j<10;j++){
             if(ship_coords[i][j] == null || ship_coords == null)
             {
-                displayOverlapAlert("ENEMY HAS LEFT", "red");
+                displayOverlapAlert("ENEMY HAS LEFT", "#c41230");
             }
             else{
                 if(ship_coords[i][j] == -1)

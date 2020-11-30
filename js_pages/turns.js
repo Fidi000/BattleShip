@@ -123,7 +123,7 @@ var invite_got = false;
                 if(j.responseText==1)
                 {
                     checkifgamedone();
-                    displayOverlapAlert("YOUR TURN", "blue");
+                    displayOverlapAlert("YOUR TURN", "#13284c");
                     setTimeout(hideOverlapAlert, 3000);
                     constantcheckforgamedone();
                     allowfire();
@@ -135,7 +135,7 @@ var invite_got = false;
                 }
                 else if(j.responseText==0)
                 {
-                    displayOverlapAlert("ENEMY TURN", "white");
+                    displayOverlapAlert("ENEMY TURN", "purple");
                     //setTimeout(hideOverlapAlert, 1000);
                     document.getElementById("enemyshipcount").innerHTML = totalship;
                     checkifgamedone();

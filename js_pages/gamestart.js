@@ -31,7 +31,7 @@ function sendcoords() {
     }
     else {
         
-        displayOverlapAlert("Must place all 7 ships!", "red");
+        displayOverlapAlert("Must place all 7 ships!", "#c41230");
         setTimeout(hideOverlapAlert, 3000);
         
     }
@@ -44,7 +44,7 @@ function getenemyboard() {
         if (j.readyState == 4 && j.status == 200) {
             var returnedarray = JSON.parse(j.responseText);
             if (returnedarray == 0) {
-                displayOverlapAlert("Enemy does not exist or not ready", "red");
+                displayOverlapAlert("Enemy does not exist or not ready", "#c41230");
                 setTimeout(hideOverlapAlert, 5000);
             }
             else {

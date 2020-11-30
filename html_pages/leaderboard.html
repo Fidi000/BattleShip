@@ -1,198 +1,238 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../icons/all.css">
+    <meta charset="UTF-8">
     <title>Leaderboard</title>
 </head>
 <style>
-    html 
-    {
+    html {
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
     }
-#board{ 
-    margin-top: 5%;
-  margin-left:auto;
-  margin-right:auto;
-  width:900px;
-  height:600px;
-  overflow-y: scroll;
-  display:block;
-  border-collapse: collapse;
-  
-}
-th{
-    width: 225px !important;
-    padding:15px;
-    text-align: center;
-    color: #fff;
-    font-size: 30px;
-   
-}
-button {
-    cursor: pointer;
-}
-td{
-    border-top: 1px solid white;
-    color: white;
-    width: 25%;
-    padding: 10px;
-    text-align: center;
-    vertical-align:middle;
-    font-size: 20px;
-}
-html {
-    height: 100%;
-}
-body {
-    height: 0%;
-    background-position: 50% 0%;
-        transition: background-color 1s ease;
-        background-color: #c41230; /* For browsers that do not support gradients */
+
+    #board {
+        margin-top: 5%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 900px;
+        height: 600px;
+        overflow-y: scroll;
+        display: block;
+        border-collapse: collapse;
+
     }
-    body:hover{
+
+    th {
+        width: 225px !important;
+        padding: 15px;
+        text-align: center;
+        color: #fff;
+        font-size: 30px;
+
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    td {
+        border-top: 1px solid white;
+        color: white;
+        width: 25%;
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 20px;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 0%;
+        background-position: 50% 0%;
+        transition: background-color 1s ease;
+        background-color: #c41230;
+        /* For browsers that do not support gradients */
+    }
+
+    body:hover {
         background: #00235d;
-        }
+    }
 
-::-webkit-scrollbar {
-    width: 6px;
-} 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.9); 
-} 
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.9); 
-}
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
 
-.top_menu{
-    width: 100%;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    transition: width 0.5s;
-}
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.9);
+    }
 
-.top_menu a
-{
-    width: 5%;
-    float: left;
-    padding: 12px;
-    color: white;
-    text-decoration: none;
-    font-size: 17px;
-    transition: width 0.5s;
-    transition: ease 0.5s;
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.9);
+    }
 
-}
-.top_menu a:hover, a:focus
-{
-    background-color:rgba(0,0,0,0.3);
-    width: 6%;
-}
-.sortbuttons{
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 50px;
-    transition: color 0.75s;
-   
-}
-.sortbuttons:hover, .sortbuttons:focus {
-    color: red;
-    text-shadow: 2px 2px white;
-}
+    .top_menu {
+        width: 100%;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        transition: width 0.5s;
+    }
 
+    .top_menu a {
+        width: 5%;
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        transition: width 0.5s;
+        transition: ease 0.5s;
 
+    }
+
+    .top_menu a:hover,
+    a:focus {
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 6%;
+    }
+
+    .sortbuttons {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 50px;
+        transition: color 0.75s;
+
+    }
+
+    .sortbuttons:hover,
+    .sortbuttons:focus {
+        color: red;
+        text-shadow: 2px 2px white;
+    }
 </style>
-<script> 
-    window.onload = function()
-        {
-            totalPlayers("gameswon");
-        }
+<script>
+    window.onload = function () {
+        totalPlayers("gameswon");
+    }
     var playerarray;
     var legnth;
     var descending = 0;
-    function createLeaderboard(){
+    var first3 = 0;
+    function createLeaderboard() {
         var x = 0;
         var leaderBoard = document.getElementById("leaderboard");
-        for (var i = 0; i < length; i++){
+        for (var i = 0; i < length; i++) {
             var row = leaderBoard.insertRow(-1);
-                var user = row.insertCell(-1);
-                var won = row.insertCell(-1);
-                var played = row.insertCell(-1);
-                var time = row.insertCell(-1);
-                user.innerHTML = playerarray[i]['username'];
-                won.innerHTML = playerarray[i]['gameswon'];
-                played.innerHTML = playerarray[i]['gamesplayed'];
-                time.innerHTML = ms_changeformat(playerarray[i]['timeplayed']);
+            var user = row.insertCell(-1);
+            var won = row.insertCell(-1);
+            var played = row.insertCell(-1);
+            var time = row.insertCell(-1);
+            user.innerHTML = playerarray[i]['username'];
+            won.innerHTML = playerarray[i]['gameswon'];
+            played.innerHTML = playerarray[i]['gamesplayed'];
+            time.innerHTML = ms_changeformat(playerarray[i]['timeplayed']);
+        }
+        highlight();
+
+    }
+    function highlight() {
+        var cells = document.getElementById('board').getElementsByTagName('td');
+        if (cells.length > 11) {
+            cells[0].innerHTML = "🥇" + cells[0].innerHTML;
+            cells[4].innerHTML = "🥈" + cells[4].innerHTML;
+            cells[8].innerHTML = "🥉" + cells[8].innerHTML;
+
+            for (var i = 0; i < 4; i++) {
+                cells[i].style.backgroundColor = "rgba(255,223,0, 0.7)"
+
+            }
+            for (var i = 4; i < 8; i++) {
+                cells[i].style.backgroundColor = "rgba(192,192,192, 0.8)"
+
+            }
+            for (var i = 8; i < 12; i++) {
+                cells[i].style.backgroundColor = "rgba(205, 127, 50, 0.8)"
+
+            }
         }
     }
-    function totalPlayers(orderbyproperty, asc){
+    function totalPlayers(orderbyproperty, asc) {
         document.getElementById("leaderboard").innerHTML = "";
         var order = orderbyproperty;
         //get size of database
-        var j = new XMLHttpRequest(); 
+        var j = new XMLHttpRequest();
         j.onreadystatechange = function () {
-        if (j.readyState == 4 && j.status == 200) {
-          playerarray = JSON.parse(j.responseText);
-          length = playerarray.length;
-          createLeaderboard();
-          
-        }
-    };
-    j.open('POST','../php_pages/leaderboard.php'); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("orderby=" + order + "&" + "test=" + asc);
+            if (j.readyState == 4 && j.status == 200) {
+                playerarray = JSON.parse(j.responseText);
+                length = playerarray.length;
+                createLeaderboard();
+
+            }
+        };
+        j.open('POST', '../php_pages/leaderboard.php');
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("orderby=" + order + "&" + "test=" + asc);
     }
 
     function ms_changeformat(millis) {
         var minutes = Math.floor(millis / 60000);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
-        return (seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+        return (seconds == 60 ? (minutes + 1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
     }
-    
+
 </script>
 <header>
-    
+
 </header>
+
 <body>
     <div class="top_menu">
-        <a class ="navigatea" href="index.html">Home</a>
-        <a class ="navigatea" href="leaderboard.html">Leaderboard</a>
-        <a class ="navigatea" href="game.html">Play</a>
-        <a class ="navigatea" href="help.html">Help</a>
-        <a class ="navigatea" href="contact.html">Contact</a>
+        <a class="navigatea" href="index.html">Home</a>
+        <a class="navigatea" href="leaderboard.html">Leaderboard</a>
+        <a class="navigatea" href="game.html">Play</a>
+        <a class="navigatea" href="help.html">Help</a>
+        <a class="navigatea" href="contact.html">Contact</a>
     </div>
-   
+    <h1>LEADERBOARD</h1>
     <table id="board">
         <thead>
-           <tr>
-            <th>Player <br> Name <br>
-                <button onclick="totalPlayers('username', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
-                <button onclick="totalPlayers('username', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
-            </th>
-            <th>Games<br> Won<br>
-                <button onclick="totalPlayers('gameswon', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
-                <button onclick="totalPlayers('gameswon', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
-            </th>
-            <th>Games<br> Played<br>
-                <button onclick="totalPlayers('gamesplayed', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
-                <button onclick="totalPlayers('gamesplayed', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
-            </th>
-            <th>Time Played<br>(m:s)<br>
-                <button onclick="totalPlayers('timeplayed', 0);" class="sortbuttons"><i class="fas fa-caret-up"></i></button>
-                <button onclick="totalPlayers('timeplayed', 1);" class="sortbuttons"><i class="fas fa-caret-down"></i></button>
-            </th>
-           </tr>
-           
-                
-            
-            
+            <tr>
+                <th>Player <br> Name <br>
+                    <button onclick="totalPlayers('username', 0);" class="sortbuttons"><i
+                            class="fas fa-caret-up"></i></button>
+                    <button onclick="totalPlayers('username', 1);" class="sortbuttons"><i
+                            class="fas fa-caret-down"></i></button>
+                </th>
+                <th>Games<br> Won<br>
+                    <button onclick="totalPlayers('gameswon', 0);" class="sortbuttons"><i
+                            class="fas fa-caret-up"></i></button>
+                    <button onclick="totalPlayers('gameswon', 1);" class="sortbuttons"><i
+                            class="fas fa-caret-down"></i></button>
+                </th>
+                <th>Games<br> Played<br>
+                    <button onclick="totalPlayers('gamesplayed', 0);" class="sortbuttons"><i
+                            class="fas fa-caret-up"></i></button>
+                    <button onclick="totalPlayers('gamesplayed', 1);" class="sortbuttons"><i
+                            class="fas fa-caret-down"></i></button>
+                </th>
+                <th>Time Played<br>(m:s)<br>
+                    <button onclick="totalPlayers('timeplayed', 0);" class="sortbuttons"><i
+                            class="fas fa-caret-up"></i></button>
+                    <button onclick="totalPlayers('timeplayed', 1);" class="sortbuttons"><i
+                            class="fas fa-caret-down"></i></button>
+                </th>
+            </tr>
         </thead>
-        
 
-        <tbody id="leaderboard">
+
+        <tbody id="leaderboard" class="playerrows">
         </tbody>
     </table>
 

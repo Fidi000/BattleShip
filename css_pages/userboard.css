@@ -111,13 +111,13 @@ table{
 }
 .ship_placement:hover{
     width: 80%;
-    color: white;
+    color: black;
     background-color: white;
     transition: all 0.4s ease;
 }
 .ship_placement_flip:hover{
     width: 80%;
-    color:  white;
+    color:  black;
     background-color: white;
     
 }
@@ -174,18 +174,19 @@ table{
   transition: all ease 0.75s;
 }
 .closebtn:hover {
-    color: blue;
+    color: #13284c;
 }
 .openshipsbtn {
     border-bottom: 1px solid white;
-    transition: all ease 0.75s;
+    transition: all ease 0.5s;
     font-size:30px;
     cursor:pointer;
     color: white;
     
 }
 .openshipsbtn:hover {
-    color: blue;
+    color: #c41230;
+    border-color: #c41230;
     
 }
 
@@ -209,6 +210,7 @@ table{
   border-bottom-right-radius: 25px;
   text-align: center;
   line-height: 1px;
+  color: white;
 }
 #overlap_text
 {

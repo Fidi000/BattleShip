@@ -1,132 +1,74 @@
 <html>
-	<head> 
-		<button type="button" onclick="createUsers()">Generate Names</button>
-		<script src="../js_pages/userboard.js"></script>
-		<script src="../js_pages/gamestart.js"></script>
-		<script src="../js_pages/torpedo.js"></script>
-		<script src="../js_pages/turns.js"></script>
-		<script>
-			var user;
-			var pass;
-			
-			var nameArr = ["James", "John", "Robert", "Micheal", "William", "David",
-			"Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew",
-			"Anthony", "Donald", "Mark", "Paul", "Steven", "Andrew", "Kenneth", "Joshua", 
-			"Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey"
-				];
-			 function setturn(){
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-						//console.log(j.responseText);
-						checkturn();
-					}
-				};
-				j.open('POST','../php_pages/turns.php', true); 
-				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				j.send();
-			}
-			function sendcoords(){
-				//TODO CHANGE TO 7 WHEN DONE
-				if(numofshipplaced==7)
-				{
-					var test = JSON.stringify(ship_coords);
-					var j = new XMLHttpRequest(); 
-					j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-						document.getElementById("test").innerHTML = j.responseText;
-						checkinvite();
-						removereadybutton();
-					}
-				};
-					j.open('POST','../php_pages/ready.php', true); 
-					j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					j.send("coords=" + test); 
-				}
-				else
-				{
-					displayOverlapAlert("Must place all 7 ships!");
-					setTimeout(hideOverlapAlert, 3000);
-				}
-			}
-			function signup(){
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					  if (j.readyState == 4 && j.status == 200) {
-						good = j.responseText;
-						document.getElementById("test").innerHTML = good;
-					  }
-				};
-				  j.open('POST','../php_pages/signup.php'); 
-				  j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				  j.send("u=" + user + "&" + "p=" + pass);
-				
-			}
-			
-			function addtime(){
-				var time_elapsed = Math.random() * 999;
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-						console.log(j.responseText);
-					}
-				};
-				j.open('POST','../php_pages/addtime.php', true); 
-				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				j.send("mstime=" + time_elapsed);
-			}
-			function addgameswon(){
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-					}
-				};
-				j.open('POST','../php_pages/addgamewon.php', true); 
-				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				j.send();
-			}
-			function addgamesplayed()
-			{
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-						//console.log(j.responseText);
-					}
-				};
-				j.open('POST','../php_pages/addgamesplayed.php', true); 
-				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				j.send();
-			}
-			function addRanData(){
-				var j = new XMLHttpRequest(); 
-				j.onreadystatechange = function () {
-					if (j.readyState == 4 && j.status == 200) {
-					}
-				};
-				j.open('POST','../test_functions/genRanData.php', true); 
-				j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				j.send();
-			}
-			
-			function createUsers(){ //create random users
-				for (var i = 0; i < 29; i++){
-					var good;
-					user = nameArr[i];
-					pass = "RandomPassword" + i;
-					signup();
-					addRanData();
-				}
-			}
 
-		</script>
-	</head>
-	
-	<body> 
-		<div id = "t"> 
-			<p id="test"> </p> 
-		</div>
-	
-	
-	</body>
+<head>
+	<button type="button" onclick="createUsers()">Generate Names</button>
+	<script src="../js_pages/userboard.js"></script>
+	<script src="../js_pages/gamestart.js"></script>
+	<script src="../js_pages/torpedo.js"></script>
+	<script src="../js_pages/turns.js"></script>
+	<script>
+		var user;
+		var pass;
+		var gamesplayed;
+		var timesplayed;
+		var gameswon;
+		var nameArr = ["James", "John", "Robert", "Micheal", "William", "David",
+			"Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew",
+			"Anthony", "Donald", "Mark", "Paul", "Steven", "Andrew", "Kenneth", "Joshua",
+			"Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey"
+		];
+
+		function fill() {
+			var j = new XMLHttpRequest();
+			j.onreadystatechange = function () {
+				if (j.readyState == 4 && j.status == 200) {
+					good = j.responseText;
+					document.getElementById("test").innerHTML = good;
+				}
+			};
+			j.open('POST', '../php_pages/fillrandom.php');
+			j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			j.send("u=" + user + "&" + "p=" + pass + "&" + "gp=" + gamesplayed + "&" + "tp=" + timesplayed + "&" + "gw=" + gameswon);
+
+		}
+
+		function createUsers() { //create random users
+			for (var i = 0; i < 29; i++) {
+				var good;
+				user = nameArr[i];
+				pass = generatePassword();
+				gamesplayed = Math.floor(Math.random() * Math.floor(500));
+				timesplayed = Math.floor(Math.random() * Math.floor(3600000));
+				gameswon = Math.floor(Math.random() * Math.floor(500));
+				generatePassword();
+				fill();
+			}
+		}
+		function generatePassword() {
+				var length = 8,
+					charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+					retVal = "";
+				for (var i = 0, n = charset.length; i < length; ++i) {
+					retVal += charset.charAt(Math.floor(Math.random() * n));
+				}
+				return retVal;
+    console.log(retVal);
+}
+
+	</script>
+	<style>
+		html {
+			background-color: gray;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="t">
+		<p id="test"> </p>
+	</div>
+
+
+</body>
 
 </html>
