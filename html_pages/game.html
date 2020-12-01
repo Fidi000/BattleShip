@@ -83,6 +83,7 @@
             transition: all ease 0.5s;
             cursor: pointer;
             border: none;
+            margin-bottom: 5px;
 
         }
 
@@ -175,13 +176,13 @@
                     <!-- Table holding buttons/images/text-->
                     <!--Courier ship -->
                     <tr>
-                        <td colspan="2" style="text-align: center;">Number of Couriers:</td>
+                        <td colspan="2" style="text-align: center;">Number of Couriers:</td><td style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;" id="placeship_c_Num" class="shipsleft">1</td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="2"><img src="../images/5.png" draggable="true" width="200px" height="25px"
+                        <td colspan="2"><img src="../shipimages/rawgifs/5.gif" width="200px" height="25px"
                                 class="ship_image"></td>
                     </tr>
                     <tr>
@@ -195,13 +196,13 @@
 
                     <!-- Battleships-->
                     <tr>
-                        <td colspan="2" style="text-align: center;">Number of Battleships:</td>
+                        <td colspan="2" style="text-align: center;">Number of Battleships:</td><td style="text-align: center;" id="placeship_b_Num" class="shipsleft">1</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;" id="placeship_b_Num" class="shipsleft">1</td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="2"><img src="../images/4.png" width="160px" height="25px" class="ship_image"></td>
+                        <td colspan="2"><img src="../shipimages/rawgifs/4.gif" width="160px" height="25px" class="ship_image"></td>
                     </tr>
                     <tr>
                         <td class="ship_button"><button id="placeship_b"
@@ -212,13 +213,13 @@
                     </tr>
                     <!-- Destroyers-->
                     <tr>
-                        <td colspan="2" style="text-align: center;">Number of Destroyers:</td>
+                        <td colspan="2" style="text-align: center;">Number of Destroyers:</td><td style="text-align: center;" id="placeship_d_Num" class="shipsleft">2</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;" id="placeship_d_Num" class="shipsleft">2</td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="2"><img src="../images/3.png" width="120px" height="25px" class="ship_image"></td>
+                        <td colspan="2"><img src="../shipimages/rawgifs/3.gif" width="120px" height="25px" class="ship_image"></td>
                     </tr>
                     <tr>
                         <td class="ship_button"><button id="placeship_d"
@@ -229,13 +230,13 @@
                     </tr>
                     <!-- Submarines-->
                     <tr>
-                        <td colspan="2" style="text-align: center;">Number of Submarines:</td>
+                        <td colspan="2" style="text-align: center;">Number of Submarines:</td><td style="text-align: center;" id="placeship_s_Num" class="shipsleft">2</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;" id="placeship_s_Num" class="shipsleft">2</td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="2"><img src="../images/3.png" width="120px" height="25px" class="ship_image"></td>
+                        <td colspan="2"><img src="../shipimages/rawgifs/3.gif" width="120px" height="25px" class="ship_image"></td>
                     </tr>
                     <tr>
                         <td class="ship_button"><button id="placeship_s"
@@ -246,13 +247,13 @@
                     </tr>
                     <!-- Patrol boats -->
                     <tr>
-                        <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td>
+                        <td colspan="2" style="text-align: center;">Number of Patrol Boats:</td><td style="text-align: center;" id="placeship_p_Num" class="shipsleft">1</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;" id="placeship_p_Num" class="shipsleft">1</td>
+                        
                     </tr>
                     <tr>
-                        <td colspan="2"><img src="../images/2.png" width="80px" height="25px" class="ship_image"></td>
+                        <td colspan="2"><img src="../shipimages/rawgifs/2.gif" width="80px" height="25px" class="ship_image"></td>
                     </tr>
                     <tr>
                         <td class="ship_button"><button id="placeship_p"
@@ -275,7 +276,7 @@
 
         <div id="user">
             <table class="user" id="boarduser">
-                <caption style="color: white;">Your board</caption>
+                <caption style="color: white;" id="yourcaption">Your board</caption>
                 <thead>
                     <th class="topleftthing">
                     <td class="letters">

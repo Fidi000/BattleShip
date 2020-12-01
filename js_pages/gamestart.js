@@ -23,6 +23,7 @@ function sendcoords() {
                 document.getElementById("test").innerHTML = j.responseText;
                 checkinvite();
                 removereadybutton();
+                getyourname();
             }
         };
         j.open('POST', '../php_pages/ready.php', true);
@@ -110,7 +111,7 @@ function checkinvite() {
                     removereadybutton();
                     hidefinddiv();
                     hidestart();
-
+                    getyourname();
                     updateyourboard();
                     enemy_coords = invited;
                     constantcheckforgamedone();
@@ -130,6 +131,17 @@ function checkinvite() {
         j.send();
     }
 }
+function getyourname()
+    {
+        var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                document.getElementById("yourcaption").innerHTML = j.responseText + "'s Board";
+            }
+        };
+        j.open('GET','../php_pages/getyourname.php', true); 
+        j.send();
+    }
 function printenemyboard() {
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {

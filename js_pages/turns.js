@@ -115,39 +115,46 @@ var invite_got = false;
 
     function checkturn()
     {
-        var j = new XMLHttpRequest(); 
-        j.onreadystatechange = function () {
-            if (j.readyState == 4 && j.status == 200) {
-                //console.log(j.responseText);
-               // console.log(j.responseText);
-                if(j.responseText==1)
-                {
-                    checkifgamedone();
-                    displayOverlapAlert("YOUR TURN", "#13284c");
-                    setTimeout(hideOverlapAlert, 3000);
-                    constantcheckforgamedone();
-                    allowfire();
-                    if(totalyourship==2 && !used && superenabled)
+        if(!gameisdone)
+        {
+            var j = new XMLHttpRequest(); 
+            j.onreadystatechange = function () {
+                if (j.readyState == 4 && j.status == 200) {
+                    //console.log(j.responseText);
+                   // console.log(j.responseText);
+                    if(j.responseText==1)
                     {
-                        showsuperpowers();
-                        used = true;
+                        checkifgamedone();
+                        displayOverlapAlert("YOUR TURN", "#13284c");
+                        setTimeout(hideOverlapAlert, 3000);
+                        constantcheckforgamedone();
+                        allowfire();
+                        if(totalyourship==2 && !used && superenabled)
+                        {
+                            showsuperpowers();
+                            used = true;
+                        }
+
+                        
+                        
+                    }
+                    else if(j.responseText==0)
+                    {
+                        displayOverlapAlert("ENEMY TURN", "purple");
+                        //setTimeout(hideOverlapAlert, 1000);
+                        document.getElementById("enemyshipcount").innerHTML = totalship;
+                        checkifgamedone();
+                        hidefire();
+                        hidesuper();
+                        setTimeout(checkturn, 1000);
                     }
                 }
-                else if(j.responseText==0)
-                {
-                    displayOverlapAlert("ENEMY TURN", "purple");
-                    //setTimeout(hideOverlapAlert, 1000);
-                    document.getElementById("enemyshipcount").innerHTML = totalship;
-                    checkifgamedone();
-                    hidefire();
-                    hidesuper();
-                    setTimeout(checkturn, 1000);
-                }
-            }
-        };
-        j.open('POST','../php_pages/checkturns.php', true); 
-        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        j.send();
+            };
+            j.open('POST','../php_pages/checkturns.php', true); 
+            j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            j.send();
+        }
+        
  
     }
     function startmstimer()
@@ -186,7 +193,7 @@ var invite_got = false;
                     hidefire();
                     //do someting else
                     displayOverlapAlert("YOU WON!", "green");
-                    setTimeout(hideOverlapAlert, 5000);
+                    setTimeout(hideOverlapAlert, 15000);
                     addgameswon();
                     addtime();
                     
@@ -197,7 +204,7 @@ var invite_got = false;
                     gameisdone = true;
                     hidefire();
                     displayOverlapAlert("YOU LOST!", "red");
-                    setTimeout(hideOverlapAlert, 5000);
+                    setTimeout(hideOverlapAlert, 15000);
                     addgamesplayed();
                     addtime();
                 }

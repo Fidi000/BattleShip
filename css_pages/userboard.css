@@ -105,9 +105,10 @@ table{
     font-size: 16px;
     transition-duration: 0.4s;
     cursor: pointer;
-    padding: 10px 10px;
     border-radius: 12px;
     width: 65%;
+    height: 37px;
+    
 }
 .ship_placement:hover{
     width: 80%;
@@ -134,8 +135,8 @@ table{
     font-size: large;
 }
 .ship_button{
-    height: auto;
-    width: 20px;
+    height: 5px;
+    width: 10px;
     text-align: center;
     margin-right: auto;
     margin-left: auto;
@@ -143,6 +144,7 @@ table{
 }
 .ship_image
 {
+    height: 54px;
     margin-left: 25px;
     margin-right: auto;
 }
@@ -157,7 +159,7 @@ table{
   background-color: rgba(209, 209, 209, 1);
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 50px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -192,7 +194,7 @@ table{
 
 
 @media screen and (max-height: 450px) {
-  .shipSelectMenu {padding-top: 15px;}
+  .shipSelectMenu {padding-top: 10px;}
 }
 
 .overlap_warning {
