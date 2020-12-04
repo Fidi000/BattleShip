@@ -1,0 +1,95 @@
+
+		header{
+			color: white;
+			text-align:center;
+		}
+		html{
+			background-image: url("../images/VictorE2.jpg");
+			width: 100%;
+			height: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+		}
+		.top_menu{
+			width: 100%;
+			overflow: auto;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			transition: width 0.5s;	
+			background-color: none;
+		}
+		.top_menu a{
+			width: 5%;
+			float: left;
+			padding: 12px;
+			/*background-color: rgba(0,0,0,0.9);*/
+			color: white;
+			text-decoration: none;
+			font-size: 17px;
+			transition: width 0.5s;
+			transition: ease 0.5s;
+		}
+		.top_menu a:hover, .top_menu a:focus{
+			background-color: rgba(0,0,0,0.2);
+			width: 6%;
+			
+		}
+		.top{
+			/*background-color: #c41230;*/
+			/*background-color: rgba(196,18,48,0.9);*/
+			background-color: rgba(0,0,0,0.0);
+			width: 65%;
+			height: 50%;
+			float: right;
+			color: white;
+			text-align: left;
+			background-color: none;
+		}
+
+		.bottom{
+			/*background-color: #c41230;*/
+			/*background-color: rgba(196,18,48,0.9);*/
+			background-color: rgba(0,0,0,0.0);
+			width: 65%;
+			height: 50%;
+			float: right;
+			color: white;
+			text-align: right;
+			background-color: none;
+		}
+		.content{
+			background-color: #ffffff;
+			width: 100%;
+			height: 100%;
+		}
+		.left{
+			float: left;
+			color: white;
+			text-align: left;
+			background-color: none;
+		}
+		.right{
+			
+			float: right;
+			color: white;
+			text-align:right;
+			background-color: none;
+		}
+		.bigText{
+			font-size: 18px;
+		}
+
+		table{
+			transition: ease 0.5s;
+		}
+		table:hover{
+			background-color: rgba(0,0,0,0.3);
+			
+		}
+		.spacer{
+			width: 100%;
+			height: 85px;
+		}
