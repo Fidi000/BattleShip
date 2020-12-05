@@ -5,7 +5,6 @@ var ship4= false;
 var ship5= false;
 var ship6= false;
 var ship7= false;
-
 var usership1= false;
 var usership2= false;
 var usership3= false;
@@ -13,11 +12,9 @@ var usership4= false;
 var usership5= false;
 var usership6= false;
 var usership7= false;
-
 var triplesent = 0;
-
-function starttimer()
-{
+//starts local visual timer
+function starttimer(){
     document.getElementById("timer").innerHTML = minutes + ":" + seconds;
     seconds++;
     if(seconds < 10)
@@ -31,8 +28,8 @@ function starttimer()
     }
     setTimeout(starttimer,1000);
 }
-function make_op_board_clickable(firetype)
-{
+//adds functoinality to enemy board based on the type of fire button pressed
+function make_op_board_clickable(firetype){
     document.getElementById("opp").style.cursor = "url(../images/crosshair.png) 10 10, auto";
     console.log(firetype);
     if(firetype == "normal")
@@ -61,7 +58,7 @@ function make_op_board_clickable(firetype)
         }
     }
 }
-
+//removes functionality from enemyboard
 function remove_op_clickable()
 {
     var boxes = document.getElementsByClassName("boxo");
@@ -70,16 +67,17 @@ function remove_op_clickable()
         boxes[i].removeAttribute("onclick");
     }
 }
+//normal fire fuction
 function return_oppval(id) {
     place_fire(id);
     remove_op_clickable();
 }
-
+//big torpedo fire function
 function return_oppvalbig(id) {
     place_firebig(id);
     remove_op_clickable();
 }
-
+//determines where the big torpedo can fire
 function place_firebig(id)
 {
     var top = true;
@@ -170,7 +168,7 @@ function place_firebig(id)
     }
     
 }
-
+//function for triple torpedo
 function return_oppvaltriple(id) {
     place_fire(id);
     triplesent++;
@@ -182,7 +180,7 @@ function return_oppvaltriple(id) {
     }
     
 }
-
+//updates values on enemyboard if torpedo hit or miss
 function place_fire(id)
 {
     var row = parseInt(id.charAt(1));
@@ -200,7 +198,7 @@ function place_fire(id)
     }
 }
 
-
+//updates values in the database when it is a hit
 function ishit(id)
 {
     var j = new XMLHttpRequest(); 
@@ -211,7 +209,6 @@ function ishit(id)
             console.log(enemy_coords);
             if(hitormiss==1)
             {
-                //TODO EDIT OVERLAP WARNING TEXT TO DISPLAY SHIP DESTROYED
                 console.log("ship destroyed");
                 totalship--;
                 if(totalship==0)
@@ -226,7 +223,7 @@ function ishit(id)
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("torpedo=" + id);
 }
-
+//check if a ship has been destroyed and updates counters
 function check_destroy()
 {
     var num_destroyed = 0;
@@ -305,6 +302,7 @@ function check_destroy()
     return 0;
     
 }
+//check if your ships have been destroyed updates counters
 function checkyour_destroy()
 {
     if(!usership1)
@@ -367,6 +365,7 @@ function checkyour_destroy()
 
     return 0;
 }
+//updates your coords depending on hits and misses
 function updateyourboard()//right now its called on startgame button, but should be called when it becomes your turn again
 {
     var j = new XMLHttpRequest(); 
@@ -391,6 +390,7 @@ function updateyourboard()//right now its called on startgame button, but should
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send();
 }
+//prints updatedboard with hits and misses visible on your board
 function printupdatedboard()
 {
     for(var i = 0;i<10;i++){
@@ -437,7 +437,7 @@ function printupdatedboard()
     }
 
 }
-
+//updates coords if it is a miss
 function ismiss(id)
 {
     var j = new XMLHttpRequest(); 
@@ -451,12 +451,12 @@ function ismiss(id)
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("torpedo=" + id);
 }
-
+//onload login alert thing
 function myFunction()
 {
     return "";
 }
-
+//deletes all game state data from player on reload
 function resetall()
 {
     var j = new XMLHttpRequest(); 

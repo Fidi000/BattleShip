@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css" />
+    <link rel="stylesheet" type="text/css" href="../css_pages/userboard.css"/>
+    <h1 style="color: white; text-align: center;">PLAY</h1>
     <script src="../js_pages/userboard.js"></script>
     <script src="../js_pages/gamestart.js"></script>
     <script src="../js_pages/torpedo.js"></script>
@@ -11,41 +12,6 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Game</title>
     <script>
-        var totalship = 7;
-        var totalyourship = 7;
-        var used = false;
-        var numofshipplaced = 0;
-        function showsuperpowers() {
-            //console.log("can now see super powers");
-            var triple = document.getElementById("triple");
-            triple.style.display = "block";
-            var big = document.getElementById("big");
-            big.style.display = "block";
-
-        }
-        function hidesuper() {
-            //console.log("powers hidden");
-            var triple = document.getElementById("triple");
-            triple.style.display = "none";
-            var big = document.getElementById("big");
-            big.style.display = "none";
-
-        }
-
-        function setturn() {
-            var j = new XMLHttpRequest();
-            j.onreadystatechange = function () {
-                if (j.readyState == 4 && j.status == 200) {
-                    //console.log(j.responseText);
-                    checkturn();
-                }
-            };
-            j.open('POST', '../php_pages/turns.php', true);
-            j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            j.send();
-
-        }
-
     </script>
 </head>
 <header>
@@ -57,7 +23,6 @@
         <a class="navigatea" href="contact.html">Contact</a>
     </div>
 </header>
-
 <body onload="check();set_boardvalues();" class="brightness">
     <div>
         <div id="myshipSelectMenu" class="shipSelectMenu">

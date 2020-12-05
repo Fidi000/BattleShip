@@ -1,0 +1,28 @@
+MAIN PAGE
+	- was done together concurrently using vs code live share, was mainly just css so not much to do
+	
+HELP PAGE
+	- fidel did most of the css, but we concurrently finalized and added personal touches, was mainly just css so not much to do
+	
+CONTACT PAGE
+	- fidel did most of the css, but we concurrently finalized and added personal touches, was mainly just css so not much to do
+	
+LOGIN/SIGN UP PAGE
+	- aran did most of the css, but we concurrently finalized and added personal touches, fidel implemented the login/sign up functions
+	
+GAME PAGE
+	- using vs code live share, we implemented most of the functions concurrently, and since aran was the one hosting the file and the server, he 
+	added certain functions outside of the joint session for debugging etc. but almost all of it was done at the same time
+
+LEADERBOARD PAGE
+	- aran did most of the css and leaderboard functonality, fidel created the scripts to fill board with random data to test function
+	
+WEEKLY BASIS STUFF
+	- first week, 	we created the general outlines for all the pages, like the table for the page, the layout for navigation menus, and the ship menu
+	- second week, 	started implenting basic functions for the board, mainly placing ships and making sure its within boundaries and displaying ships
+	- third week, 	started progress on other pages, further developing outlines, and finalizing css themes and ideas,
+	- fourth week, 	implemented server side stuff to attach the 2 players together with the invite system to get the two boards
+	- fifth week, 	more progress on other pages completing login and index pages entirely
+	- sixth week, 	fully implemented all the main game functions aside from super powers
+	- seventh week, finished leaderboard, help, contact, game pages and all the functions respective to those pages
+	- eight week, 	PROJECT COMPLETED :)

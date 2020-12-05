@@ -1,4 +1,4 @@
-function check() {
+function check() {//check if logged in, if not redirected to login page
     var j = new XMLHttpRequest();
     j.onreadystatechange = function () {
         if (j.readyState == 4 && j.status == 200) {
@@ -13,7 +13,7 @@ function check() {
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send();
 }
-function sendcoords() {
+function sendcoords() {//send your coords to the database and makes player ready
 
     if (numofshipplaced == 7) {
         var test = JSON.stringify(ship_coords);
@@ -38,7 +38,7 @@ function sendcoords() {
     }
 
 }
-function getenemyboard() {
+function getenemyboard() {//retreives the values of the enemy board once invited, or inviting
     invitename = document.getElementById("enemyname").value;
     var j = new XMLHttpRequest();
     j.onreadystatechange = function () {
@@ -70,7 +70,7 @@ function getenemyboard() {
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     j.send("enemyname=" + invitename);
 }
-function checkifpower() {
+function checkifpower() {//checks if powers have been enabled by the inviter
     var j = new XMLHttpRequest();
     j.onreadystatechange = function () {
         if (j.readyState == 4 && j.status == 200) {
@@ -92,7 +92,7 @@ function checkifpower() {
     j.send();
 
 }
-function checkinvite() {
+function checkinvite() {//checks if you have been invited, if so runs functions to initialize the game
     if (!invite_got) {
         var invited;
         var j = new XMLHttpRequest();
@@ -131,7 +131,7 @@ function checkinvite() {
         j.send();
     }
 }
-function getyourname()
+function getyourname()//adds name to board caption
     {
         var j = new XMLHttpRequest(); 
         j.onreadystatechange = function () {
@@ -142,7 +142,7 @@ function getyourname()
         j.open('GET','../php_pages/getyourname.php', true); 
         j.send();
     }
-function printenemyboard() {
+function printenemyboard() {//debugging function to print location of enemy ships
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {
             var print = enemy_coords[i][j];
