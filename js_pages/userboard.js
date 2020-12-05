@@ -392,7 +392,8 @@
         }
     }
     function openMenu() {
-	  document.getElementById("myshipSelectMenu").style.width = "250px";
+      document.getElementById("myshipSelectMenu").style.width = "250px";
+      document.getElementById("myshipSelectMenu").style.borderRight = "5px solid red";
 	}
 	function closeMenu() {
        

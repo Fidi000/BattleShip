@@ -43,6 +43,7 @@
             position: absolute;
             top: 1%;
             right: 1%;
+            text-align: center;
         }
 
         .shipcounterdiv {
@@ -50,6 +51,7 @@
             position: absolute;
             top: 65%;
             right: 1%;
+            text-align: center;
         }
 
         .top_menu a {
@@ -113,6 +115,11 @@
         #findplayerdiv,
         #startdiv {
             width: 300px;
+        }
+        .timertext {
+            background-color: white;
+            border-radius: 10px;
+            color: black;
         }
     </style>
 
@@ -1061,7 +1068,7 @@
 
         <div id="timerdiv" class="timerposition">
             <p>Timer</p>
-            <p id="timer"></p>
+            <p id="timer" class="timertext"></p>
         </div>
     </div>
 
@@ -1098,9 +1105,9 @@
 </body>
 <div class="shipcounterdiv">
     <p>Ship Count</p>
-    <div id="yourshipcountdiv" style="display: none;">Your ships:<p id="yourshipcount"></p>
+    <div id="yourshipcountdiv" style="text-align: center; display: none;">Your ships:<p id="yourshipcount">5</p>
     </div>
-    <div id="enemyshipcountdiv" style="display: none;">Enemy ships:<p id="enemyshipcount"></p>
+    <div id="enemyshipcountdiv" style="text-align: center; display: none;">Enemy ships:<p id="enemyshipcount">5</p>
     </div>
 
 </div>
