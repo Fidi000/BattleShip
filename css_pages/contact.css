@@ -15,7 +15,11 @@ html{
 	background-size: cover;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background-size: 40% 50%;
-	background-position: 2%;
+	background-position: 0.1%;
+	transition: all ease 1s;
+}
+body{
+	width: 0%;
 }
 .top_menu{
 	width: 100%;
@@ -38,7 +42,8 @@ html{
 	background-color: #c41230;
 }
 .top_menu a:hover, .top_menu a:focus{
-	background-color: rgba(0,0,0,0.2);
+	color: #13284c;
+	background-color:#ced1d4;
 	width: 6%;
 }
 .top{

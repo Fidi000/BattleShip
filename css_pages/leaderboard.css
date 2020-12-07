@@ -1,19 +1,23 @@
     html {
         font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+        height: 0%;
     }
-
+    
+    body {
+        transition: background-color 1s ease;
+        background-color: #c41230;
+        height: 0%;
+    }
     #board {
         margin-top: 5%;
         margin-left: auto;
         margin-right: auto;
         width: 900px;
-        height: 600px;
+        height: 650px;
         overflow-y: scroll;
         display: block;
         border-collapse: collapse;
-
     }
-
     th {
         width: 225px !important;
         padding: 15px;
@@ -22,7 +26,6 @@
         font-size: 30px;
 
     }
-
     button {
         cursor: pointer;
     }
@@ -35,19 +38,9 @@
         text-align: center;
         vertical-align: middle;
         font-size: 20px;
+        
     }
 
-    html {
-        height: 100%;
-    }
-
-    body {
-        height: 0%;
-        background-position: 50% 0%;
-        transition: background-color 1s ease;
-        background-color: #c41230;
-        /* For browsers that do not support gradients */
-    }
 
     body:hover {
         background: #00235d;
@@ -86,9 +79,9 @@
 
     }
 
-    .top_menu a:hover,
-    a:focus {
-        background-color: rgba(0, 0, 0, 0.3);
+    .top_menu a:hover, a:focus {
+        color: #13284c;
+		background-color: #ced1d4;
         width: 6%;
     }
 

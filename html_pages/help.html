@@ -2,14 +2,15 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="..//icons/alls.css">
+	<link rel="stylesheet" href="../icons/all.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>HELP</title>
-	<link rel="stylesheet" type="text/css" href="../icons/all.css">
 	<link rel="stylesheet" type="text/css" href="../css_pages/help.css">
+	
 </head>
 
 <body>
+	
 	<h1>HOW TO PLAY</h1>
 	<header>
 		<div class="top_menu">
@@ -23,7 +24,7 @@
 
 
 	<div class="spacer"> </div>
-	<button type="button" class="expandButton">LOGGING/SIGNING UP <i class="far fa-caret-square-down"></i>
+	<button type="button" class="expandButton">LOGGING IN/SIGNING UP <i class="far fa-caret-square-down"></i>
 	</button>
 	<div class="expandingDiv">
 		<p>Go to the Login Page, found here: <a href="login.html" target="_blank"> login </a></p>
@@ -77,6 +78,7 @@
 		<div class="right">
 			<p>If you are joining your friend, give them your username so that they can invite you to their game.<br>
 			</p>
+			<br>
 			<img src="../images/help_page/Joining2.gif" alt="how to join" width=75% height=75%>
 		</div>
 	</div>
@@ -94,12 +96,12 @@
 		<img src="../images/help_page/Fire2.gif" alt="FireMiss" width=75% height=75%>
 	</div>
 	<div class="spacer"> </div>
-
-
-
+	
 	<script>
+		document.body.style.width = "100%";
 		var coll = document.getElementsByClassName("expandButton");
 		var i;
+
 		for (i = 0; i < coll.length; i++) {
 			coll[i].addEventListener("click", function () {
 				this.classList.toggle("active");
@@ -112,6 +114,8 @@
 			});
 		}
 	</script>
+
+	
 </body>
 
 </html>

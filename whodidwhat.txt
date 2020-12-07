@@ -18,7 +18,7 @@ LEADERBOARD PAGE
 	- aran did most of the css and leaderboard functonality, fidel created the scripts to fill board with random data to test function
 	
 WEEKLY BASIS STUFF
-	- first week, 	we created the general outlines for all the pages, like the table for the page, the layout for navigation menus, and the ship menu
+	- first week, 	we created the general outlines for all the pages, like the tables for the game, the layout for navigation menus, and the ship menu
 	- second week, 	started implenting basic functions for the board, mainly placing ships and making sure its within boundaries and displaying ships
 	- third week, 	started progress on other pages, further developing outlines, and finalizing css themes and ideas,
 	- fourth week, 	implemented server side stuff to attach the 2 players together with the invite system to get the two boards
