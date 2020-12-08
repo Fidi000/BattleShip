@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>ACCOUNT</title>
   <script src="../js_pages/login.js"></script>
@@ -9,17 +8,6 @@
   <link rel="stylesheet" type="text/css" href="../css_pages/login.css">
 </head>
 <script>
-  function huh() {
-    console.log("asd");
-    $('input').on('keypress', function (event) {
-      var regex = new RegExp("^[a-zA-Z0-9]+$");
-      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-      if (!regex.test(key)) {
-        event.preventDefault();
-        return false;
-      }
-    });
-  }
 </script>
 <header>
   <div class="top_menu">
@@ -30,7 +18,6 @@
     <a class="navigate" href="contact.html"><i class="fas fa-address-book"></i><br>Contact Us</a>
   </div>
 </header>
-
 <body>
   <div id="whole">
     <form>
@@ -56,11 +43,5 @@
   </div>
   </form>
   </div>
-
 </body>
-
-
-
-
-
 </html>
