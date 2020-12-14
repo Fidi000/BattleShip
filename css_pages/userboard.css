@@ -289,12 +289,12 @@ html {
 	background-size: 200% 100%;
 	background-position: right bottom;
 	width: 200px;
-	height: 30px;
+	height: 20px;
 	border-radius: 10px;
 	transition: all ease 0.5s;
 	cursor: pointer;
 	border: none;
-	margin-bottom: 5px;
+	margin-bottom: 1px;
 
 }
 

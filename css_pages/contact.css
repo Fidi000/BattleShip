@@ -14,12 +14,13 @@ html{
 	background-repeat: no-repeat;
 	background-size: cover;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	background-size: 40% 50%;
+	background-size: 40% 45%;
 	background-position: 0.1%;
 	transition: all ease 1s;
+	overflow: hidden;
 }
 body{
-	width: 0%;
+	width: 100%;
 }
 .top_menu{
 	width: 100%;
@@ -47,7 +48,7 @@ body{
 	width: 6%;
 }
 .top{
-	width: 65%;
+	width: 60%;
 	height: 50%;
 	float: right;
 	color: white;
@@ -55,12 +56,13 @@ body{
 	background-color: #c41230;
 }
 .bottom{
-	width: 65%;
+	width: 60%;
 	height: 50%;
 	float: right;
 	color: white;
 	text-align: right;
 	background-color: #c41230;
+	padding: 10px;
 }
 .content{
 	background-color: #ffffff;

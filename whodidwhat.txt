@@ -1,5 +1,5 @@
 MAIN PAGE
-	- was done together concurrently using vs code live share, was mainly just css so not much to do
+	- was done together concurrently using vs code live share to set guidlines for general CSS of the entire website, was mainly just css so not much to do
 	
 HELP PAGE
 	- fidel did most of the css, but we concurrently finalized and added personal touches, was mainly just css so not much to do
@@ -15,7 +15,7 @@ GAME PAGE
 	added certain functions outside of the joint session for debugging etc. but almost all of it was done at the same time
 
 LEADERBOARD PAGE
-	- aran did most of the css and leaderboard functonality, fidel created the scripts to fill board with random data to test function
+	- aran did most of the css and leaderboard functonality, fidel created the scripts to fill board with random data to test functions
 	
 WEEKLY BASIS STUFF
 	- first week, 	we created the general outlines for all the pages, like the tables for the game, the layout for navigation menus, and the ship menu

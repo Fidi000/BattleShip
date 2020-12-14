@@ -10,6 +10,8 @@ $playerusername = $_SESSION['username'];
 
 $elapsed = $_POST["mstime"];
 
+$isdone = $_POST["isdone"];
+
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
 if ($conn->connect_error) {

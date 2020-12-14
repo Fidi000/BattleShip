@@ -121,7 +121,7 @@ function checkturn(){
                     setTimeout(hideOverlapAlert, 3000);
                     constantcheckforgamedone();
                     allowfire();
-                    if(totalyourship==2 && !used && superenabled){
+                    if(totalyourship < 3 && !used && superenabled){
                         showsuperpowers();
                         used = true;
                     }
@@ -162,7 +162,7 @@ function addtime()
     };
     j.open('POST','../php_pages/addtime.php', true); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send("mstime=" + time_elapsed);
+    j.send("mstime=" + time_elapsed + "&" + "isdone=" + gameisdone);
 
 }
 //function that polls for game done condition
@@ -170,41 +170,40 @@ function constantcheckforgamedone()
 {
     if(!gameisdone)
     {
-        var j = new XMLHttpRequest(); 
-    j.onreadystatechange = function () {
-        if (j.readyState == 4 && j.status == 200) {
-            //console.log(j.responseText);
-            if(j.responseText==1)
-            {
-                gameisdone = true;
-                hidefire();
-                //do someting else
-                displayOverlapAlert("YOU WON!", "green");
-                setTimeout(hideOverlapAlert, 15000);
-                addgameswon();
-                addtime();
-                
+            var j = new XMLHttpRequest(); 
+        j.onreadystatechange = function () {
+            if (j.readyState == 4 && j.status == 200) {
+                //console.log(j.responseText);
+                if(j.responseText==1)
+                {
+                    gameisdone = true;
+                    hidefire();
+                    //do someting else
+                    displayOverlapAlert("YOU WON!", "green");
+                    addgameswon();
+                    addtime();
+                    console.log("THIS SHOULD OUTPUT ONCE");
 
+                }
+                else if(j.responseText==2)
+                {
+                    gameisdone = true;
+                    hidefire();
+                    displayOverlapAlert("YOU LOST!", "red");
+                    addgamesplayed();
+                    addtime();
+                    console.log("THIS SHOULD OUTPUT ONCE");
+                }
+                else if(j.responseText==0)
+                {
+                    
+                    setTimeout(constantcheckforgamedone, 1000);
+                }
             }
-            else if(j.responseText==2)
-            {
-                gameisdone = true;
-                hidefire();
-                displayOverlapAlert("YOU LOST!", "red");
-                setTimeout(hideOverlapAlert, 15000);
-                addgamesplayed();
-                addtime();
-            }
-            else if(j.responseText==0)
-            {
-                
-                setTimeout(constantcheckforgamedone, 1000);
-            }
-        }
-    };
-    j.open('POST','../php_pages/checkifgamedone.php', true); 
-    j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
+        };
+        j.open('POST','../php_pages/checkifgamedone.php', true); 
+        j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        j.send("isdone=" + gameisdone);
     }
 }
 //adds number of games won for both players
@@ -231,7 +230,7 @@ function addgamesplayed()
     };
     j.open('POST','../php_pages/addgamesplayed.php', true); 
     j.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    j.send();
+    j.send("isdone=" + gameisdone);
 }
 //shows super power buttons
 function showsuperpowers() {
