@@ -15,7 +15,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT username FROM players where username='$playerusername'";
+$sql = "SELECT username, password FROM players where username='$playerusername' AND password='$playerpassword'";
 
 $results = $conn->query($sql);
 
@@ -27,7 +27,7 @@ if ($exists > 0)
 }
 else
 {
-  echo "Username does not exist";
+  echo "Username does not exist or incorrect password";
 }
 
 if ($conn->query($sql) !== FALSE) {
